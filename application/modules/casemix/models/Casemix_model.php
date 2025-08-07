@@ -767,6 +767,8 @@ class Casemix_model extends CI_Model
         return $this->db->query($sql . $w)->row();
     }
 
+    // TEST WESA
+
     function resume_medis_rajal($id_pendaftaran, $id_layanan, $type = NULL){
         // $this->load->model('rawat_inap/Rawat_inap_model', 'm_rawat_inap');
 
