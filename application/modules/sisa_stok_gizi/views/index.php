@@ -1,0 +1,48 @@
+<input type="hidden" name="page_now" id="page-now">
+<div class="row">
+    <div class="col-lg-12">
+        <div class="card">
+			<div class="card-header pattern">
+                <div class="row">
+                    <div class="col-lg-6">
+						<?= form_button('export', '<i class="fas fa-download mr-1"></i>Export Data', 'id=btn-export class="btn btn-success waves-effect mr-1"') ?>
+						<?= form_button('search', '<i class="fas fa-search mr-1"></i>Pencarian Data', 'id=btn-search class="btn btn-info waves-effect mr-1"') ?>
+						<?= form_button('reset', '<i class="fas fa-history mr-1"></i>Reload Data', 'id=btn-reload class="btn btn-secondary waves-effect"') ?>
+                    </div>
+                    <div class="col-lg-6 d-flex justify-content-end">
+
+                    </div>
+                </div>
+            </div>
+            <div class="card-body">
+				<div class="table-responsive" id="parent">
+					<table id="table-data" class="table table-hover table-striped table-sm color-table info-table">
+						<thead>
+							<tr class="header">
+								<th width="3%" class="center">No.</th>
+								<th width="25%" class="center">Nama Barang</th>
+								<th width="8%" class="center">Awal</th>
+								<th width="8%" class="center">Masuk</th>
+								<th width="8%" class="center">Keluar</th>
+								<th width="20%" class="center">Sisa</th>
+								<th width="10%" class="center">HPP</th>
+								<th width="8%" class="center">Asset</th>
+								<th width="10%" class="center">Unit</th>
+							</tr>
+						</thead>
+						<tbody></tbody>
+					</table>
+				</div>
+				<div class="row">
+					<div class="col">
+						<div id="pagination" class="float-left"></div>
+						<div id="summary" class="float-right text-sm"></div>
+					</div>
+				</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<?php $this->load->view('js') ?>
+<?php $this->load->view('modal') ?>

@@ -1,0 +1,1 @@
+import jQuery from '../node_modules/jquery/jquery-3.5.1';

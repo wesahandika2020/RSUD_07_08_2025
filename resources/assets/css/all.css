@@ -1,0 +1,15 @@
+@import '../summernote/summernote-bs4.css';
+@import '../../hospital/dist/css/style.min.css';
+@import '../css/toastr.min.css';
+@import '../css/select2.css';
+@import '../css/select2-custom.css';
+@import '../node_modules/bootstrap-material-datetimepicker/css/bootstrap-material-datetimepicker.css';
+@import '../node_modules/bootstrap-datepicker/bootstrap-datepicker.min.css';
+@import '../node_modules/bootstrap-daterangepicker/daterangepicker.css';
+@import 'jquery.treetable.css';
+@import 'jquery.treetable.theme.default.css';
+@import '../../assets/datetimepicker/css/bootstrap-datetimepicker.css';
+@import '../node_modules/sweetalert-2/sweetalert2.css';
+@import '../bootstrap-timepicker/css/bootstrap-timepicker.css';
+@import '../signature/css/jquery.signaturepad.css';
+@import 'syam.css';

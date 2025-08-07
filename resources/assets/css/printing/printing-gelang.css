@@ -1,0 +1,16 @@
+/* 
+    Document   : print
+    Created on : Nov 20, 2015 09:19:26 AM
+    Author     : Joko Munandar
+    Description:
+        Purpose of the stylesheet follows.
+*/
+*, body { font-family: Arial; }
+body { width: 280mm; height: 25.4mm;padding-left: 127mm;padding-top: 5mm;}
+
+table { text-transform: uppercase; }
+@page {
+    size: 280mm 25.4mm;
+    padding-left: 127mm;
+    padding-top: 5mm;
+}

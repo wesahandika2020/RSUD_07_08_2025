@@ -1,0 +1,173 @@
+<script>
+    $(function() {
+        getListJabatan(1);
+
+        $('#bt_tambah_jabatan').click(function() {
+            $('#modal_jabatan').modal('show');
+            $('#modal_jabatan_label').html('Form Tambah Jabatan');
+            resetAllJabatan();
+        });
+
+        $('#bt_reload_data_jabatan').click(function() {
+            resetAllJabatan();
+            getListJabatan(1);
+        });
+
+        $('.form-control').keyup(function() {
+            if ($(this).val() !== '') {
+                syams_validation_remove(this);
+            }
+        });
+
+        $('.form-control').change(function() {
+            if ($(this).val() !== '') {
+                syams_validation_remove(this);
+            }
+        });
+    })
+
+    function resetAllJabatan() {
+        $('input[type=text], .form-control, #id, #pencarian_jabatan').val('');
+        syams_validation_remove('.form-control');
+    }
+
+    function getListJabatan(p) {
+        $.ajax({
+            type: 'GET',
+            url: '<?= base_url('pegawai/api/jabatan/get_list_jabatan/page/') ?>' + p,
+            data: 'keyword=' + $('#pencarian_jabatan').val(),
+            cache: false,
+            dataType: 'JSON',
+            beforeSend: function() {
+                showLoader();
+            },
+            success: function(data) {
+                if ((p > 1) & (data.data.length === 0)) {
+                    getListJabatan(p - 1);
+                    return false;
+                }
+
+                $('#jabatan_pagination').html(pagination(data.jumlah, data.limit, data.page, 1));
+                $('#jabatan_summary').html(page_summary(data.jumlah, data.data.length, data.limit, data.page));
+                $('#table_jabatan tbody').empty();
+
+                let html = '';
+                $.each(data.data, function(i, v) {
+                    let no = ((i + 1) + ((data.page - 1) * data.limit));
+                    let html = '<tr>' +
+                        '<td align="center">' + no + '</td>' +
+                        '<td>' + v.nama + '</td>' +
+                        '<td align="right">' +
+                        '<button type="button" class="btn waves-effect waves-light btn-secondary btn-xs" onclick="editJabatan(\'' + v.id + '\', ' + data.page + ')"><i class="fas fa-edit"></i> Edit</button> ' +
+                        '<button type="button" class="btn waves-effect waves-light btn-secondary btn-xs" onclick="deleteJabatan(\'' + v.id + '\', ' + data.page + ')"><i class="fas fa-trash"></i> Delete</button> ' +
+                        '</td>' +
+                        '</tr>';
+                    $('#table_jabatan tbody').append(html);
+                });
+
+                hideLoader();
+            },
+            error: function(e) {
+                accessFailed(e.status);
+                hideLoader();
+            }
+        })
+    }
+
+    function simpanDataJabatan() {
+        let stop = false;
+        if ($('#nama_jabatan').val() === '') {
+            syams_validation('#nama_jabatan', 'Silahkan masukkan nama jabatan');
+            stop = true;
+        }
+
+        if (stop) {
+            return false;
+        }
+
+        let update = '';
+        if ($('#id_jabatan').val() !== '') {
+            update = 'id/' + $('#id_jabatan').val();
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: '<?= base_url('pegawai/api/jabatan/simpan_jabatan/') ?>' + update,
+            cache: false,
+            data: $('#formjabatan').serialize(),
+            dataType: 'JSON',
+            beforeSend: function() {
+                showLoader();
+            },
+            success: function(data) {
+                $('input[name=csrf_syam]').val(data.token);
+                if ($('#id_jabatan').val() !== '') {
+                    messageEditSuccess();
+                    getListJabatan($('#page_now_jabatan').val());
+                } else {
+                    messageAddSuccess();
+                    getListJabatan(1);
+                }
+
+                // $('#modal_jabatan').modal('hide');
+                resetAllJabatan();
+                hideLoader();
+            },
+            error: function(e) {
+                messageCustom(e.status + ' | Gagal menyimpan data!', 'Error');
+            }
+        });
+    }
+
+    function editJabatan(id, p) {
+        $.ajax({
+            type: 'GET',
+            url: '<?= base_url('pegawai/api/jabatan/get_jabatan') ?>/id/' + id,
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                $('#id_jabatan').val(data.data.id);
+                $('#nama_jabatan').val(data.data.nama);
+
+                $('#page_now_jabatan').val(p);
+                $('#modal_jabatan').modal('show');
+                $('#modal_jabatan_label').html('Form Edit Jabatan');
+            },
+            error: function(e) {
+                accessFailed(e.status);
+            }
+        });
+    }
+
+    function deleteJabatan(id, p) {
+        bootbox.dialog({
+            title: "Konfirmasi Hapus",
+            message: "Apakah anda yakin ingin menghapus data ini ?",
+            buttons: {
+                cancel: {
+                    label: '<i class="fas fa-window-close"></i> Batal',
+                    className: 'btn-secondary'
+                },
+                confirm: {
+                    label: '<i class="fas fa-check"></i> Hapus',
+                    className: 'btn-danger',
+                    callback: function() {
+                        $.ajax({
+                            type: 'DELETE',
+                            url: '<?= base_url('pegawai/api/jabatan/delete_jabatan') ?>/id/' + id,
+                            cache: false,
+                            dataType: 'JSON',
+                            success: function(data) {
+                                messageDeleteSuccess();
+                                getListJabatan(p);
+                            },
+                            error: function(e) {
+                                messageDeleteFailed();
+                            }
+                        });
+                    }
+                }
+            }
+        });
+    }
+</script>
