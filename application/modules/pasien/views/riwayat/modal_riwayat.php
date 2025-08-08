@@ -1,3 +1,4 @@
+
 <!-- Modal Riwayat Pasien -->
 <div id="modal-riwayat" class="modal fade" role="dialog" aria-labelledby="modal-riwayat-label" aria-hidden="true">
 	<div class="modal-dialog" style="min-width: 98%">
@@ -13,8 +14,15 @@
 						<input type="hidden" id="id-x-pasien">
 						<ul class="nav nav-pills justify-content-end" id="tabRiwayat">
 							<li class="nav-item" id="pasien-tab">
-								<!-- logo pasien meninggal -->
-								<img id="logo-pasien-alergi" src="<?= resource_url() ?>images/diagnosa/alergi.jpg" alt="logo-pasien-alergi" title="Alergi" class="img-thumbnail rounded hide" width="100px" style="margin-right: 1rem; padding: 0; border:0">
+
+
+								<!-- logo pasien meninggal // TAMBAHAN WH-->
+								<!-- <img id="logo-pasien-alergi" src="<?= resource_url() ?>images/diagnosa/alergi.jpg" alt="logo-pasien-alergi" title="ALERGI" class="img-thumbnail rounded hide" width="100px" style="margin-right: 1rem; padding: 0; border:0"> -->
+								<img id="logo-pasien-alergi" src="<?= resource_url() ?>images/diagnosa/alergi.jpg" alt="logo-pasien-alergi" title="" class="img-thumbnail rounded logo-pasien-alergi hide" width="100px" style="margin-right: 1rem; padding: 0; border:0">
+								<!-- <span id="alergi-coba"></span> gunakan nanti ketika data alergi disuruh menampilkan -->
+
+
+
 								<img id="logo-pasien-meninggal" src="<?= resource_url() ?>images/diagnosa/died.jpg" alt="logo-pasien-meninggal" title="Meninggal" class="img-thumbnail rounded hide" width="60px" style="margin-right: 1rem; padding: 0; border:0">
 								<img id="logo-pasien-hiv" src="<?= resource_url() ?>images/diagnosa/hiv-aids.jpg" alt="logo-pasien-hiv" title="HIV" class="img-thumbnail rounded hide" width="60px" style="margin-right: 1rem; padding: 0; border:0">
 								<img id="logo-pasien-gonorrhea" src="<?= resource_url() ?>images/diagnosa/gonorrhea.jpg" alt="logo-pasien-gonorrhea" title="Gonorrhea" class="img-thumbnail rounded hide" width="60px" style="margin-right: 1rem; padding: 0; border:0">

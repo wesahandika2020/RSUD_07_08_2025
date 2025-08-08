@@ -303,43 +303,6 @@ class Casemix extends SYAM_Controller
 
 
 
-
-
-
-    // public function cetak_resume_medis($id_layanan, $id_pendaftaran, $type = null){
-    //     if ($id_pendaftaran !== NULL) {
-    //         // Ambil semua layanan dari pendaftaran ini
-    //         $this->db->select('lp.id, lp.jenis_layanan')
-    //             ->from('sm_layanan_pendaftaran lp')
-    //             ->where('lp.id_pendaftaran', $id_pendaftaran);
-    //         $list_layanan = $this->db->get()->result();
-
-    //         $id_layanan_poliklinik = null;
-
-    //         // Cari layanan jenis Poliklinik
-    //         foreach ($list_layanan as $layanan) {
-    //             if (strtolower($layanan->jenis_layanan) == 'poliklinik') {
-    //                 $id_layanan_poliklinik = $layanan->id;
-    //                 break;
-    //             }
-    //         }
-
-    //         // Kalau ditemukan layanan poliklinik, pakai itu
-    //         $id_layanan_digunakan = $id_layanan_poliklinik ?? $id_layanan;
-
-    //         // Ambil datanya
-    //         $data['data'] = $this->m_casemix->resume_medis_rajal($id_pendaftaran, $id_layanan_digunakan);
-
-    //         if ($type !== 'data') {
-    //             $this->load->view('casemix/printing/resume_medis', $data);
-    //         } else {
-    //             return $data;
-    //         }
-    //     }
-    // }
-
-
-
     
 
 

@@ -1196,6 +1196,9 @@
 			cache: false,
 			dataType: 'JSON',
 			success: function(data) {
+
+				console.log(data);  // WESACOBA
+
 				let umur = '';
 				let kelamin = '';
 				let pasien = data.pasien;
@@ -1275,7 +1278,18 @@
 					$('#agama-detail').html(pasien.agama);
 					$('#telp-detail').html(pasien.telp);
 					$('#alamat-detail').html(pasien.alamat);
+
+					
 					$('#alergi-detail').html(pasien.alergi);
+					// $('#alergi-detail-TAIIII').html(pasien.alergi);
+
+					// TAMBAHAN WH
+					// $('#logo-pasien-alergi').attr('title', pasien.alergi);
+					// $('#alergi-coba').html(pasien.alergi); GUNAKAN NNTI KETIKA DATA ALERGI HARUS MUNCUL BUKAN CUMA MUNCUL KETIKA DISOROT
+					$('#logo-pasien-alergi').attr('title', '⚠️‼️ A L E R G I ‼️⚠️\n→' + pasien.alergi + '');
+
+
+
 					$('#alergi').val(pasien.alergi);
 					$('#no-ktp-pasien').val(pasien.no_identitas);
 					$('#tgl-lahir').val(pasien.tanggal_lahir);
@@ -1978,82 +1992,6 @@
 	});
 
 
-
-	// PSPMP
-	// function cetakPengkajianPasienMuslim(id) {
-
-	// 	$.ajax({
-	// 		type: 'GET',
-	// 		url: '<?= base_url('rawat_inap/api/rawat_inap/pengkajian_spiritual_pasien') ?>/id/' + id,
-	// 		cache: false,
-	// 		dataType: 'JSON',
-	// 		beforeSend: function() {
-	// 			showLoader();
-	// 		},
-	// 		success: function(data) {
-
-
-	// 			resetModalPengkajianPasienMuslim();
-
-
-	// 			$('#modal-pengkajian-spiritual-pasien-pulang-title').html(
-	// 				`<b>Form Pengkajian Spiritual Pasien</b> | No. RM: ${data.pendaftaran_detail.pasien.id_pasien}, Nama: ${data.pendaftaran_detail.pasien.nama}, <i class="alert alert-info"><i class="fas fa-phone-square"></i> : <b>${data.pendaftaran_detail.pasien.telp}</b></i>`
-	// 			);
-
-	// 			$('#id-pendaftaran-spiritual').val(id);
-	// 			if (data.pengkajian_spiritual_pasien === 0) {
-	// 				$('#nama-keluarga-spiritual').val(data.pengkajian_spiritual_pasien[0].pasien_keluarga);
-	// 				$('#hubungan-keluarga-spiritual').val(data.pengkajian_spiritual_pasien[0]
-	// 					.hubungan_keluarga);
-	// 				$('#saran-rencana-tindak-selanjutnya-spiritual').val(data.pengkajian_spiritual_pasien[0]
-	// 					.saran_rencana_tindak_selanjutnya);
-
-	// 				if (data.pengkajian_spiritual_pasien[0].is_pasien == '1') {
-	// 					document.getElementById("is-pasien-ya-spiritual").checked = true;
-	// 					$("#nama-keluarga-spiritual").prop("disabled", true);
-	// 					$("#hubungan-keluarga-spiritual").prop("disabled", true);
-	// 				} else if (data.pengkajian_spiritual_pasien[0].is_pasien == '0') {
-	// 					document.getElementById("is-pasien-tidak-spiritual").checked = true;
-	// 					$("#nama-keluarga-spiritual").prop("disabled", false);
-	// 					$("#hubungan-keluarga-spiritual").prop("disabled", false);
-	// 				}
-
-	// 				if (data.pengkajian_spiritual_pasien[0].kondisi_ibadah == 'Disiplin') {
-	// 					document.getElementById("kondisi-pasien-disiplin-spiritual").checked = true;
-	// 				} else if (data.pengkajian_spiritual_pasien[0].kondisi_ibadah == 'Kadang-kadang') {
-	// 					document.getElementById("kondisi-pasien-kadang-spiritual").checked = true;
-	// 				} else if (data.pengkajian_spiritual_pasien[0].kondisi_ibadah == 'Tidak') {
-	// 					document.getElementById("kondisi-pasien-tidak-spiritual").checked = true;
-	// 				}
-
-	// 				if (data.pengkajian_spiritual_pasien[0].kondisi_psiko_spiritual == 'Menerima') {
-	// 					document.getElementById("kondisi-psiko-menerima-spiritual").checked = true;
-	// 				} else if (data.pengkajian_spiritual_pasien[0].kondisi_psiko_spiritual == 'Mengeluh') {
-	// 					document.getElementById("kondisi-psiko-mengeluh-spiritual").checked = true;
-	// 				} else if (data.pengkajian_spiritual_pasien[0].kondisi_psiko_spiritual == 'Menolak') {
-	// 					document.getElementById("kondisi-psiko-menolak-spiritual").checked = true;
-	// 				}
-
-	// 				if (data.pengkajian_spiritual_pasien[0].edukasi_islam == 'Bimbingan Rohani') {
-	// 					document.getElementById("edukasi-islam-bimroh-spiritual").checked = true;
-	// 				} else if (data.pengkajian_spiritual_pasien[0].edukasi_islam ==
-	// 					'Bimbingan Wanita Muslimah') {
-	// 					document.getElementById("edukasi-islam-bimwas-spiritual").checked = true;
-	// 				}
-	// 			}
-
-	// 			$('#modal_pengkajian_spiritual_pasien_pulang').modal('show');
-	// 		},
-	// 		complete: function() {
-	// 			hideLoader();
-	// 		},
-	// 		error: function(e) {
-	// 			accessFailed(e.status);
-	// 		}
-	// 	});
-	// }
-
-
 	function cetakIndikasiPasienMasukICU(id, id_layanan_pendaftaran) {
 
 		$.ajax({
@@ -2090,75 +2028,6 @@
 			}
 		});
 	}
-
-	// Migrasi eRM
-	/*function cetakAsesmentPraBedah(id_pendaftaran, id_layanan_pendaftaran) {
-		//Checking assement pra bedah is null or not
-		$.ajax({
-			type: 'GET',
-			url: '<?= base_url('rawat_inap/api/rawat_inap/printing_asesment_pra_bedah') ?>/id_pendaftaran/' +
-				id_pendaftaran + '/id_layanan_pendaftaran/' + id_layanan_pendaftaran,
-			cache: false,
-			dataType: 'JSON',
-			beforeSend: function() {
-				showLoader()
-			},
-			success: function(data) {
-				// If status is true, open form
-				if (data.status) {
-					var dWidth = $(window).width();
-					var dHeight = $(window).height();
-					var x = screen.width / 2 - dWidth / 2;
-					var y = screen.height / 2 - dHeight / 2;
-
-					$('#modal_form_bimroh_pasien_baru').modal('hide');
-
-					window.open('<?= base_url('rawat_inap/printing_asesment_pra_bedah/') ?>' +
-						id_layanan_pendaftaran, 'Cetak Asessment Pra Bedah', 'width=' + dWidth +
-						', height=' + dHeight + ', left=' + x + ', top=' + y);
-				}
-				// If status is false
-				else {
-					messageCustom(data.message, 'Error');
-				}
-			},
-			complete: function() {
-				hideLoader()
-			},
-			error: function(e) {
-				messageCustom('Gagal cetak assesment pra bedah', 'Error');
-			},
-		});
-	}*/
-
-
-	// PSPMP
-	// function resetModalPengkajianPasienMuslim() {
-
-	// 	$('#id-pendaftaran-spiritual').val('');
-	// 	$('#nama-keluarga-spiritual').val('');
-	// 	$('#tanggal-lahir-spiritual').val('');
-	// 	$('#saran-rencana-tindak-selanjutnya-spiritual').val('');
-
-	// 	document.getElementById("is-pasien-ya-spiritual").checked = false;
-	// 	document.getElementById("is-pasien-tidak-spiritual").checked = false;
-	// 	document.getElementById("kondisi-pasien-disiplin-spiritual").checked = false;
-	// 	document.getElementById("kondisi-pasien-kadang-spiritual").checked = false;
-	// 	document.getElementById("kondisi-pasien-tidak-spiritual").checked = false;
-	// 	document.getElementById("kondisi-psiko-menerima-spiritual").checked = false;
-	// 	document.getElementById("kondisi-psiko-mengeluh-spiritual").checked = false;
-	// 	document.getElementById("kondisi-psiko-menolak-spiritual").checked = false;
-	// 	document.getElementById("edukasi-islam-bimroh-spiritual").checked = false;
-	// 	document.getElementById("edukasi-islam-bimwas-spiritual").checked = false;
-
-	// 	$("#nama-keluarga").prop("disabled", false);
-	// 	$("#tanggal-lahir").prop("disabled", false);
-	// 	$("#laki-laki").prop("disabled", false);
-	// 	$("#perempuan").prop("disabled", false);
-	// 	$("#alamat-form-rekam-medis	").prop("disabled", false);
-	// 	$("#hubungan-keluarga").prop("disabled", false);
-	// }
-
 
 
 	function resetModalIndikasiPasienMasukICU() {
@@ -2211,98 +2080,6 @@
 			}
 		});
 	}
-
-	/*function cetakSuratPersetujuanRawatInap(id_layanan_pendaftaran) {
-		$.ajax({
-			type: 'GET',
-			url: '<?= base_url('rekam_medis/api/rekam_medis/check_persetujuan_rawat_inap') ?>/id_layanan_pendaftaran/' +
-				id_layanan_pendaftaran,
-			cache: false,
-			dataType: 'JSON',
-			beforeSend: function() {
-				showLoader();
-			},
-			success: function(data) {
-				// Set all values first
-				resetModalSuratPersetujuanRawatInap();
-
-				// Set values in Penolakan Tindakan Kedokteran modal
-				$('#modal-persetujuan-rawat-inap-title').html(
-					`<b>Form Persetujuan Rawat Inap</b> | No. RM: ${data.detail_pendaftaran.no_register}, Nama: ${data.detail_pendaftaran.nama}, <i class="alert alert-info"><i class="fas fa-phone-square"></i> : <b>${data.detail_pendaftaran.telp}</b></i>`
-				);
-
-				$('#id-layanan-pendaftaran-pri').val(id_layanan_pendaftaran);
-				$('#nama-keluarga-pri').val(data.persetujuan_rawat_inap[0].nama_keluarga);
-				$('#alamat-form-rekam-medis-pri').val(data.persetujuan_rawat_inap[0].alamat);
-				$('#hubungan-keluarga-pri').val(data.persetujuan_rawat_inap[0].hubungan_keluarga);
-				$('#bukti-diri-pri').val(data.persetujuan_rawat_inap[0].ktp);
-				$('#saksi-2-pri').val(data.persetujuan_rawat_inap[0].nama_saksi_2);
-				$('#tanggal-lahir-pri').val(datefmysql(data.persetujuan_rawat_inap[0].tanggal_lahir));
-
-				if (data.persetujuan_rawat_inap[0].is_pasien === '1') {
-					document.getElementById("is-pasien-ya-pri").checked = true;
-					// Disabled fields
-					$("#nama-keluarga-pri").prop("disabled", true);
-					$("#tanggal-lahir-pri").prop("disabled", true);
-					$("#laki-laki-pri").prop("disabled", true);
-					$("#perempuan-pri").prop("disabled", true);
-					$("#alamat-form-rekam-medis-pri").prop("disabled", true);
-					$("#hubungan-keluarga-pri").prop("disabled", true);
-					$("#bukti-diri-pri").prop("disabled", true);
-				} else if (data.persetujuan_rawat_inap[0].is_pasien === '0') {
-					document.getElementById("is-pasien-tidak-pri").checked = true;
-					// Undisabled fields
-					$("#nama-keluarga-pri").prop("disabled", false);
-					$("#tanggal-lahir-pri").prop("disabled", false);
-					$("#laki-laki-pri").prop("disabled", false);
-					$("#perempuan-pri").prop("disabled", false);
-					$("#alamat-form-rekam-medis-pri	").prop("disabled", false);
-					$("#hubungan-keluarga-pri").prop("disabled", false);
-					$("#bukti-diri-pri").prop("disabled", false);
-				}
-
-				if (data.persetujuan_rawat_inap[0].jenis_kelamin == 'Laki-laki') {
-					document.getElementById("laki-laki-pri").checked = true;
-				} else if (data.persetujuan_rawat_inap[0].jenis_kelamin == 'Perempuan') {
-					document.getElementById("perempuan-pri").checked = true;
-				}
-
-				$('#modal-persetujuan-rawat-inap').modal('show');
-			},
-			complete: function() {
-				hideLoader();
-			},
-			error: function(e) {
-				accessFailed(e.status);
-			}
-		});
-	}*/
-
-	/*function resetModalSuratPersetujuanRawatInap() {
-		// Set default fields
-		$('#id-layanan-pendaftaran-pri').val('');
-		$('#nama-keluarga-pri').val('');
-		$('#tanggal-lahir-pri').val('');
-		$('#alamat-form-rekam-medis-pri').val('');
-		$('#hubungan-keluarga-pri').val('');
-		$('#bukti-diri-pri').val('');
-		$('#saksi-2-pri').val('');
-
-		// Unchecked fields
-		document.getElementById("laki-laki-pri").checked = false;
-		document.getElementById("perempuan-pri").checked = false;
-		document.getElementById("is-pasien-ya-pri").checked = false;
-		document.getElementById("is-pasien-tidak-pri").checked = false;
-
-		// Undisabled fields
-		$("#nama-keluarga-pri").prop("disabled", false);
-		$("#tanggal-lahir-pri").prop("disabled", false);
-		$("#laki-laki-pri").prop("disabled", false);
-		$("#perempuan-pri").prop("disabled", false);
-		$("#alamat-form-rekam-medis-pri").prop("disabled", false);
-		$("#hubungan-keluarga-pri").prop("disabled", false);
-		$("#bukti-diri-pri").prop("disabled", false);
-	}*/
 
 	function cetakResumeMedis(id, id_layanan_pendaftaran) {
 
@@ -3322,241 +3099,6 @@
 		document.getElementById("ceklis-ttd-dokter-skl").checked = false;
 
 	}
-
-
-
-	// CPPRI WH  
-	/*function cetakChecklistPenerimaanPasienRawatInap(details) {
-		let detail = details.split('#');
-		// console.log(details);
-		$.ajax({
-			type: 'GET',
-			url: '<?= base_url('rawat_inap/api/rawat_inap/check_checklist_penerimaan_pasien_rawat_inap') ?>/id/' +
-				detail[0],
-			cache: false,
-			dataType: 'JSON',
-			beforeSend: function() {
-				showLoader();
-			},
-			success: function(data) {
-				// Reset all values first
-				resetModalChecklistPenerimaanPasienRawatInap();
-
-				// Set values in Penolakan Tindakan Kedokteran modal
-				$('#modal-checklist-penerimaan-pasien-rawat-inap-title').html(
-					`<b>Form Checklist Penerimaan Pasien Rawat Inap</b> | No. RM: ${detail[1]}, Nama: ${detail[2]}, <i class="alert alert-info"><i class="fas fa-phone-square"></i> : <b>${detail[10]}</b></i>`
-				);
-				$('#id-layanan-pendaftaran-cpri').val(detail[0]);
-				$('#nama-keluarga-cpri').val(data.nama_keluarga);
-
-				if (data.is_pasien == 1) {
-					document.getElementById("is-pasien-cpri-ya").checked = true;
-				} else if (data.is_pasien == 0) {
-					document.getElementById("is-pasien-cpri-tidak").checked = true;
-				}
-
-				if (data.perawat_yang_merawat == 1) {
-					document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-ya").checked =
-						true;
-				} else if (data.perawat_yang_merawat == 0) {
-					document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-tidak").checked =
-						true;
-				}
-
-				if (data.dokter_yang_merawat == 1) {
-					document.getElementById("informasi-tentang-dokter-yang-merawat-ya").checked = true;
-				} else if (data.dokter_yang_merawat == 0) {
-					document.getElementById("informasi-tentang-dokter-yang-merawat-tidak").checked = true;
-				}
-
-				if (data.nurse_station == 1) {
-					document.getElementById("nurse-station-ya").checked = true;
-				} else if (data.nurse_station == 0) {
-					document.getElementById("nurse-station-tidak").checked = true;
-				}
-
-				if (data.kamar_mandi_pasien == 1) {
-					document.getElementById("kamar-mandi-pasien-ya").checked = true;
-				} else if (data.kamar_mandi_pasien == 0) {
-					document.getElementById("kamar-mandi-pasien-tidak").checked = true;
-				}
-
-				if (data.bel_pasien == 1) {
-					document.getElementById("bel-di-kamar-mandi-ya").checked = true;
-				} else if (data.bel_pasien == 0) {
-					document.getElementById("bel-di-kamar-mandi-tidak").checked = true;
-				}
-
-				if (data.tempat_tidur_pasien == 1) {
-					document.getElementById("tempat-tidur-pasien-ya").checked = true;
-				} else if (data.tempat_tidur_pasien == 0) {
-					document.getElementById("tempat-tidur-pasien-tidak").checked = true;
-				}
-
-				if (data.remote == 1) {
-					document.getElementById("remote-tv-ac-ya").checked = true;
-				} else if (data.remote == 0) {
-					document.getElementById("remote-tv-ac-tidak").checked = true;
-				}
-
-				if (data.tempat_ibadah == 1) {
-					document.getElementById("tempat-ibadah-ya").checked = true;
-				} else if (data.tempat_ibadah == 0) {
-					document.getElementById("tempat-ibadah-tidak").checked = true;
-				}
-
-				if (data.tempat_sampah == 1) {
-					document.getElementById("tempat-sampah-infeksi-dan-non-infeksi-ya").checked = true;
-				} else if (data.tempat_sampah == 0) {
-					document.getElementById("tempat-sampah-infeksi-dan-non-infeksi-tidak").checked = true;
-				}
-
-				if (data.jadwal_pembagian == 1) {
-					document.getElementById("jadwal-pembagian-makan-dari-rumah-sakit-ya").checked = true;
-				} else if (data.jadwal_pembagian == 0) {
-					document.getElementById("jadwal-pembagian-makan-dari-rumah-sakit-tidak").checked = true;
-				}
-
-				if (data.jadwal_visit == 1) {
-					document.getElementById("jadwal-visit-dokter-ya").checked = true;
-				} else if (data.jadwal_visit == 0) {
-					document.getElementById("jadwal-visit-dokter-tidak").checked = true;
-				}
-
-				if (data.jadwal_jam_berkunjung == 1) {
-					document.getElementById("jadwal-jam-berkunjung-ya").checked = true;
-				} else if (data.jadwal_jam_berkunjung == 0) {
-					document.getElementById("jadwal-jam-berkunjung-tidak").checked = true;
-				}
-
-				if (data.jadwal_ganti_linen == 1) {
-					document.getElementById("jadwal-ganti-linen-ya").checked = true;
-				} else if (data.jadwal_ganti_linen == 0) {
-					document.getElementById("jadwal-ganti-linen-tidak").checked = true;
-				}
-
-				if (data.membawa_barang_sesuai_keperluan == 1) {
-					document.getElementById("perawat-menjelaskan-untuk-membawa-barang-sesuai-keperluan-ya")
-						.checked = true;
-				} else if (data.membawa_barang_sesuai_keperluan == 0) {
-					document.getElementById("perawat-menjelaskan-untuk-membawa-barang-sesuai-keperluan-tidak")
-						.checked = true;
-				}
-
-				if (data.mematuhi_peraturan == 1) {
-					document.getElementById(
-							"perawat-menghimbau-untuk-mematuhi-peraturan-yang-tertempel-di-ruangan-ya")
-						.checked = true;
-				} else if (data.mematuhi_peraturan == 0) {
-					document.getElementById(
-							"perawat-menghimbau-untuk-mematuhi-peraturan-yang-tertempel-di-ruangan-tidak")
-						.checked = true;
-				}
-
-				if (data.tidak_duduk_ditempat_tidur == 1) {
-					document.getElementById("menghimbau-tidak-duduk-ditempat-tidur-ya").checked = true;
-				} else if (data.tidak_duduk_ditempat_tidur == 0) {
-					document.getElementById("menghimbau-tidak-duduk-ditempat-tidur-tidak").checked = true;
-				}
-
-				if (data.menyimpan_barang_berharga == 1) {
-					document.getElementById("tidak-diperkenankan-menyimpan-barang-berharga-ya").checked = true;
-				} else if (data.menyimpan_barang_berharga == 0) {
-					document.getElementById("tidak-diperkenankan-menyimpan-barang-berharga-tidak").checked =
-						true;
-				}
-
-				if (data.dapat_kartu_penunggu == 1) {
-					document.getElementById("mendapat-kartu-penunggu-ya").checked = true;
-				} else if (data.dapat_kartu_penunggu == 0) {
-					document.getElementById("mendapat-kartu-penunggu-tidak").checked = true;
-				}
-
-				if (data.menghargai_privasi_pasien == 1) {
-					document.getElementById("untuk-selalu-menghargai-privasi-pasien-ya").checked = true;
-				} else if (data.menghargai_privasi_pasien == 0) {
-					document.getElementById("untuk-selalu-menghargai-privasi-pasien-tidak").checked = true;
-				}
-
-				if (data.gelang == 1) {
-					document.getElementById("pemasangan-dan-fungsi-gelang-ya").checked = true;
-				} else if (data.gelang == 0) {
-					document.getElementById("pemasangan-dan-fungsi-gelang-tidak").checked = true;
-				}
-
-				if (data.cuci_tangan == 1) {
-					document.getElementById("cara-cuci-tangan-ya").checked = true;
-				} else if (data.cuci_tangan == 0) {
-					document.getElementById("cara-cuci-tangan-tidak").checked = true;
-				}
-
-				$('#modal_checklist_penerimaan_pasien_rawat_inap').modal('show');
-			},
-			complete: function() {
-				hideLoader();
-			},
-			error: function(e) {
-				accessFailed(e.status);
-			}
-		});
-	}*/
-
-
-	// CPPRI WH  
-	/*function resetModalChecklistPenerimaanPasienRawatInap() {
-		// Undisabled fields
-		$("#nama-keluarga-cpri").prop("disabled", false);
-		// Set default fields
-		$('#nama-keluarga-cpri').val('');
-		$('#id-layanan-pendaftaran-cpri').val('');
-		// Unchecked fields
-		document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-ya").checked = false;
-		document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-tidak").checked = false;
-		document.getElementById("is-pasien-cpri-ya").checked = false;
-		document.getElementById("is-pasien-cpri-tidak").checked = false;
-		document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-ya").checked = false;
-		document.getElementById("informasi-tentang-perawat-yang-merawat-hari-ini-tidak").checked = false;
-		document.getElementById("informasi-tentang-dokter-yang-merawat-ya").checked = false;
-		document.getElementById("informasi-tentang-dokter-yang-merawat-tidak").checked = false;
-		document.getElementById("nurse-station-ya").checked = false;
-		document.getElementById("nurse-station-tidak").checked = false;
-		document.getElementById("kamar-mandi-pasien-ya").checked = false;
-		document.getElementById("kamar-mandi-pasien-tidak").checked = false;
-		document.getElementById("bel-di-kamar-mandi-ya").checked = false;
-		document.getElementById("bel-di-kamar-mandi-tidak").checked = false;
-		document.getElementById("tempat-tidur-pasien-ya").checked = false;
-		document.getElementById("tempat-tidur-pasien-tidak").checked = false;
-		document.getElementById("remote-tv-ac-ya").checked = false;
-		document.getElementById("remote-tv-ac-tidak").checked = false;
-		document.getElementById("tempat-ibadah-ya").checked = false;
-		document.getElementById("tempat-ibadah-tidak").checked = false;
-		document.getElementById("tempat-sampah-infeksi-dan-non-infeksi-ya").checked = false;
-		document.getElementById("tempat-sampah-infeksi-dan-non-infeksi-tidak").checked = false;
-		document.getElementById("jadwal-pembagian-makan-dari-rumah-sakit-ya").checked = false;
-		document.getElementById("jadwal-pembagian-makan-dari-rumah-sakit-tidak").checked = false;
-		document.getElementById("jadwal-visit-dokter-ya").checked = false;
-		document.getElementById("jadwal-visit-dokter-tidak").checked = false;
-		document.getElementById("jadwal-jam-berkunjung-ya").checked = false;
-		document.getElementById("jadwal-jam-berkunjung-tidak").checked = false;
-		document.getElementById("jadwal-ganti-linen-ya").checked = false;
-		document.getElementById("jadwal-ganti-linen-tidak").checked = false;
-		document.getElementById("perawat-menjelaskan-untuk-membawa-barang-sesuai-keperluan-ya").checked = false;
-		document.getElementById("perawat-menjelaskan-untuk-membawa-barang-sesuai-keperluan-tidak").checked = false;
-		document.getElementById("perawat-menghimbau-untuk-mematuhi-peraturan-yang-tertempel-di-ruangan-ya").checked = false;
-		document.getElementById("perawat-menghimbau-untuk-mematuhi-peraturan-yang-tertempel-di-ruangan-tidak").checked = false;
-		document.getElementById("menghimbau-tidak-duduk-ditempat-tidur-ya").checked = false;
-		document.getElementById("menghimbau-tidak-duduk-ditempat-tidur-tidak").checked = false;
-		document.getElementById("tidak-diperkenankan-menyimpan-barang-berharga-ya").checked = false;
-		document.getElementById("tidak-diperkenankan-menyimpan-barang-berharga-tidak").checked = false;
-		document.getElementById("mendapat-kartu-penunggu-ya").checked = false;
-		document.getElementById("mendapat-kartu-penunggu-tidak").checked = false;
-		document.getElementById("untuk-selalu-menghargai-privasi-pasien-ya").checked = false;
-		document.getElementById("untuk-selalu-menghargai-privasi-pasien-tidak").checked = false;
-		document.getElementById("pemasangan-dan-fungsi-gelang-ya").checked = false;
-		document.getElementById("pemasangan-dan-fungsi-gelang-tidak").checked = false;
-		document.getElementById("cara-cuci-tangan-ya").checked = false;
-		document.getElementById("cara-cuci-tangan-tidak").checked = false;
-	}*/
 
 
 

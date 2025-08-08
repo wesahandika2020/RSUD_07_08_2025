@@ -622,8 +622,9 @@ function replaceEnter($text)
 
 
     <!-- Resume Medis Rajal -->
-    <!-- <!?php if (!empty($data_resume['data'])) : ?> -->
-    <?php if (!empty($data_resume) && !empty($data_resume['data']['anamnesa'])) : ?>
+    <?php if (!empty($data_resume['data'])) : ?>
+    <!-- <!?php if (!empty($data_resume['data'] ?? '')) : ?> pakai ini sangan amann  -->
+    <!-- <!?php if (!empty($data_resume) && !empty($data_resume['data']['anamnesa'])) : ?> -->
       <div style="page-break-after: always;">
         <div style="all: unset;">
           <!--=============== HEADER ===============-->

@@ -764,6 +764,11 @@
                     $('#alergi-detail').html(pasien.alergi);
                     $('#alergi').val(pasien.alergi);
 
+                    // TAMBAHAN WH
+					// $('#logo-pasien-alergi').attr('title', pasien.alergi);
+					// $('#alergi-coba').html(pasien.alergi); GUNAKAN NNTI KETIKA DATA ALERGI HARUS MUNCUL BUKAN CUMA MUNCUL KETIKA DISOROT
+					$('#logo-pasien-alergi').attr('title', '⚠️‼️ A L E R G I ‼️⚠️\n→' + pasien.alergi + '');
+
                     $('#hak-kelas-pasien').html((pasien.hak_kelas !== null ? pasien.hak_kelas : '-'));
 
                     $('#subspesialis').empty();

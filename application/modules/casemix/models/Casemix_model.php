@@ -824,62 +824,62 @@ class Casemix_model extends CI_Model
             //     ->row();
 
                
-            // TAMBAHAN
-            $data['pasien'] = $this->db->select("
-                ps.id AS no_rm,
-                ps.nama AS nama_pasien,
-                ps.tanggal_lahir,
-                CASE 
-                    WHEN ps.kelamin = 'P' THEN 'Perempuan' 
-                    ELSE 'Laki-Laki' 
-                END AS kelamin,
-                pd.tanggal_daftar,
-                pd.tanggal_keluar,
-                pj.nama AS penjamin,
-                ps.alergi,
-                sp.nama AS ruang_asal,
-                pg.nama AS dokter_dpjp,
-                pg.tanda_tangan,
-                pd.jenis_rawat,
-                pd.jenis_pendaftaran,
-                (
-                    SELECT 
-                        CASE 
-                            WHEN LOWER(lp.tindak_lanjut) IN (
-                                'melarikan diri', 
-                                'pulang', 
-                                'pemulasaran jenazah', 
-                                'rs lain', 
-                                'pulang aps', 
-                                'atas izin dokter'
-                            ) 
-                            THEN NULL 
-                            ELSE lyp.tindak_lanjut 
-                        END
-                    FROM sm_layanan_pendaftaran AS lyp 
-                    WHERE lyp.id_pendaftaran = '$id_pendaftaran' 
-                    ORDER BY lyp.id DESC 
-                    LIMIT 1
-                ) AS tindak_lanjut,
-                lp.jenis_layanan,
-                rms.diagnosa_awal_masuk,
-                rms.hasil_konsultasi,
-                rms.pending_lab
-            ")
-            ->from('sm_pasien ps')
-            ->join('sm_pendaftaran pd', 'ps.id = pd.id_pasien')
-            ->join('sm_layanan_pendaftaran lp', 'pd.id = lp.id_pendaftaran')
-            ->join('sm_resume_medis_ranap AS rms', 'rms.id_layanan_pendaftaran = lp.id', 'left')
-            ->join('sm_spesialisasi AS sp', 'sp.id = lp.id_unit_layanan', 'left')
-            ->join('sm_penjamin AS pj', 'pj.id = pd.id_penjamin', 'left')
-            ->join('sm_tenaga_medis tm', 'lp.id_dokter = tm.id', 'left')
-            ->join('sm_pegawai pg', 'tm.id_pegawai = pg.id', 'left')
-            ->where('lp.id', $id_layanan, true)
-            ->get()
-            ->row();
+            // // TAMBAHAN INI UDAH BENER KETIKA tindak_lanjut ada 3 keluar paling akhir cuma kalau ada kondisi cuma satu malah ga keluar sam sekali 
+            // $data['pasien'] = $this->db->select("
+            //     ps.id AS no_rm,
+            //     ps.nama AS nama_pasien,
+            //     ps.tanggal_lahir,
+            //     CASE 
+            //         WHEN ps.kelamin = 'P' THEN 'Perempuan' 
+            //         ELSE 'Laki-Laki' 
+            //     END AS kelamin,
+            //     pd.tanggal_daftar,
+            //     pd.tanggal_keluar,
+            //     pj.nama AS penjamin,
+            //     ps.alergi,
+            //     sp.nama AS ruang_asal,
+            //     pg.nama AS dokter_dpjp,
+            //     pg.tanda_tangan,
+            //     pd.jenis_rawat,
+            //     pd.jenis_pendaftaran,
+            //     (
+            //         SELECT 
+            //             CASE 
+            //                 WHEN LOWER(lp.tindak_lanjut) IN (
+            //                     'melarikan diri', 
+            //                     'pulang', 
+            //                     'pemulasaran jenazah', 
+            //                     'rs lain', 
+            //                     'pulang aps', 
+            //                     'atas izin dokter'
+            //                 ) 
+            //                 THEN NULL 
+            //                 ELSE lyp.tindak_lanjut 
+            //             END
+            //         FROM sm_layanan_pendaftaran AS lyp 
+            //         WHERE lyp.id_pendaftaran = '$id_pendaftaran' 
+            //         ORDER BY lyp.id DESC 
+            //         LIMIT 1
+            //     ) AS tindak_lanjut,
+            //     lp.jenis_layanan,
+            //     rms.diagnosa_awal_masuk,
+            //     rms.hasil_konsultasi,
+            //     rms.pending_lab
+            // ")
+            // ->from('sm_pasien ps')
+            // ->join('sm_pendaftaran pd', 'ps.id = pd.id_pasien')
+            // ->join('sm_layanan_pendaftaran lp', 'pd.id = lp.id_pendaftaran')
+            // ->join('sm_resume_medis_ranap AS rms', 'rms.id_layanan_pendaftaran = lp.id', 'left')
+            // ->join('sm_spesialisasi AS sp', 'sp.id = lp.id_unit_layanan', 'left')
+            // ->join('sm_penjamin AS pj', 'pj.id = pd.id_penjamin', 'left')
+            // ->join('sm_tenaga_medis tm', 'lp.id_dokter = tm.id', 'left')
+            // ->join('sm_pegawai pg', 'tm.id_pegawai = pg.id', 'left')
+            // ->where('lp.id', $id_layanan, true)
+            // ->get()
+            // ->row();
 
 
-            //  INI ARTINYAA KODINGAN DI ATS
+            // //  INI ARTINYAA KODINGAN DI ATS
             // $data['pasien'] = $this->db->select("
             //     ps.id AS no_rm,                          // Ambil ID pasien sebagai nomor rekam medis
             //     ps.nama AS nama_pasien,                 // Nama pasien
@@ -932,6 +932,73 @@ class Casemix_model extends CI_Model
             // ->where('lp.id', $id_layanan, true)                                     // Filter berdasarkan ID layanan yang dimaksud
             // ->get()
             // ->row();                                                                // Ambil satu baris hasil sebagai object
+
+
+
+
+            // TAMBAHAN INI UDAH BENER KETIKA tindak_lanjut cuma sekali ya yang keluar contoh atas ijin donker ya itu yang keluar
+            //  dan juga kalau tindak lanjutya lebih dari satu maka yang keluar tindak_lanjut yang paling akhir 
+            // contoh klinik lian , klinik lain , atas nama dokter, nahh yang keluar atas nama dokter karna ini yang terakhir 
+            $data['pasien'] = $this->db->select("
+                ps.id AS no_rm,
+                ps.nama AS nama_pasien,
+                ps.tanggal_lahir,
+                CASE 
+                    WHEN ps.kelamin = 'P' THEN 'Perempuan' 
+                    ELSE 'Laki-Laki' 
+                END AS kelamin,
+                pd.tanggal_daftar,
+                pd.tanggal_keluar,
+                pj.nama AS penjamin,
+                ps.alergi,
+                sp.nama AS ruang_asal,
+                pg.nama AS dokter_dpjp,
+                pg.tanda_tangan,
+                pd.jenis_rawat,
+                pd.jenis_pendaftaran,
+                (
+                    SELECT 
+                        CASE
+                            WHEN COUNT(*) = 1 THEN 
+                                MAX(lyp.tindak_lanjut) -- Kalau cuma satu data, ambil langsung
+                            ELSE 
+                                (
+                                    SELECT lyp2.tindak_lanjut
+                                    FROM sm_layanan_pendaftaran AS lyp2
+                                    WHERE lyp2.id_pendaftaran = '$id_pendaftaran'
+                                    ORDER BY lyp2.id DESC  -- Ambil yang paling terakhir
+                                    LIMIT 1
+                                )
+                        END
+                    FROM sm_layanan_pendaftaran AS lyp
+                    WHERE lyp.id_pendaftaran = '$id_pendaftaran'
+                ) AS tindak_lanjut,
+                lp.jenis_layanan,
+                rms.diagnosa_awal_masuk,
+                rms.hasil_konsultasi,
+                rms.pending_lab
+            ")
+            ->from('sm_pasien ps')
+            ->join('sm_pendaftaran pd', 'ps.id = pd.id_pasien')
+            ->join('sm_layanan_pendaftaran lp', 'pd.id = lp.id_pendaftaran')
+            ->join('sm_resume_medis_ranap AS rms', 'rms.id_layanan_pendaftaran = lp.id', 'left')
+            ->join('sm_spesialisasi AS sp', 'sp.id = lp.id_unit_layanan', 'left')
+            ->join('sm_penjamin AS pj', 'pj.id = pd.id_penjamin', 'left')
+            ->join('sm_tenaga_medis tm', 'lp.id_dokter = tm.id', 'left')
+            ->join('sm_pegawai pg', 'tm.id_pegawai = pg.id', 'left')
+            ->where('lp.id', $id_layanan, true)
+            ->get()
+            ->row();
+
+       
+
+
+
+
+
+
+
+
 
 
 

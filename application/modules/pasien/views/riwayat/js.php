@@ -273,6 +273,8 @@
 			},
 			success: function(data) {
 
+				// console.log(data);
+
 				showDataPasien(data.pasien);
 				showDataRiwayatKunjungan(data.kunjungan);
 				$('#id-x-pasien').val(no_rm);
@@ -317,6 +319,9 @@
 				showLoader();
 			},
 			success: function(data) {
+
+				console.log(data); // WESACOBA
+
 				showDataPasien(data.pasien);
 				showDataRiwayatKunjungan(data.kunjungan);
 				$('#modal-riwayat').modal('show');
@@ -351,6 +356,7 @@
 		$('#umur-rm-detail').html(umur);
 
 		pasien.is_alergi === 'Ya' ? $('#logo-pasien-alergi').show() : $('#logo-pasien-alergi').hide();
+		
 		pasien.is_died === 'Ya' ? $('#logo-pasien-meninggal').show() : $('#logo-pasien-meninggal').hide();
 		pasien.is_hiv === 'Ya' ? $('#logo-pasien-hiv').show() : $('#logo-pasien-hiv').hide();
 		pasien.is_gonorrhea === 'Ya' ? $('#logo-pasien-gonorrhea').show() : $('#logo-pasien-gonorrhea').hide();
@@ -377,6 +383,8 @@
 		$('#nama-ibu-rm-detail').html(pasien.nama_ibu);
 
 		$('#alergi-rm-detail').html(pasien.alergi);
+
+
 	}
 
 	function showDataRiwayatKunjungan(kunjungan) {
@@ -1556,4 +1564,6 @@
 		swalAlert('warning', 201, 'Data Hasil Radiologi Belum tersedia');
 
 	}
+
+
 </script>
