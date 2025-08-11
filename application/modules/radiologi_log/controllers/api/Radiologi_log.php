@@ -504,6 +504,319 @@ class Radiologi_log extends REST_Controller
 	}
 
 
+
+
+
+
+
+
+	// LHOPI LOGS
+	function get_lembar_hand_over_pasien_igd_rsudtng_get(){
+		$data['pendaftaran_detail'] = "";
+		$data['list_lembar_hand_over_pasien_igd_rsudtng'] = [];
+		$data = $this->radiologi->getPendaftaranDetailTindakanRadiologi($this->get('id_pendaftaran', true), $this->get('id_layanan', true));
+		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
+		$data['list_lembar_hand_over_pasien_igd_rsudtng'] = $this->radiologi->getLembarHandOverPasienIGD($this->get('id_pendaftaran'));	
+		$data['list_lembar_hand_over_pasien_igd_rsudtng_logs'] = $this->radiologi->getLembarHandOverPasienIGDLogs($this->get('id_pendaftaran'));	
+		if ($data != null) {
+			$this->response($data, REST_Controller::HTTP_OK);
+		} else {
+			$this->response($data, REST_Controller::HTTP_OK);
+		}
+	}
+
+	// LHOPI LOGS
+	function simpan_lembar_hand_over_pasien_post(){
+		$checkDataLHOPI = '';
+		if (safe_post('id_lhopi') !== '') {
+			$checkDataLHOPI = $this->radiologi->getLembarHandOverPasienIGDByID(safe_post('id_lhopi'));
+		}
+		$this->db->trans_begin();
+	
+		if (empty($checkDataLHOPI)) {
+			// INSERT DATA
+			$data = array(
+				'id_pendaftaran'			=> safe_post('id_pendaftaran'),
+				'id_layanan_pendaftaran'    => safe_post('id_layanan_pendaftaran'),
+				'shift_lhopi'				=> safe_post('shift_lhopi') == '' ? null : safe_post('shift_lhopi'),
+				'bed_lhopi'					=> safe_post('bed_lhopi') == '' ? null : safe_post('bed_lhopi'),
+				'diagnosa_lhopi'			=> safe_post('diagnosa_lhopi') == '' ? null : safe_post('diagnosa_lhopi'),
+				'rencana_tatalaksana_lhopi'	=> safe_post('rencana_tatalaksana_lhopi') == '' ? null : safe_post('rencana_tatalaksana_lhopi'),
+				'keterangan_lhopi'			=> safe_post('keterangan_lhopi') == '' ? null : safe_post('keterangan_lhopi'),
+				'tanggal_lhopi' 			=> safe_post('tanggal_lhopi') == '' ? null : date2mysql(safe_post('tanggal_lhopi')),
+				'dpjp_lhopi'				=> safe_post('dpjp_lhopi') == '' ? null : safe_post('dpjp_lhopi'),
+				'mengoverkan_lhopi'			=> safe_post('mengoverkan_lhopi') == '' ? null : safe_post('mengoverkan_lhopi'),
+				'menerima_lhopi'			=> safe_post('menerima_lhopi') == '' ? null : safe_post('menerima_lhopi'),
+				'id_users'					=> $this->session->userdata('id_translucent'),
+				'created_date'				=> $this->datetime,
+				'updated_date'             	=> $this->datetime	
+			);
+			$this->db->insert('sm_lembar_hand_over_pasien_igd', $data);
+	
+		} else {
+			// UPDATE DATA
+			$data = array(
+				'shift_lhopi'				=> safe_post('shift_lhopi') == '' ? null : safe_post('shift_lhopi'),
+				'bed_lhopi'					=> safe_post('bed_lhopi') == '' ? null : safe_post('bed_lhopi'),
+				'diagnosa_lhopi'			=> safe_post('diagnosa_lhopi') == '' ? null : safe_post('diagnosa_lhopi'),
+				'rencana_tatalaksana_lhopi'	=> safe_post('rencana_tatalaksana_lhopi') == '' ? null : safe_post('rencana_tatalaksana_lhopi'),
+				'keterangan_lhopi'			=> safe_post('keterangan_lhopi') == '' ? null : safe_post('keterangan_lhopi'),
+				'tanggal_lhopi' 			=> safe_post('tanggal_lhopi') == '' ? null : date2mysql(safe_post('tanggal_lhopi')),
+				'dpjp_lhopi'				=> safe_post('dpjp_lhopi') == '' ? null : safe_post('dpjp_lhopi'),
+				'mengoverkan_lhopi'			=> safe_post('mengoverkan_lhopi') == '' ? null : safe_post('mengoverkan_lhopi'),
+				'menerima_lhopi'			=> safe_post('menerima_lhopi') == '' ? null : safe_post('menerima_lhopi'),
+				'id_users'                 	=> $this->session->userdata('id_translucent'),
+				'updated_date'              => $this->datetime
+			);
+	
+			// HANYA SIMPAN FIELD VALID KE DALAM LOG
+			$logData = array(
+				'id_pendaftaran'      		=> $checkDataLHOPI->id_pendaftaran,
+				'id_layanan_pendaftaran'  	=> $checkDataLHOPI->id_layanan_pendaftaran,
+				'shift_lhopi'             	=> $checkDataLHOPI->shift_lhopi,
+				'bed_lhopi'             	=> $checkDataLHOPI->bed_lhopi,
+				'diagnosa_lhopi'       		=> $checkDataLHOPI->diagnosa_lhopi,
+				'rencana_tatalaksana_lhopi' => $checkDataLHOPI->rencana_tatalaksana_lhopi,
+				'keterangan_lhopi'       	=> $checkDataLHOPI->keterangan_lhopi,
+				'tanggal_lhopi'       		=> $checkDataLHOPI->tanggal_lhopi,
+				'dpjp_lhopi'       			=> $checkDataLHOPI->dpjp_lhopi,
+				'mengoverkan_lhopi'       	=> $checkDataLHOPI->mengoverkan_lhopi,
+				'menerima_lhopi'       		=> $checkDataLHOPI->menerima_lhopi,
+				'id_users'                	=> $checkDataLHOPI->id_users,
+				'created_date'            	=> $checkDataLHOPI->created_date,
+				'updated_date'            	=> $this->datetime,
+				'log_action'              	=> 'update'
+			);
+			$this->db->insert('sm_lembar_hand_over_pasien_igd_logs', $logData);
+	
+			$this->db->where('id', safe_post('id_lhopi'));
+			$this->db->update('sm_lembar_hand_over_pasien_igd', $data);
+		}
+	
+		if ($this->db->trans_status() === false) {
+			$this->db->trans_rollback();
+			$status = false;
+			$message = 'Gagal simpan Data';
+		} else {
+			$this->db->trans_commit();
+			$status = true;
+			$message = 'Berhasil simpan Data';
+		}
+	
+		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
+	}
+
+	// LHOPI LOGS
+	function hapus_lembar_hand_over_pasien_igd_post(){
+		if (!safe_post('id', true)) :
+			$this->response(null, REST_Controller::HTTP_BAD_REQUEST);
+		endif;
+	
+		// Ambil data sebelum dihapus
+		$lhopiHapus = $this->db->where('id', safe_post('id'))->get('sm_lembar_hand_over_pasien_igd')->row();
+	
+		$this->db->trans_begin();
+	
+		if ($lhopiHapus) {
+			// Simpan ke log
+			$logDataLhopi = array(
+				'id_pendaftaran'          	=> $lhopiHapus->id_pendaftaran,
+				'id_layanan_pendaftaran'  	=> $lhopiHapus->id_layanan_pendaftaran,
+				'shift_lhopi'             	=> $lhopiHapus->shift_lhopi,
+				'bed_lhopi'             	=> $lhopiHapus->bed_lhopi,
+				'diagnosa_lhopi'       		=> $lhopiHapus->diagnosa_lhopi,
+				'rencana_tatalaksana_lhopi' => $lhopiHapus->rencana_tatalaksana_lhopi,
+				'keterangan_lhopi'       	=> $lhopiHapus->keterangan_lhopi,
+				'tanggal_lhopi'       		=> $lhopiHapus->tanggal_lhopi,
+				'dpjp_lhopi'       			=> $lhopiHapus->dpjp_lhopi,
+				'mengoverkan_lhopi'       	=> $lhopiHapus->mengoverkan_lhopi,
+				'menerima_lhopi'       		=> $lhopiHapus->menerima_lhopi,
+				'id_users'                	=> $lhopiHapus->id_users,
+				'created_date'            	=> $lhopiHapus->created_date,
+				'updated_date'            	=> $this->datetime,
+				'log_action'              	=> 'delete'
+			);
+			$this->db->insert('sm_lembar_hand_over_pasien_igd_logs', $logDataLhopi);
+		}
+	
+		// Hapus data utama
+		$this->db->where('id', safe_post('id'))->delete('sm_lembar_hand_over_pasien_igd');
+	
+		if ($this->db->trans_status() === false) :
+			$this->db->trans_rollback();
+			$status = false;
+			$message = 'Gagal Hapus Data';
+		else :
+			$this->db->trans_commit();
+			$status = true;
+			$message = 'Berhasil Hapus Data';
+		endif;
+	
+		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
+	}
+	
+	// LHOPI
+	function edit_lembar_hand_over_pasien_igd_get(){
+		$data['pendaftaran_detail'] = "";
+		$data['edit_lembar_hand'] = "";
+		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
+		$data['edit_lembar_hand'] = $this->radiologi->getLembarHandOverPasienIGDByID($this->get('id'));
+		if ($data != null) {
+			$this->response($data, REST_Controller::HTTP_OK);
+		} else {
+			$this->response($data, REST_Controller::HTTP_OK);
+		}
+	}
+
+	// RPRDL 
+	function get_rencana_pasien_rujukan_dari_luar_get(){
+		$data['pendaftaran_detail'] = "";
+		$data['list_rencana_rujukan_pasien_dari_luar_rsudtng'] = [];
+		$data = $this->radiologi->getPendaftaranDetailTindakanRadiologi($this->get('id_pendaftaran', true), $this->get('id_layanan', true));
+		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
+		$data['list_rencana_rujukan_pasien_dari_luar_rsudtng'] = $this->radiologi->getRencanaRujukanPasienDariLuarIGD($this->get('id_pendaftaran'));	
+		$data['list_rencana_rujukan_pasien_dari_luar_rsudtng_logs'] = $this->radiologi->getRencanaRujukanPasienDariLuarIGDLogs($this->get('id_pendaftaran'));	
+		if ($data != null) {
+			$this->response($data, REST_Controller::HTTP_OK);
+		} else {
+			$this->response($data, REST_Controller::HTTP_OK);
+		}
+	}
+
+	// RPRDL LOGS
+	function simpan_rencana_pasien_rujukan_dari_luar_post(){
+		$checkDataRPRDL = '';
+		if (safe_post('id_lhopi') !== '') {
+			$checkDataRPRDL = $this->radiologi->getRencanaRujukanPasienDariLuarIGDByID(safe_post('id_lhopi'));
+		}
+		$this->db->trans_begin();
+	
+		if (empty($checkDataRPRDL)) {
+			// INSERT DATA
+			$data = array(
+				'id_pendaftaran'			=> safe_post('id_pendaftaran'),
+				'id_layanan_pendaftaran'    => safe_post('id_layanan_pendaftaran'),
+				'tanggal_jam_rprdl' 		=> (safe_post('tanggal_jam_rprdl') !== '' ? datetime2mysql(safe_post('tanggal_jam_rprdl')) : NULL),
+				'asalrujukan_rprdl'			=> safe_post('asalrujukan_rprdl') == '' ? null : safe_post('asalrujukan_rprdl'),
+				'diagnosis_rprdl'			=> safe_post('diagnosis_rprdl') == '' ? null : safe_post('diagnosis_rprdl'),
+				'rencana_rprdl'				=> safe_post('rencana_rprdl') == '' ? null : safe_post('rencana_rprdl'),
+				'id_users'					=> $this->session->userdata('id_translucent'),
+				'created_date'				=> $this->datetime,
+				'updated_date'             	=> $this->datetime	
+			);
+			$this->db->insert('sm_rencana_pasien_rujukan_dari_luar', $data);
+	
+		} else {
+			// UPDATE DATA
+			$data = array(
+				'tanggal_jam_rprdl' 		=> (safe_post('tanggal_jam_rprdl') !== '' ? datetime2mysql(safe_post('tanggal_jam_rprdl')) : NULL),
+				'asalrujukan_rprdl'			=> safe_post('asalrujukan_rprdl') == '' ? null : safe_post('asalrujukan_rprdl'),
+				'diagnosis_rprdl'			=> safe_post('diagnosis_rprdl') == '' ? null : safe_post('diagnosis_rprdl'),
+				'rencana_rprdl'				=> safe_post('rencana_rprdl') == '' ? null : safe_post('rencana_rprdl'),
+				'id_users'                 	=> $this->session->userdata('id_translucent'),
+				'updated_date'              => $this->datetime
+			);
+	
+			// HANYA SIMPAN FIELD VALID KE DALAM LOG
+			$logData = array(
+				'id_pendaftaran'      		=> $checkDataRPRDL->id_pendaftaran,
+				'id_layanan_pendaftaran'  	=> $checkDataRPRDL->id_layanan_pendaftaran,
+				'tanggal_jam_rprdl'         => $checkDataRPRDL->tanggal_jam_rprdl,
+				'asalrujukan_rprdl'         => $checkDataRPRDL->asalrujukan_rprdl,
+				'diagnosis_rprdl'       	=> $checkDataRPRDL->diagnosis_rprdl,
+				'rencana_rprdl' 			=> $checkDataRPRDL->rencana_rprdl,
+				'id_users'                	=> $checkDataRPRDL->id_users,
+				'created_date'            	=> $checkDataRPRDL->created_date,
+				'updated_date'            	=> $this->datetime,
+				'log_action'              	=> 'update'
+			);
+			$this->db->insert('sm_rencana_pasien_rujukan_dari_luar_logs', $logData);
+	
+			$this->db->where('id', safe_post('id_lhopi'));
+			$this->db->update('sm_rencana_pasien_rujukan_dari_luar', $data);
+		}
+	
+		if ($this->db->trans_status() === false) {
+			$this->db->trans_rollback();
+			$status = false;
+			$message = 'Gagal simpan Data';
+		} else {
+			$this->db->trans_commit();
+			$status = true;
+			$message = 'Berhasil simpan Data';
+		}
+	
+		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
+	}
+
+	// RPRDL LOGS
+	function hapus_rencana_rujukan_pasien_dari_luar_post(){
+		if (!safe_post('id', true)) :
+			$this->response(null, REST_Controller::HTTP_BAD_REQUEST);
+		endif;
+	
+		// Ambil data sebelum dihapus
+		$rprdLHapus = $this->db->where('id', safe_post('id'))->get('sm_rencana_pasien_rujukan_dari_luar')->row();
+	
+		$this->db->trans_begin();
+	
+		if ($rprdLHapus) {
+			// Simpan ke log
+			$logDataRprdl = array(
+				'id_pendaftaran'          	=> $rprdLHapus->id_pendaftaran,
+				'id_layanan_pendaftaran'  	=> $rprdLHapus->id_layanan_pendaftaran,
+				'tanggal_jam_rprdl'         => $rprdLHapus->tanggal_jam_rprdl,
+				'asalrujukan_rprdl'         => $rprdLHapus->asalrujukan_rprdl,
+				'diagnosis_rprdl'       	=> $rprdLHapus->diagnosis_rprdl,
+				'rencana_rprdl' 			=> $rprdLHapus->rencana_rprdl,
+				'id_users'                	=> $rprdLHapus->id_users,
+				'created_date'            	=> $rprdLHapus->created_date,
+				'updated_date'            	=> $this->datetime,
+				'log_action'              	=> 'delete'
+			);
+			$this->db->insert('sm_rencana_pasien_rujukan_dari_luar_logs', $logDataRprdl);
+		}
+	
+		// Hapus data utama
+		$this->db->where('id', safe_post('id'))->delete('sm_rencana_pasien_rujukan_dari_luar');
+	
+		if ($this->db->trans_status() === false) :
+			$this->db->trans_rollback();
+			$status = false;
+			$message = 'Gagal Hapus Data';
+		else :
+			$this->db->trans_commit();
+			$status = true;
+			$message = 'Berhasil Hapus Data';
+		endif;
+	
+		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
+	}
+
+	// RPRDL
+	function edit_rencana_rujukan_pasien_dari_luar_get(){
+		$data['pendaftaran_detail'] = "";
+		$data['edit_rencana_rujukan'] = "";
+		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
+		$data['edit_rencana_rujukan'] = $this->radiologi->getRencanaRujukanPasienDariLuarIGDByID($this->get('id'));
+		if ($data != null) {
+			$this->response($data, REST_Controller::HTTP_OK);
+		} else {
+			$this->response($data, REST_Controller::HTTP_OK);
+		}
+	}
+
+
+
+
+
+
+
+
+
+
+
+
 	// PPPDJ LOGS
 	function get_data_ppp_diagnostik_jantung_get(){
 		$data['pendaftaran_detail'] = "";

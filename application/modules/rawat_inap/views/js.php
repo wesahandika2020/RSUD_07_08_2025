@@ -1283,10 +1283,10 @@
 					$('#alergi-detail').html(pasien.alergi);
 					// $('#alergi-detail-TAIIII').html(pasien.alergi);
 
-					// TAMBAHAN WH
+					// TAMBAHAN WSH
 					// $('#logo-pasien-alergi').attr('title', pasien.alergi);
 					// $('#alergi-coba').html(pasien.alergi); GUNAKAN NNTI KETIKA DATA ALERGI HARUS MUNCUL BUKAN CUMA MUNCUL KETIKA DISOROT
-					$('#logo-pasien-alergi').attr('title', '⚠️‼️ A L E R G I ‼️⚠️\n→' + pasien.alergi + '');
+					$('#logo-pasien-alergi').attr('title', '‼️ A L E R G I ‼️\n→' + pasien.alergi + '');
 
 
 

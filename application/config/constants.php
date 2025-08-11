@@ -99,22 +99,22 @@ $url = ((isset($_SERVER['HTTPS']) OR @$_SERVER['HTTP_X_FORWARDED_PROTO'] == 'htt
 define('BASE_URL', $url);
 
 // Dev Public
-// define('SM_PORT', '1094');
-// define('SM_SCHEMA', 'userdb_simrs');
-// define('SM_HOST_NAME', '202.150.152.107');
-// define('SM_USERNAME', 'userdb_simrs');
-// define('SM_PASSWORD', 'a7uSdYHkdu9EC9nT5#$!!2021');
-// define('SM_DATABASE', 'db_apl_simrs');
+define('SM_PORT', '1094');
+define('SM_SCHEMA', 'userdb_simrs');
+define('SM_HOST_NAME', '202.150.152.107');
+define('SM_USERNAME', 'userdb_simrs');
+define('SM_PASSWORD', 'a7uSdYHkdu9EC9nT5#$!!2021');
+define('SM_DATABASE', 'db_apl_simrs');
 
 
 
 //Prod
-define('SM_PORT', '5432');
-define('SM_SCHEMA', 'userdb_simrs');
-define('SM_HOST_NAME', '10.10.10.14');
-define('SM_USERNAME', 'userdb_simrs');
-define('SM_PASSWORD', 'a7uSdYHkdu9EC9nT5#$!!2021');
-define('SM_DATABASE', 'db_apl_simrs');
+// define('SM_PORT', '5432');
+// define('SM_SCHEMA', 'userdb_simrs');
+// define('SM_HOST_NAME', '10.10.10.14');
+// define('SM_USERNAME', 'userdb_simrs');
+// define('SM_PASSWORD', 'a7uSdYHkdu9EC9nT5#$!!2021');
+// define('SM_DATABASE', 'db_apl_simrs');
 
 
 

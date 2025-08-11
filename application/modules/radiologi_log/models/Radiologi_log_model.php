@@ -308,6 +308,95 @@ class Radiologi_log_model extends CI_Model
 
 
 
+
+
+
+
+	// LHOPI
+	function getLembarHandOverPasienIGD($id_pendaftaran){
+		$sql = "select lhopi.*, pt.nama as nama_user_h, pdk.nama as nama_dokter_lhopi, pp1.nama as mengoverkan, pp2.nama as menerima
+				from sm_lembar_hand_over_pasien_igd lhopi				
+				join sm_layanan_pendaftaran lp ON lhopi.id_layanan_pendaftaran = lp.id
+				join sm_tenaga_medis tmd ON lhopi.dpjp_lhopi = tmd.id
+				join sm_pegawai pdk ON tmd.id_pegawai = pdk.id
+				join sm_tenaga_medis tmp1 ON lhopi.mengoverkan_lhopi = tmp1.id
+				join sm_pegawai pp1 ON tmp1.id_pegawai = pp1.id
+				join sm_tenaga_medis tmp2 ON lhopi.menerima_lhopi = tmp2.id
+				join sm_pegawai pp2 ON tmp2.id_pegawai = pp2.id
+				join sm_translucent as st on st.id = lhopi.id_users
+				join sm_pegawai as pt on pt.id = st.id
+				where lp.id_pendaftaran = '" . $id_pendaftaran . "'
+				order by lhopi.tanggal_lhopi asc";
+		return $this->db->query($sql)->result();
+	}
+
+	// LHOPI
+	function getLembarHandOverPasienIGDByID($id_ipohl){
+		$sql = "select lhopi.*, pa.nama as nama_pasien, pd.no_register, pa.telp, pdk.nama as nama_dokter, pp1.nama as nama_mengoverkan, pp2.nama as nama_menerima, pdk.tanda_tangan, tmd.no_sip, pt.nama as nama_user_h
+				from sm_lembar_hand_over_pasien_igd lhopi	
+				join sm_layanan_pendaftaran lp ON lhopi.id_layanan_pendaftaran = lp.id
+				join sm_pendaftaran pd ON lp.id_pendaftaran = pd.id
+				join sm_pasien pa ON pd.id_pasien = pa.id
+				join sm_tenaga_medis tmd ON lhopi.dpjp_lhopi = tmd.id
+				join sm_pegawai pdk ON tmd.id_pegawai = pdk.id
+				join sm_tenaga_medis tmp1 ON lhopi.mengoverkan_lhopi = tmp1.id
+				join sm_pegawai pp1 ON tmp1.id_pegawai = pp1.id
+				join sm_tenaga_medis tmp2 ON lhopi.menerima_lhopi = tmp2.id
+				join sm_pegawai pp2 ON tmp2.id_pegawai = pp2.id	               
+				left join sm_translucent as st on st.id = lhopi.id_users
+				left join sm_pegawai as pt on pt.id = st.id
+				where lhopi.id = '" . $id_ipohl . "'";
+		return $this->db->query($sql)->row();
+	}
+
+    // LHOPI LOGS
+    function getLembarHandOverPasienIGDLogs($id_pendaftaran) { 
+		$this->db->where('id_pendaftaran', $id_pendaftaran); 
+		$this->db->order_by('created_date', 'desc');
+		return $this->db->get('sm_lembar_hand_over_pasien_igd_logs')->result();
+	}
+
+
+    // RPRDL
+	function getRencanaRujukanPasienDariLuarIGD($id_pendaftaran){
+		$sql = "select rprdl.*, pt.nama as nama_user
+				from sm_rencana_pasien_rujukan_dari_luar rprdl				
+				join sm_layanan_pendaftaran lp ON rprdl.id_layanan_pendaftaran = lp.id
+				join sm_translucent as st on st.id = rprdl.id_users
+				join sm_pegawai as pt on pt.id = st.id
+				where lp.id_pendaftaran = '" . $id_pendaftaran . "'
+				order by rprdl.tanggal_jam_rprdl asc";
+		return $this->db->query($sql)->result();
+	}
+
+	// RPRDL
+	function getRencanaRujukanPasienDariLuarIGDByID($id_rrpdr){
+		$sql = "select rprdl.*, pa.nama as nama_pasien, pd.no_register, pa.telp, pt.nama as nama_user
+				from sm_rencana_pasien_rujukan_dari_luar rprdl	
+				join sm_layanan_pendaftaran lp ON rprdl.id_layanan_pendaftaran = lp.id
+				join sm_pendaftaran pd ON lp.id_pendaftaran = pd.id
+				join sm_pasien pa ON pd.id_pasien = pa.id              
+				left join sm_translucent as st on st.id = rprdl.id_users
+				left join sm_pegawai as pt on pt.id = st.id
+				where rprdl.id = '" . $id_rrpdr . "'";
+		return $this->db->query($sql)->row();
+	}
+
+	// RPRDL
+    function getRencanaRujukanPasienDariLuarIGDLogs($id_pendaftaran) { 
+		$this->db->where('id_pendaftaran', $id_pendaftaran); 
+		$this->db->order_by('created_date', 'desc');
+		return $this->db->get('sm_rencana_pasien_rujukan_dari_luar_logs')->result();
+	}
+
+
+
+
+
+
+
+
+
     // PPPDJ 
 	function getPppDiagnostikJanTung($id_pendaftaran){
 		$sql = "select pppdj.*, pt.nama as nama_user, sd.nama as dokter_pemeriksa

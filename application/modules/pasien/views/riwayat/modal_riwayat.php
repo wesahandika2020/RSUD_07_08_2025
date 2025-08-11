@@ -16,7 +16,7 @@
 							<li class="nav-item" id="pasien-tab">
 
 
-								<!-- logo pasien meninggal // TAMBAHAN WH-->
+								<!-- logo pasien meninggal // TAMBAHAN WSH-->
 								<!-- <img id="logo-pasien-alergi" src="<?= resource_url() ?>images/diagnosa/alergi.jpg" alt="logo-pasien-alergi" title="ALERGI" class="img-thumbnail rounded hide" width="100px" style="margin-right: 1rem; padding: 0; border:0"> -->
 								<img id="logo-pasien-alergi" src="<?= resource_url() ?>images/diagnosa/alergi.jpg" alt="logo-pasien-alergi" title="" class="img-thumbnail rounded logo-pasien-alergi hide" width="100px" style="margin-right: 1rem; padding: 0; border:0">
 								<!-- <span id="alergi-coba"></span> gunakan nanti ketika data alergi disuruh menampilkan -->
