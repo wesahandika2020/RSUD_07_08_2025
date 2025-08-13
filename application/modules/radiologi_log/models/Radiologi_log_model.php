@@ -382,7 +382,7 @@ class Radiologi_log_model extends CI_Model
 		return $this->db->query($sql)->row();
 	}
 
-	// RPRDL
+	// RPRDL LOGS
     function getRencanaRujukanPasienDariLuarIGDLogs($id_pendaftaran) { 
 		$this->db->where('id_pendaftaran', $id_pendaftaran); 
 		$this->db->order_by('created_date', 'desc');

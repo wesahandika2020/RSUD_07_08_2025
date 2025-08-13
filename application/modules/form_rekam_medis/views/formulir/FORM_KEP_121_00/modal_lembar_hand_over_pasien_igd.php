@@ -217,7 +217,7 @@
                                                                     <th width="10%" class="center">Yang Mengoverkan</th>
                                                                     <th width="10%" class="center">Yang Menerima</th>
                                                                     <th width="10%" class="center">DPJP</th>
-                                                                    <th width="10%" class="center">Petugas</th>
+                                                                    <!-- <th width="10%" class="center">Petugas</th> -->
                                                                     <th width="8%" class="center">Alat</th>
                                                                 </tr>
                                                             </thead>
@@ -312,7 +312,7 @@
                                                                     <th width="10%" class="center">Asal Rujukan</th>
                                                                     <th width="10%" class="center">Diagnosis</th>
                                                                     <th width="10%" class="center">Rencana</th>
-                                                                    <th width="10%" class="center">Petugas</th>
+                                                                    <!-- <th width="10%" class="center">Petugas</th> -->
                                                                     <th width="10%" class="center">Alat</th>
                                                                 </tr>
                                                             </thead>

@@ -15,7 +15,7 @@
                 <input type="hidden" name="id_layanan_pendaftaran" id="id-layanan-pendaftaran-pert">
                 <input type="hidden" name="id_pendaftaran" id="id-pendaftaran-pert">
                 <input type="hidden" name="id_pasien" id="id-pasien-pert">
-                <input type="hidden" name="id_user" id="id-user"value="<?= $this->session->userdata('id_translucent') ?>">  
+                <input type="hidden" name="id_user" id="id-user"value="<?= $this->session->userdata('id_translucent') ?>"> 
                 <div class="row">
                     <div class="col-lg-6">
                         <div class="table-responsive">

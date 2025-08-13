@@ -510,7 +510,7 @@ class Radiologi_log extends REST_Controller
 
 
 
-	// LHOPI LOGS
+	// LHOPI LOGS aman tindal naik ke prod
 	function get_lembar_hand_over_pasien_igd_rsudtng_get(){
 		$data['pendaftaran_detail'] = "";
 		$data['list_lembar_hand_over_pasien_igd_rsudtng'] = [];
@@ -565,12 +565,13 @@ class Radiologi_log extends REST_Controller
 				'dpjp_lhopi'				=> safe_post('dpjp_lhopi') == '' ? null : safe_post('dpjp_lhopi'),
 				'mengoverkan_lhopi'			=> safe_post('mengoverkan_lhopi') == '' ? null : safe_post('mengoverkan_lhopi'),
 				'menerima_lhopi'			=> safe_post('menerima_lhopi') == '' ? null : safe_post('menerima_lhopi'),
-				'id_users'                 	=> $this->session->userdata('id_translucent'),
+				// 'id_users'                 	=> $this->session->userdata('id_translucent'),
 				'updated_date'              => $this->datetime
 			);
 	
 			// HANYA SIMPAN FIELD VALID KE DALAM LOG
 			$logData = array(
+				'id_lhopi'              	=> $checkDataLHOPI->id, // 🆕 ID utama
 				'id_pendaftaran'      		=> $checkDataLHOPI->id_pendaftaran,
 				'id_layanan_pendaftaran'  	=> $checkDataLHOPI->id_layanan_pendaftaran,
 				'shift_lhopi'             	=> $checkDataLHOPI->shift_lhopi,
@@ -583,6 +584,7 @@ class Radiologi_log extends REST_Controller
 				'mengoverkan_lhopi'       	=> $checkDataLHOPI->mengoverkan_lhopi,
 				'menerima_lhopi'       		=> $checkDataLHOPI->menerima_lhopi,
 				'id_users'                	=> $checkDataLHOPI->id_users,
+				'updated_by'           		=> $this->session->userdata('id_translucent'), // ✅ user yang edit
 				'created_date'            	=> $checkDataLHOPI->created_date,
 				'updated_date'            	=> $this->datetime,
 				'log_action'              	=> 'update'
@@ -620,6 +622,7 @@ class Radiologi_log extends REST_Controller
 		if ($lhopiHapus) {
 			// Simpan ke log
 			$logDataLhopi = array(
+				'id_lhopi'              	=> $lhopiHapus->id, // 🆕 ID utama
 				'id_pendaftaran'          	=> $lhopiHapus->id_pendaftaran,
 				'id_layanan_pendaftaran'  	=> $lhopiHapus->id_layanan_pendaftaran,
 				'shift_lhopi'             	=> $lhopiHapus->shift_lhopi,
@@ -632,6 +635,7 @@ class Radiologi_log extends REST_Controller
 				'mengoverkan_lhopi'       	=> $lhopiHapus->mengoverkan_lhopi,
 				'menerima_lhopi'       		=> $lhopiHapus->menerima_lhopi,
 				'id_users'                	=> $lhopiHapus->id_users,
+				'deleted_by'           		=> $this->session->userdata('id_translucent'), // ✅ user yang hapus
 				'created_date'            	=> $lhopiHapus->created_date,
 				'updated_date'            	=> $this->datetime,
 				'log_action'              	=> 'delete'
@@ -668,7 +672,8 @@ class Radiologi_log extends REST_Controller
 		}
 	}
 
-	// RPRDL 
+
+	// RPRDL LOGS aman tindal naik ke prod
 	function get_rencana_pasien_rujukan_dari_luar_get(){
 		$data['pendaftaran_detail'] = "";
 		$data['list_rencana_rujukan_pasien_dari_luar_rsudtng'] = [];
@@ -713,12 +718,13 @@ class Radiologi_log extends REST_Controller
 				'asalrujukan_rprdl'			=> safe_post('asalrujukan_rprdl') == '' ? null : safe_post('asalrujukan_rprdl'),
 				'diagnosis_rprdl'			=> safe_post('diagnosis_rprdl') == '' ? null : safe_post('diagnosis_rprdl'),
 				'rencana_rprdl'				=> safe_post('rencana_rprdl') == '' ? null : safe_post('rencana_rprdl'),
-				'id_users'                 	=> $this->session->userdata('id_translucent'),
+				// 'id_users'                 	=> $this->session->userdata('id_translucent'),
 				'updated_date'              => $this->datetime
 			);
 	
 			// HANYA SIMPAN FIELD VALID KE DALAM LOG
 			$logData = array(
+				'id_lhopi'              	=> $checkDataRPRDL->id, // 🆕 ID utama
 				'id_pendaftaran'      		=> $checkDataRPRDL->id_pendaftaran,
 				'id_layanan_pendaftaran'  	=> $checkDataRPRDL->id_layanan_pendaftaran,
 				'tanggal_jam_rprdl'         => $checkDataRPRDL->tanggal_jam_rprdl,
@@ -726,6 +732,7 @@ class Radiologi_log extends REST_Controller
 				'diagnosis_rprdl'       	=> $checkDataRPRDL->diagnosis_rprdl,
 				'rencana_rprdl' 			=> $checkDataRPRDL->rencana_rprdl,
 				'id_users'                	=> $checkDataRPRDL->id_users,
+				'updated_by'           		=> $this->session->userdata('id_translucent'), // ✅ user yang edit
 				'created_date'            	=> $checkDataRPRDL->created_date,
 				'updated_date'            	=> $this->datetime,
 				'log_action'              	=> 'update'
@@ -763,6 +770,7 @@ class Radiologi_log extends REST_Controller
 		if ($rprdLHapus) {
 			// Simpan ke log
 			$logDataRprdl = array(
+				'id_lhopi'              	=> $rprdLHapus->id, // 🆕 ID utama
 				'id_pendaftaran'          	=> $rprdLHapus->id_pendaftaran,
 				'id_layanan_pendaftaran'  	=> $rprdLHapus->id_layanan_pendaftaran,
 				'tanggal_jam_rprdl'         => $rprdLHapus->tanggal_jam_rprdl,
@@ -770,6 +778,7 @@ class Radiologi_log extends REST_Controller
 				'diagnosis_rprdl'       	=> $rprdLHapus->diagnosis_rprdl,
 				'rencana_rprdl' 			=> $rprdLHapus->rencana_rprdl,
 				'id_users'                	=> $rprdLHapus->id_users,
+				'deleted_by'           		=> $this->session->userdata('id_translucent'), // ✅ user yang hapus
 				'created_date'            	=> $rprdLHapus->created_date,
 				'updated_date'            	=> $this->datetime,
 				'log_action'              	=> 'delete'

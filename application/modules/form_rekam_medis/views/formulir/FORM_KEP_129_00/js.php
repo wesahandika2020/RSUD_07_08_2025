@@ -908,29 +908,6 @@
         })
     }
 
-    function updatePreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed) {
-        // console.log($('#form-edit-preeklampsia-early').serialize());
-        $.ajax({
-            type: 'PUT',
-            url: '<?= base_url("pelayanan/api/pelayanan/update_preeklampsia_early") ?>',
-            data: $('#form-edit-preeklampsia-early').serialize(),
-            cache: false,
-            dataType: 'JSON',
-            success: function(data) {
-                if (data.status) {
-                    messageEditSuccess();
-                    entriPreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed);
-                } else {
-                    messageEditFailed();
-                }
-                $('#modal-edit-preeklampsia-early').modal('hide');
-            },
-            error: function(e) {
-                messageEditFailed();
-            }
-        });
-    }
-
     if (typeof numberPert === 'undefined') {
         var numberPert = 1;
     }
@@ -1088,7 +1065,104 @@
         $('#tabel-pert .body-table').append(html);
     }
 
+    // function updatePreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed) {
+    //     // console.log($('#form-edit-preeklampsia-early').serialize());
+    //     $.ajax({
+    //         type: 'PUT',
+    //         url: '<?= base_url("pelayanan/api/pelayanan/update_preeklampsia_early") ?>',
+    //         data: $('#form-edit-preeklampsia-early').serialize(),
+    //         cache: false,
+    //         dataType: 'JSON',
+    //         success: function(data) {
+    //             if (data.status) {
+    //                 messageEditSuccess();
+    //                 entriPreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed);
+    //             } else {
+    //                 messageEditFailed();
+    //             }
+    //             $('#modal-edit-preeklampsia-early').modal('hide');
+    //         },
+    //         error: function(e) {
+    //             messageEditFailed();
+    //         }
+    //     });
+    // }
+
+    // function hapusPreeklampsiaEarly(obj, id) {
+    //     bootbox.dialog({
+    //         message: "Anda yakin akan menghapus data ini?",
+    //         title: "Hapus Data",
+    //         buttons: {
+    //             batal: {
+    //                 label: '<i class="fas fa-times-circle mr-1"></i>Batal',
+    //                 className: "btn-secondary",
+    //                 callback: function() {
+    //                 }
+    //             },
+    //             hapus: {
+    //                 label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
+    //                 className: "btn-info",
+    //                 callback: function() {
+    //                     $.ajax({
+    //                         type: 'DELETE',
+    //                         url: '<?= base_url("pelayanan/api/pelayanan/hapus_preeklampsia_early") ?>/' +
+    //                             id,
+    //                         cache: false,
+    //                         dataType: 'JSON',
+    //                         success: function(data) {
+    //                             if (data.status) {
+    //                                 messageCustom(data.message, 'Success');
+    //                                 removeList(obj);
+    //                             } else {
+    //                                 customAlert('Hapus Preeklampsia Early Recognition Tool (PERT)', data
+    //                                     .message);
+    //                             }
+    //                         },
+    //                         error: function(e) {
+    //                             messageDeleteFailed();
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+
+
+
+
+
+    // 
+    function updatePreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed) {
+        // Ambil ID user dari input hidden
+        const id_user = $('#id-user').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '<?= base_url("pelayanan/api/pelayanan/update_preeklampsia_early") ?>',
+            data: $('#form-edit-preeklampsia-early').serialize() + '&id_user=' + id_user, // tetap kirim juga kalau butuh
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                console.log('User yang update:', id_user); // debug
+
+                if (data.status) {
+                    messageEditSuccess();
+                    entriPreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed);
+                } else {
+                    messageEditFailed();
+                }
+                $('#modal-edit-preeklampsia-early').modal('hide');
+            },
+            error: function(e) {
+                messageEditFailed();
+            }
+        });
+    }
+
+    // 
     function hapusPreeklampsiaEarly(obj, id) {
+        const id_user = $('#id-user').val();
         bootbox.dialog({
             message: "Anda yakin akan menghapus data ini?",
             title: "Hapus Data",
@@ -1096,8 +1170,7 @@
                 batal: {
                     label: '<i class="fas fa-times-circle mr-1"></i>Batal',
                     className: "btn-secondary",
-                    callback: function() {
-                    }
+                    callback: function() {}
                 },
                 hapus: {
                     label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
@@ -1105,17 +1178,18 @@
                     callback: function() {
                         $.ajax({
                             type: 'DELETE',
-                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_preeklampsia_early") ?>/' +
-                                id,
+                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_preeklampsia_early") ?>/' + id,
+                            data: { id_user: id_user }, // kirim id_user
                             cache: false,
                             dataType: 'JSON',
                             success: function(data) {
+                            console.log('User yang hapus:', id_user); // debug
+
                                 if (data.status) {
                                     messageCustom(data.message, 'Success');
-                                    removeList(obj);
+                                    obj.closest('tr').remove();
                                 } else {
-                                    customAlert('Hapus Preeklampsia Early Recognition Tool (PERT)', data
-                                        .message);
+                                    customAlert('Hapus Data', data.message);
                                 }
                             },
                             error: function(e) {
@@ -1127,5 +1201,6 @@
             }
         });
     }
+ 
 
 </script>

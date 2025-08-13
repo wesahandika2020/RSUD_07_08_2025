@@ -16692,9 +16692,18 @@ class Pelayanan extends REST_Controller
         $this->response(['status' => $status], REST_Controller::HTTP_OK);
     }
 
+
+
+
+
+
+
+
+
+
+
     // PERT 1
-    function get_data_preeklampsia_early_get()
-    {
+    function get_data_preeklampsia_early_get(){
         if (!$this->get('id_layanan_pendaftaran')) :
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // (400)
         endif;
@@ -16717,8 +16726,7 @@ class Pelayanan extends REST_Controller
     }
 
     // PERT 2
-    function simpan_data_preeklampsia_early_post()
-    {
+    function simpan_data_preeklampsia_early_post(){
         $id_users = safe_post('id_user');
         $layanan = array('id' => safe_post('id_layanan_pendaftaran'));
         $pengkajian_date_preeklampsia = safe_post('pengkajian_date_preeklampsia');
@@ -16811,21 +16819,8 @@ class Pelayanan extends REST_Controller
         $this->response($message, REST_Controller::HTTP_OK);
     }
 
-    // PERT 3
-    function hapus_preeklampsia_early_delete($id)
-    {
-        $status = $this->m_pelayanan->deletePreeklampsiaEarly($id);
-        if ($status) :
-            $response = array('status' => $status, 'message' => 'Berhasil menghapus Preeklampsia Early Recognition Tool (PERT)!');
-        else :
-            $response = array('status' => $status, 'message' => 'Gagal menghapus Preeklampsia Early Recognition Tool (PERT)!');
-        endif;
-        $this->response($response, REST_Controller::HTTP_OK);
-    }
-
     // PERT 4
-    function get_edit_preeklampsia_early_get()
-    {
+    function get_edit_preeklampsia_early_get(){
         if (!$this->get('id', true)) :
             $this->response(null, REST_Controller::HTTP_BAD_REQUEST);
         endif;
@@ -16833,14 +16828,76 @@ class Pelayanan extends REST_Controller
         $this->response($data, REST_Controller::HTTP_OK);
     }
 
-    // PERT INI DI KASIH _ NYA DARI EDIT CUMA DISINI DOANK YANG DIKASIH YANG LAINYA NORMAL
-    function update_preeklampsia_early_put()
-    {
+    // PERT 3
+    function hapus_preeklampsia_early_delete($id) {
+        $this->db->trans_begin();
+
+        // User yang menghapus (dari session / GET)
+        $id_user_logs = $this->session->userdata('id_translucent') ?: $this->input->get('id_user');
+
+        // Ambil data lama sebelum dihapus
+        $lama = $this->db->get_where('sm_preeklampsia_early', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']); // hilangkan ID asli
+
+            // Pemilik data awal
+            $log['id_user']      = $lama['id_user'];
+            // User yang menghapus
+            $log['id_user_logs'] = $id_user_logs;
+
+            $log['keterangan'] = 'Delete';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+
+            $this->m_pelayanan->insertLogsdeletePreeklampsiaEarly($log);
+        }
+
+        // Hapus data utama
+        $status = $this->m_pelayanan->deletePreeklampsiaEarly($id);
+
+        if ($this->db->trans_status() === false || !$status) {
+            $this->db->trans_rollback();
+            $response = array('status' => false, 'message' => 'Gagal menghapus data!');
+        } else {
+            $this->db->trans_commit();
+            $response = array('status' => true, 'message' => 'Berhasil menghapus data!');
+        }
+
+        $this->response($response, REST_Controller::HTTP_OK);
+    }
+
+    // PERT 5
+    function update_preeklampsia_early_put() {
+        $this->db->trans_begin();
+
         $id = $this->put('id', true);
         if (!$id) {
             $this->response(['status' => false], REST_Controller::HTTP_OK);
             return;
         }
+
+        // Ambil data lama untuk log
+        $lama = $this->db->get_where('sm_preeklampsia_early', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']);
+            $log['id_user'] = $lama['id_user']; // simpan pemilik data awal
+            $log['id_user_logs'] = $this->session->userdata('id_translucent') ?: $this->put('id_user'); // user yg edit
+            $log['keterangan'] = 'Update';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+            $this->m_pelayanan->insertLogsdeletePreeklampsiaEarly($log);
+        }
+
+        // Data untuk update (id_user asli tidak diubah)
         $data = [
             'id'             => $id,
             'tanggal_pert'   => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_pert', true)))),
@@ -16896,13 +16953,129 @@ class Pelayanan extends REST_Controller
             'hijau_17'  => $this->put('hijau_17_', true) ?: null,
             'kuning_17' => $this->put('kuning_17_', true) ?: null,
             'merah_17'  => $this->put('merah_17_', true) ?: null,
-            'perawat_pert'          => $this->put('perawat_pert', true) ?: null,
+            'perawat_pert'  => $this->put('perawat_pert', true) ?: null,
             'updated_at'    => date('Y-m-d H:i:s'),
+            'id_user'       => $this->session->userdata('id_translucent') ?: $this->put('id_user'), // fallback
         ];
-        // var_dump($this->put('kuning_17', true));die;   
-        $status = $this->m_pelayanan->editPreeklampsiaEarly($data);
-        $this->response(['status' => $status], REST_Controller::HTTP_OK);
+
+        $this->db->where('id', $id);
+        $status = $this->db->update('sm_preeklampsia_early', $data);
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response(['status' => false], REST_Controller::HTTP_OK);
+        } else {
+            $this->db->trans_commit();
+            $this->response(['status' => true], REST_Controller::HTTP_OK);
+        }
     }
+    
+
+    // PERT 3
+    // function hapus_preeklampsia_early_delete($id)
+    // {
+    //     $status = $this->m_pelayanan->deletePreeklampsiaEarly($id);
+    //     if ($status) :
+    //         $response = array('status' => $status, 'message' => 'Berhasil menghapus Preeklampsia Early Recognition Tool (PERT)!');
+    //     else :
+    //         $response = array('status' => $status, 'message' => 'Gagal menghapus Preeklampsia Early Recognition Tool (PERT)!');
+    //     endif;
+    //     $this->response($response, REST_Controller::HTTP_OK);
+    // }
+
+    // PERT INI DI KASIH _ NYA DARI EDIT CUMA DISINI DOANK YANG DIKASIH YANG LAINYA NORMAL
+    // function update_preeklampsia_early_put()
+    // {
+    //     $id = $this->put('id', true);
+    //     if (!$id) {
+    //         $this->response(['status' => false], REST_Controller::HTTP_OK);
+    //         return;
+    //     }
+    //     $data = [
+    //         'id'             => $id,
+    //         'tanggal_pert'   => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_pert', true)))),
+    //         'jam_pert'       => $this->put('jam_pert', true) ?: null,
+    //         'hijau_1'  => $this->put('hijau_1_', true) ?: null,
+    //         'kuning_1' => $this->put('kuning_1_', true) ?: null,
+    //         'merah_1'  => $this->put('merah_1_', true) ?: null,
+    //         'hijau_2'  => $this->put('hijau_2_', true) ?: null,
+    //         'kuning_2' => $this->put('kuning_2_', true) ?: null,
+    //         'merah_2'  => $this->put('merah_2_', true) ?: null,
+    //         'hijau_3'  => $this->put('hijau_3_', true) ?: null,
+    //         'kuning_3' => $this->put('kuning_3_', true) ?: null,
+    //         'merah_3'  => $this->put('merah_3_', true) ?: null,
+    //         'hijau_4'  => $this->put('hijau_4_', true) ?: null,
+    //         'kuning_4' => $this->put('kuning_4_', true) ?: null,
+    //         'merah_4'  => $this->put('merah_4_', true) ?: null,
+    //         'hijau_5'  => $this->put('hijau_5_', true) ?: null,
+    //         'kuning_5' => $this->put('kuning_5_', true) ?: null,
+    //         'merah_5'  => $this->put('merah_5_', true) ?: null,
+    //         'hijau_6'  => $this->put('hijau_6_', true) ?: null,
+    //         'kuning_6' => $this->put('kuning_6_', true) ?: null,
+    //         'merah_6'  => $this->put('merah_6_', true) ?: null,
+    //         'hijau_7'  => $this->put('hijau_7_', true) ?: null,
+    //         'kuning_7' => $this->put('kuning_7_', true) ?: null,
+    //         'merah_7'  => $this->put('merah_7_', true) ?: null,
+    //         'hijau_8'  => $this->put('hijau_8_', true) ?: null,
+    //         'kuning_8' => $this->put('kuning_8_', true) ?: null,
+    //         'merah_8'  => $this->put('merah_8_', true) ?: null,
+    //         'hijau_9'  => $this->put('hijau_9_', true) ?: null,
+    //         'kuning_9' => $this->put('kuning_9_', true) ?: null,
+    //         'merah_9'  => $this->put('merah_9_', true) ?: null,
+    //         'hijau_10'  => $this->put('hijau_10_', true) ?: null,
+    //         'kuning_10' => $this->put('kuning_10_', true) ?: null,
+    //         'merah_10'  => $this->put('merah_10_', true) ?: null,
+    //         'hijau_11'  => $this->put('hijau_11_', true) ?: null,
+    //         'kuning_11' => $this->put('kuning_11_', true) ?: null,
+    //         'merah_11'  => $this->put('merah_11_', true) ?: null,
+    //         'hijau_12'  => $this->put('hijau_12_', true) ?: null,
+    //         'kuning_12' => $this->put('kuning_12_', true) ?: null,
+    //         'merah_12'  => $this->put('merah_12_', true) ?: null,
+    //         'hijau_13'  => $this->put('hijau_13_', true) ?: null,
+    //         'kuning_13' => $this->put('kuning_13_', true) ?: null,
+    //         'merah_13'  => $this->put('merah_13_', true) ?: null,
+    //         'hijau_14'  => $this->put('hijau_14_', true) ?: null,
+    //         'kuning_14' => $this->put('kuning_14_', true) ?: null,
+    //         'merah_14'  => $this->put('merah_14_', true) ?: null,
+    //         'hijau_15'  => $this->put('hijau_15_', true) ?: null,
+    //         'kuning_15' => $this->put('kuning_15_', true) ?: null,
+    //         'merah_15'  => $this->put('merah_15_', true) ?: null,
+    //         'hijau_16'  => $this->put('hijau_16_', true) ?: null,
+    //         'kuning_16' => $this->put('kuning_16_', true) ?: null,
+    //         'merah_16'  => $this->put('merah_16_', true) ?: null,
+    //         'hijau_17'  => $this->put('hijau_17_', true) ?: null,
+    //         'kuning_17' => $this->put('kuning_17_', true) ?: null,
+    //         'merah_17'  => $this->put('merah_17_', true) ?: null,
+    //         'perawat_pert'          => $this->put('perawat_pert', true) ?: null,
+    //         'updated_at'    => date('Y-m-d H:i:s'),
+    //     ];
+    //     // var_dump($this->put('kuning_17', true));die;   
+    //     $status = $this->m_pelayanan->editPreeklampsiaEarly($data);
+    //     $this->response(['status' => $status], REST_Controller::HTTP_OK);
+    // }
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
 
     function set_pasca_ranap_get()
     {

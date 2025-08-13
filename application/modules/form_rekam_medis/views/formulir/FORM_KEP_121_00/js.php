@@ -217,7 +217,6 @@
 								<td class="center">${v.mengoverkan ? v.mengoverkan : '-'}</td>    
 								<td class="center">${v.menerima ? v.menerima : '-'}</td>    
 								<td class="center">${v.nama_dokter_lhopi ? v.nama_dokter_lhopi : '-'}</td>    
-								<td class="center">${v.nama_user_h}</td>
 								<td class="center">
 									<div style="display: flex; gap: 5px; justify-content: center;">
 										<button type="button" class="btn btn-primary btn-xxs" onclick="lihatLembarHandOverPasienIgd(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-eye m-r-5"></i>Lihat</button>
@@ -230,6 +229,7 @@
 						$('#table-list-lhopi tbody').append(html)
 					})
 				}
+								// <td class="center">${v.nama_user_h}</td>
 
 
 				$('#modal_lembar_hand_over_pasien_igd').modal('show');
@@ -509,7 +509,6 @@
 								<td class="center">${v.asalrujukan_rprdl ? v.asalrujukan_rprdl : '-'}</td>    
 								<td class="center">${v.diagnosis_rprdl ? v.diagnosis_rprdl : '-'}</td>    
 								<td class="center">${v.rencana_rprdl ? v.rencana_rprdl : '-'}</td>    
-								<td class="center">${v.nama_user}</td>
 								<td class="center">
 									<div style="display: flex; gap: 5px; justify-content: center;">
 										<button type="button" class="btn btn-primary btn-xxs" onclick="lihatRencanaRujukanPasienDariLuar(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-eye m-r-5"></i>Lihat</button>
@@ -522,6 +521,8 @@
 						$('#table-list-rprdl tbody').append(html)
 					})
 				}
+
+								// <td class="center">${v.nama_user}</td>
 
 
 				$('#modal_lembar_hand_over_pasien_igd').modal('show');

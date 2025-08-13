@@ -15559,9 +15559,22 @@ class Pelayanan_model extends CI_Model
         return $this->db->where("id", $id)->delete("sm_skrining_admisi_130");
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // PERT 1 
-    function insertPreeklampsiaEarly($data)
-    {
+    function insertPreeklampsiaEarly($data){
         foreach ($data['date_created'] as $key => $value) {
             $tgl_pert = str_replace('/', '-', $data['tanggal_pert'][$key]);
             $tgl_pert = date("Y-m-d", strtotime($tgl_pert));
@@ -15631,14 +15644,17 @@ class Pelayanan_model extends CI_Model
     }
 
     // PERT 4
-    function editPreeklampsiaEarly($data)
-    {
+    function editPreeklampsiaEarly($data){
         return $this->db->where('id', $data['id'], true)->update('sm_preeklampsia_early', $data);
     }
 
-    // PERT 2
-    function getPreeklampsiaEarly($id_layanan_pendaftaran)
-    {
+    // PERT 5
+    function deletePreeklampsiaEarly($id){
+        return $this->db->where("id", $id)->delete("sm_preeklampsia_early");
+    }
+
+    // PERT 2  INI NLM TAU BENR SALAHYA NNTI LIAT DI CONTOHYA
+    function getPreeklampsiaEarly($id_layanan_pendaftaran){
         return $this->db->select("pert.*, COALESCE(spg.nama, '') as perawat, 
                                           COALESCE(wid.nama, '') as akun_user")
             ->from('sm_preeklampsia_early as pert')
@@ -15654,9 +15670,8 @@ class Pelayanan_model extends CI_Model
             ->result();
     }
 
-    // PERT 3
-    function getPreeklampsiaEarlyByID($id)
-    {
+    // PERT 3 INI NLM TAU BENR SALAHYA NNTI LIAT DI CONTOHYA
+    function getPreeklampsiaEarlyByID($id){
         return $this->db->select("pert.*, COALESCE(spg.nama, '') as perawat, 
                                           COALESCE(wid.nama, '') as akun_user")
             ->from('sm_preeklampsia_early as pert')
@@ -15671,11 +15686,23 @@ class Pelayanan_model extends CI_Model
             ->row();
     }
 
-    // PERT 5
-    function deletePreeklampsiaEarly($id)
-    {
-        return $this->db->where("id", $id)->delete("sm_preeklampsia_early");
+    // PERT 6
+    function insertLogsdeletePreeklampsiaEarly($data) { 
+        return $this->db->insert('sm_preeklampsia_early_logs', $data);
     }
+
+    
+
+
+
+
+
+
+
+
+
+
+
 
     function setPascaRanap($id)
     {
