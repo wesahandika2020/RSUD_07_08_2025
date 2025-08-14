@@ -146,6 +146,17 @@
                 });
                 // console.log(diagUtamaRm);
 
+
+                // PERBAIKAN
+                // const diagUtamaRm = [...data.ds_manual_utama]
+                //     .sort((a, b) => b.id_layanan_pendaftaran - a.id_layanan_pendaftaran)[0]?.nama || '-';
+
+                // // Tetap tampilkan di form
+                // $('#edit-diagnosa-safr').html(diagUtamaRm);
+                // setTimeout(() => {
+                //     $('#diagnosa-safr').html(diagUtamaRm);
+                // });
+
                 // TANGGAL
                 $('#data-skrining-admisi').one('click', function() {
                         $('#tanggal-safr, #edit-tanggal-safr').datetimepicker({
@@ -215,6 +226,16 @@
                 } else {
                     $('#tabel-safr .body-table').empty();
                 }
+
+                // // Panggil fungsi showPreeklampsiaEarlyRecognition sambil bawa diagnosa PERBAIKAN
+                // if (typeof data.skrining_admisi !== 'undefined' && data.skrining_admisi !== null) {
+                //     showSkriningAdmisiFaktor(data.skrining_admisi, id_pendaftaran, id_layanan_pendaftaran, bed, action, diagUtamaRm);
+                //     showSkriningAdmisi(nomer);                 
+                // } else {
+                //     $('#tabel-safr .body-table').empty();
+                // }
+
+
                 $('#bed-safr').text(bed);
                
                 $('#modal_skrining_admisi').modal('show');
@@ -226,8 +247,6 @@
                 accessFailed(e.status);
             }
         })
-
-
     }
 
     // <label id="diagnosa-safr"> </label>
@@ -545,7 +564,6 @@
         }
     }
 
-
     function konfirmasiSimpanSkriningAdmisi() {
 
         if ($('#tanggal-safr').val() === '') {
@@ -806,29 +824,6 @@
         })
     }
 
-    function updateSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed) {
-        // console.log($('#form-edit-skrining-admisi').serialize());
-        $.ajax({
-            type: 'PUT',
-            url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi") ?>',
-            data: $('#form-edit-skrining-admisi').serialize(),
-            cache: false,
-            dataType: 'JSON',
-            success: function(data) {
-                if (data.status) {
-                    messageEditSuccess();
-                    entriSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed);
-                } else {
-                    messageEditFailed();
-                }
-                $('#modal-edit-skrining-admisi').modal('hide');
-            },
-            error: function(e) {
-                messageEditFailed();
-            }
-        });
-    }
-
     if (typeof numberSafr === 'undefined') {
         var numberSafr = 1;
     }
@@ -981,7 +976,100 @@
     }
 
 
+    // function updateSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed) {
+    //     $.ajax({
+    //         type: 'PUT',
+    //         url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi") ?>',
+    //         data: $('#form-edit-skrining-admisi').serialize(),
+    //         cache: false,
+    //         dataType: 'JSON',
+    //         success: function(data) {
+    //             if (data.status) {
+    //                 messageEditSuccess();
+    //                 entriSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed);
+    //             } else {
+    //                 messageEditFailed();
+    //             }
+    //             $('#modal-edit-skrining-admisi').modal('hide');
+    //         },
+    //         error: function(e) {
+    //             messageEditFailed();
+    //         }
+    //     });
+    // }
+
+    // function hapusSkriningAdmisi(obj, id) {
+    //     bootbox.dialog({
+    //         message: "Anda yakin akan menghapus data ini?",
+    //         title: "Hapus Data",
+    //         buttons: {
+    //             batal: {
+    //                 label: '<i class="fas fa-times-circle mr-1"></i>Batal',
+    //                 className: "btn-secondary",
+    //                 callback: function() {
+    //                 }
+    //             },
+    //             hapus: {
+    //                 label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
+    //                 className: "btn-info",
+    //                 callback: function() {
+    //                     $.ajax({
+    //                         type: 'DELETE',
+    //                         url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi") ?>/' +
+    //                             id,
+    //                         cache: false,
+    //                         dataType: 'JSON',
+    //                         success: function(data) {
+    //                             if (data.status) {
+    //                                 messageCustom(data.message, 'Success');
+    //                                 removeList(obj);
+    //                             } else {
+    //                                 customAlert('Hapus Skrining Admisi Faktor Risiko', data
+    //                                     .message);
+    //                             }
+    //                         },
+    //                         error: function(e) {
+    //                             messageDeleteFailed();
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+
+
+    // 
+    function updateSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed) {
+        // Ambil ID user dari input hidden
+        const id_user = $('#id-user').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi") ?>',
+            data: $('#form-edit-skrining-admisi').serialize() + '&id_user=' + id_user, // tetap kirim juga kalau butuh
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                console.log('User yang update:', id_user); // debug
+
+                if (data.status) {
+                    messageEditSuccess();
+                    entriSkriningAdmisi(id_pendaftaran, id_layanan_pendaftaran, bed);
+                } else {
+                    messageEditFailed();
+                }
+                $('#modal-edit-skrining-admisi').modal('hide');
+            },
+            error: function(e) {
+                messageEditFailed();
+            }
+        });
+    }
+
+    // 
     function hapusSkriningAdmisi(obj, id) {
+        const id_user = $('#id-user').val();
         bootbox.dialog({
             message: "Anda yakin akan menghapus data ini?",
             title: "Hapus Data",
@@ -989,8 +1077,7 @@
                 batal: {
                     label: '<i class="fas fa-times-circle mr-1"></i>Batal',
                     className: "btn-secondary",
-                    callback: function() {
-                    }
+                    callback: function() {}
                 },
                 hapus: {
                     label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
@@ -998,17 +1085,18 @@
                     callback: function() {
                         $.ajax({
                             type: 'DELETE',
-                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi") ?>/' +
-                                id,
+                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi") ?>/' + id,
+                            data: { id_user: id_user }, // kirim id_user
                             cache: false,
                             dataType: 'JSON',
                             success: function(data) {
+                            console.log('User yang hapus:', id_user); // debug
+
                                 if (data.status) {
                                     messageCustom(data.message, 'Success');
-                                    removeList(obj);
+                                    obj.closest('tr').remove();
                                 } else {
-                                    customAlert('Hapus Skrining Admisi Faktor Risiko', data
-                                        .message);
+                                    customAlert('Hapus Data', data.message);
                                 }
                             },
                             error: function(e) {

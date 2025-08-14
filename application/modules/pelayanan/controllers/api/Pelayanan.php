@@ -16515,8 +16515,7 @@ class Pelayanan extends REST_Controller
 
 
     // SAFR 1
-    function get_data_skrining_admisi_get()
-    {
+    function get_data_skrining_admisi_get(){
         if (!$this->get('id_layanan_pendaftaran')) :
             $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // (400)
         endif;
@@ -16539,8 +16538,7 @@ class Pelayanan extends REST_Controller
     }
 
     // SAFR 2
-    function simpan_data_skrining_admisi_post()
-    {
+    function simpan_data_skrining_admisi_post(){
         $id_users = safe_post('id_user');
         $layanan = array('id' => safe_post('id_layanan_pendaftaran'));
         $pengkajian_date_skrining_admisi = safe_post('pengkajian_date_skrining_admisi');
@@ -16616,21 +16614,8 @@ class Pelayanan extends REST_Controller
         $this->response($message, REST_Controller::HTTP_OK);
     }
 
-    // SAFR 3
-    function hapus_skrining_admisi_delete($id)
-    {
-        $status = $this->m_pelayanan->deleteSkriningAdmisi($id);
-        if ($status) :
-            $response = array('status' => $status, 'message' => 'Berhasil menghapus Skrining Admisi Faktor Risiko!');
-        else :
-            $response = array('status' => $status, 'message' => 'Gagal menghapus Skrining Admisi Faktor Risiko!');
-        endif;
-        $this->response($response, REST_Controller::HTTP_OK);
-    }
-
     // SAFR 4
-    function get_edit_skrining_admisi_get()
-    {
+    function get_edit_skrining_admisi_get(){
         if (!$this->get('id', true)) :
             $this->response(null, REST_Controller::HTTP_BAD_REQUEST);
         endif;
@@ -16638,14 +16623,76 @@ class Pelayanan extends REST_Controller
         $this->response($data, REST_Controller::HTTP_OK);
     }
 
+    // SAFR 3
+    function hapus_skrining_admisi_delete($id) {
+        $this->db->trans_begin();
+
+        // User yang menghapus (dari session / GET)
+        $id_user_logs = $this->session->userdata('id_translucent') ?: $this->input->get('id_user');
+
+        // Ambil data lama sebelum dihapus
+        $lama = $this->db->get_where('sm_skrining_admisi_130', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']); // hilangkan ID asli
+
+            // Pemilik data awal
+            $log['id_user']      = $lama['id_user'];
+            // User yang menghapus
+            $log['id_user_logs'] = $id_user_logs;
+
+            $log['keterangan'] = 'Delete';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+
+            $this->m_pelayanan->insertLogsSkriningAdmisi($log);
+        }
+
+        // Hapus data utama
+        $status = $this->m_pelayanan->deleteSkriningAdmisi($id);
+
+        if ($this->db->trans_status() === false || !$status) {
+            $this->db->trans_rollback();
+            $response = array('status' => false, 'message' => 'Gagal menghapus data!');
+        } else {
+            $this->db->trans_commit();
+            $response = array('status' => true, 'message' => 'Berhasil menghapus data!');
+        }
+
+        $this->response($response, REST_Controller::HTTP_OK);
+    }
+
     // SAFR INI DI KASIH _ NYA DARI EDIT CUMA DISINI DOANK YANG DIKASIH YANG LAINYA NORMAL
-    function update_skrining_admisi_put()
-    {
+    function update_skrining_admisi_put() {
+        $this->db->trans_begin();
+
         $id = $this->put('id', true);
         if (!$id) {
             $this->response(['status' => false], REST_Controller::HTTP_OK);
             return;
         }
+
+        // Ambil data lama untuk log
+        $lama = $this->db->get_where('sm_skrining_admisi_130', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']);
+            $log['id_user'] = $lama['id_user']; // simpan pemilik data awal
+            $log['id_user_logs'] = $this->session->userdata('id_translucent') ?: $this->put('id_user'); // user yg edit
+            $log['keterangan'] = 'Update';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+            $this->m_pelayanan->insertLogsSkriningAdmisi($log);
+        }
+
+        // Data untuk update (id_user asli tidak diubah)
         $data = [
             'id'                    => $id,
             'tanggal_safr'          => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_safr', true)))),
@@ -16685,12 +16732,90 @@ class Pelayanan extends REST_Controller
             'tinggi_safr_14'        => $this->put('tinggi_safr_14_', true) ?: null,
             'tinggi_safr_15'        => $this->put('tinggi_safr_15_', true) ?: null,
             'perawat_safr'          => $this->put('perawat_safr', true) ?: null,
-            'updated_at'    => date('Y-m-d H:i:s'),
+            'updated_at'            => date('Y-m-d H:i:s'),
+            'id_user'               => $this->session->userdata('id_translucent') ?: $this->put('id_user'), // fallback
         ];
-        // var_dump($this->put('tinggi_safr_15', true));die;   
-        $status = $this->m_pelayanan->editSkriningAdmisi($data);
-        $this->response(['status' => $status], REST_Controller::HTTP_OK);
+
+        $this->db->where('id', $id);
+        $status = $this->db->update('sm_skrining_admisi_130', $data);
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response(['status' => false], REST_Controller::HTTP_OK);
+        } else {
+            $this->db->trans_commit();
+            $this->response(['status' => true], REST_Controller::HTTP_OK);
+        }
     }
+    
+
+    // // SAFR 3
+    // function hapus_skrining_admisi_delete($id)
+    // {
+    //     $status = $this->m_pelayanan->deleteSkriningAdmisi($id);
+    //     if ($status) :
+    //         $response = array('status' => $status, 'message' => 'Berhasil menghapus Skrining Admisi Faktor Risiko!');
+    //     else :
+    //         $response = array('status' => $status, 'message' => 'Gagal menghapus Skrining Admisi Faktor Risiko!');
+    //     endif;
+    //     $this->response($response, REST_Controller::HTTP_OK);
+    // }
+
+    // // SAFR INI DI KASIH _ NYA DARI EDIT CUMA DISINI DOANK YANG DIKASIH YANG LAINYA NORMAL
+    // function update_skrining_admisi_put()
+    // {
+    //     $id = $this->put('id', true);
+    //     if (!$id) {
+    //         $this->response(['status' => false], REST_Controller::HTTP_OK);
+    //         return;
+    //     }
+    //     $data = [
+    //         'id'                    => $id,
+    //         'tanggal_safr'          => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_safr', true)))),
+    //         'jam_safr'              => $this->put('jam_safr', true) ?: null,
+    //         'rendah_safr_1'         => $this->put('rendah_safr_1_', true) ?: null,
+    //         'medium_safr_1'         => $this->put('medium_safr_1_', true) ?: null,
+    //         'tinggi_safr_1'         => $this->put('tinggi_safr_1_', true) ?: null,
+    //         'rendah_safr_2'         => $this->put('rendah_safr_2_', true) ?: null,
+    //         'medium_safr_2'         => $this->put('medium_safr_2_', true) ?: null,
+    //         'tinggi_safr_2'         => $this->put('tinggi_safr_2_', true) ?: null,
+    //         'rendah_safr_3'         => $this->put('rendah_safr_3_', true) ?: null,
+    //         'medium_safr_3'         => $this->put('medium_safr_3_', true) ?: null,
+    //         'tinggi_safr_3'         => $this->put('tinggi_safr_3_', true) ?: null,
+    //         'rendah_safr_4'         => $this->put('rendah_safr_4_', true) ?: null,
+    //         'medium_safr_4'         => $this->put('medium_safr_4_', true) ?: null,
+    //         'tinggi_safr_4'         => $this->put('tinggi_safr_4_', true) ?: null,
+    //         'rendah_safr_5'         => $this->put('rendah_safr_5_', true) ?: null,
+    //         'medium_safr_5'         => $this->put('medium_safr_5_', true) ?: null,
+    //         'tinggi_safr_5'         => $this->put('tinggi_safr_5_', true) ?: null,
+    //         'rendah_safr_6'         => $this->put('rendah_safr_6_', true) ?: null,
+    //         'medium_safr_6'         => $this->put('medium_safr_6_', true) ?: null,
+    //         'tinggi_safr_6'         => $this->put('tinggi_safr_6_', true) ?: null,
+    //         'medium_safr_7'         => $this->put('medium_safr_7_', true) ?: null,
+    //         'tinggi_safr_7'         => $this->put('tinggi_safr_7_', true) ?: null,
+    //         'medium_safr_8'         => $this->put('medium_safr_8_', true) ?: null,
+    //         'tinggi_safr_8'         => $this->put('tinggi_safr_8_', true) ?: null,
+    //         'medium_safr_9'         => $this->put('medium_safr_9_', true) ?: null,
+    //         'tinggi_safr_9'         => $this->put('tinggi_safr_9_', true) ?: null,
+    //         'medium_safr_10'        => $this->put('medium_safr_10_', true) ?: null,
+    //         'tinggi_safr_10'        => $this->put('tinggi_safr_10_', true) ?: null,
+    //         'medium_safr_11'        => $this->put('medium_safr_11_', true) ?: null,
+    //         'medium_safr_12'        => $this->put('medium_safr_12_', true) ?: null,
+    //         'rendah_safr_13'        => $this->put('rendah_safr_13_', true) ?: null,
+    //         'medium_safr_13'        => $this->put('medium_safr_13_', true) ?: null,
+    //         'tinggi_safr_13'        => $this->put('tinggi_safr_13_', true) ?: null,
+    //         'medium_safr_14'        => $this->put('medium_safr_14_', true) ?: null,
+    //         'tinggi_safr_14'        => $this->put('tinggi_safr_14_', true) ?: null,
+    //         'tinggi_safr_15'        => $this->put('tinggi_safr_15_', true) ?: null,
+    //         'perawat_safr'          => $this->put('perawat_safr', true) ?: null,
+    //         'updated_at'    => date('Y-m-d H:i:s'),
+    //     ];
+    //     // var_dump($this->put('tinggi_safr_15', true));die;   
+    //     $status = $this->m_pelayanan->editSkriningAdmisi($data);
+    //     $this->response(['status' => $status], REST_Controller::HTTP_OK);
+    // }
+
+   
 
 
 
@@ -16970,7 +17095,6 @@ class Pelayanan extends REST_Controller
         }
     }
     
-
     // PERT 3
     // function hapus_preeklampsia_early_delete($id)
     // {
@@ -17055,6 +17179,345 @@ class Pelayanan extends REST_Controller
     // }
 
 
+
+
+
+    // SAUIKR 1
+    function get_data_skrining_admisi_uikr_get(){
+        if (!$this->get('id_layanan_pendaftaran')) :
+            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // (400)
+        endif;
+        $this->load->model('pendaftaran/Pendaftaran_model', 'm_pendaftaran');
+        $this->load->model('pelayanan/Pelayanan_model', 'm_pelayanan');
+        $data                               = $this->m_pendaftaran->getPendaftaranDetail($this->get('id', true), $this->get('id_layanan', true));
+        $data['profil']                     = $this->m_pelayanan->getProfilPasien($data['pasien']->id_pasien);
+        $data['skrining_admisi_uikr']         = $this->m_pelayanan->getSkriningAdmisiUikr($this->get('id', true));
+        // $data['ds_manual_utama'] = [];
+        // $ds_manual_utamas = $this->m_pelayanan->getDiagnosaManualUtama($this->get('id', true));
+        // if (!empty($ds_manual_utamas)) {
+        //     $data['ds_manual_utama'] = $ds_manual_utamas;
+        // }
+
+        if ($data) :
+            $this->response($data, REST_Controller::HTTP_OK); // (200)
+        endif;
+        // var_dump('skrining_admisi_uikr');die;
+    }
+
+    // SAUIKR 2
+    function simpan_data_skrining_admisi_uikr_post(){
+        $id_users = safe_post('id_user');
+        $layanan = array('id' => safe_post('id_layanan_pendaftaran'));
+        $pengkajian_date_skrining_admisi_uikr = safe_post('pengkajian_date_skrining_admisi_uikr');
+        // KALAU GA ADA IINI PASTI EROR
+        $id_pendaftaran           = safe_post('id_pendaftaran');
+        if (!empty($pengkajian_date_skrining_admisi_uikr)) {
+            $chek_data_sauikr = array(
+                'id_pendaftaran'            => $id_pendaftaran,
+                'id_layanan_pendaftaran'    => $layanan['id'],
+                'id_user'                   => safe_post('user_skrining_admisi_uikr') !== '' ? safe_post('user_skrining_admisi_uikr') : null,
+                'tanggal_sauikr'            => safe_post('tanggal_sauikr') !== '' ? safe_post('tanggal_sauikr') : null,
+                'jam_sauikr'                => safe_post('jam_sauikr') !== '' ? safe_post('jam_sauikr') : null,
+                'diagnosa_sauikr'           => safe_post('diagnosa_sauikr') !== '' ? safe_post('diagnosa_sauikr') : null,
+                'jenispersalinan_sauikr'    => safe_post('jenispersalinan_sauikr') !== '' ? safe_post('jenispersalinan_sauikr') : null,
+                'aspekmaternal1'      => safe_post('aspekmaternal1')      !== '' ? safe_post('aspekmaternal1') : NULL,
+                'aspekmaternal2'      => safe_post('aspekmaternal2')      !== '' ? safe_post('aspekmaternal2') : NULL,
+                'aspekmaternal3'      => safe_post('aspekmaternal3')      !== '' ? safe_post('aspekmaternal3') : NULL,
+                'aspekmaternal4'      => safe_post('aspekmaternal4')      !== '' ? safe_post('aspekmaternal4') : NULL,
+                'aspekmaternal5'      => safe_post('aspekmaternal5')      !== '' ? safe_post('aspekmaternal5') : NULL,
+                'aspekmaternal6'      => safe_post('aspekmaternal6')      !== '' ? safe_post('aspekmaternal6') : NULL,
+                'aspekmaternal7'      => safe_post('aspekmaternal7')      !== '' ? safe_post('aspekmaternal7') : NULL,
+                'aspekjanin1'      => safe_post('aspekjanin1')      !== '' ? safe_post('aspekjanin1') : NULL,
+                'aspekjanin2'      => safe_post('aspekjanin2')      !== '' ? safe_post('aspekjanin2') : NULL,
+                'aspekjanin3'      => safe_post('aspekjanin3')      !== '' ? safe_post('aspekjanin3') : NULL,
+                'aspekjanin4'      => safe_post('aspekjanin4')      !== '' ? safe_post('aspekjanin4') : NULL,
+                'aspekjanin5'      => safe_post('aspekjanin5')      !== '' ? safe_post('aspekjanin5') : NULL,
+                'aspekjanin6'      => safe_post('aspekjanin6')      !== '' ? safe_post('aspekjanin6') : NULL,
+                'aspekjanin7'      => safe_post('aspekjanin7')      !== '' ? safe_post('aspekjanin7') : NULL,
+                'aspekjanin8'      => safe_post('aspekjanin8')      !== '' ? safe_post('aspekjanin8') : NULL,
+                'aspekjanin9'      => safe_post('aspekjanin9')      !== '' ? safe_post('aspekjanin9') : NULL,
+                'aspekjanin10'     => safe_post('aspekjanin10')     !== '' ? safe_post('aspekjanin10') : NULL,
+                'aspekpenyulitpersalinan1'      => safe_post('aspekpenyulitpersalinan1')      !== '' ? safe_post('aspekpenyulitpersalinan1') : NULL,
+                'aspekpenyulitpersalinan2'      => safe_post('aspekpenyulitpersalinan2')      !== '' ? safe_post('aspekpenyulitpersalinan2') : NULL,
+                'aspekpenyulitpersalinan3'      => safe_post('aspekpenyulitpersalinan3')      !== '' ? safe_post('aspekpenyulitpersalinan3') : NULL,
+                'aspekpenyulitpersalinan4'      => safe_post('aspekpenyulitpersalinan4')      !== '' ? safe_post('aspekpenyulitpersalinan4') : NULL,
+                'aspekpenyulitpersalinan5'      => safe_post('aspekpenyulitpersalinan5')      !== '' ? safe_post('aspekpenyulitpersalinan5') : NULL,
+                'aspekpenyulitpersalinan6'      => safe_post('aspekpenyulitpersalinan6')      !== '' ? safe_post('aspekpenyulitpersalinan6') : NULL,
+                'aspekpenyulitpersalinan7'      => safe_post('aspekpenyulitpersalinan7')      !== '' ? safe_post('aspekpenyulitpersalinan7') : NULL,
+                'aspekpenyulitpersalinan8'      => safe_post('aspekpenyulitpersalinan8')      !== '' ? safe_post('aspekpenyulitpersalinan8') : NULL,
+                'aspekpenyulitpersalinan9'      => safe_post('aspekpenyulitpersalinan9')      !== '' ? safe_post('aspekpenyulitpersalinan9') : NULL,
+                'aspekpenyulitpersalinan10'     => safe_post('aspekpenyulitpersalinan10')      !== '' ? safe_post('aspekpenyulitpersalinan10') : NULL,
+                'aspekpenyulitpersalinan11'     => safe_post('aspekpenyulitpersalinan11')      !== '' ? safe_post('aspekpenyulitpersalinan11') : NULL,
+                'aspekpenyulitpersalinan12'     => safe_post('aspekpenyulitpersalinan12')      !== '' ? safe_post('aspekpenyulitpersalinan12') : NULL,
+                'aspekpenyulitpersalinan13'     => safe_post('aspekpenyulitpersalinan13')      !== '' ? safe_post('aspekpenyulitpersalinan13') : NULL,
+                'aspekpenyulitpersalinan14'     => safe_post('aspekpenyulitpersalinan14')      !== '' ? safe_post('aspekpenyulitpersalinan14') : NULL,
+                'aspekpenyulitpersalinan15'     => safe_post('aspekpenyulitpersalinan15')      !== '' ? safe_post('aspekpenyulitpersalinan15') : NULL,
+                'aspekpenyulitpersalinan16'     => safe_post('aspekpenyulitpersalinan16')      !== '' ? safe_post('aspekpenyulitpersalinan16') : NULL,
+                'aspekpenyulitpersalinan17'     => safe_post('aspekpenyulitpersalinan17')      !== '' ? safe_post('aspekpenyulitpersalinan17') : NULL,
+                'aspekpenyulitpersalinan18'     => safe_post('aspekpenyulitpersalinan18')      !== '' ? safe_post('aspekpenyulitpersalinan18') : NULL,
+                'aspekpenyulitpersalinan19'     => safe_post('aspekpenyulitpersalinan19')      !== '' ? safe_post('aspekpenyulitpersalinan19') : NULL,
+                'jikaresikorendah1'      => safe_post('jikaresikorendah1')      !== '' ? safe_post('jikaresikorendah1') : NULL,
+                'jikaresikorendah2'      => safe_post('jikaresikorendah2')      !== '' ? safe_post('jikaresikorendah2') : NULL,
+                'jikaresikosedang1'      => safe_post('jikaresikosedang1')      !== '' ? safe_post('jikaresikosedang1') : NULL,
+                'jikaresikosedang2'      => safe_post('jikaresikosedang2')      !== '' ? safe_post('jikaresikosedang2') : NULL,
+                'jikaresikotinggi1'      => safe_post('jikaresikotinggi1')      !== '' ? safe_post('jikaresikotinggi1') : NULL,
+                'jikaresikotinggi2'      => safe_post('jikaresikotinggi2')      !== '' ? safe_post('jikaresikotinggi2') : NULL,
+                'jikaresikorendah3'      => safe_post('jikaresikorendah3')      !== '' ? safe_post('jikaresikorendah3') : NULL,
+                'jikaresikorendah4'      => safe_post('jikaresikorendah4')      !== '' ? safe_post('jikaresikorendah4') : NULL,
+                'perawatsauikr'          => safe_post('perawatsauikr')             !== '' ? safe_post('perawatsauikr') : NULL,
+                'date_created'           => safe_post('pengkajian_date_skrining_admisi_uikr') !== '' ? safe_post('pengkajian_date_skrining_admisi_uikr') : null,
+            );
+            // var_dump($chek_data_sauikr);die;                      
+            $this->m_pelayanan->insertSkriningAdmisiUikr($chek_data_sauikr);
+        }
+        if (!empty($respon)) {
+            $response = $respon;
+        } else {
+            $response = null;
+        }
+        if ($this->db->trans_status() === false) :
+            $this->db->trans_rollback();
+            $status = false;
+        else :
+            $this->db->trans_commit();
+            $status = true;
+        endif;
+
+        $message = array(
+            'status' => $status,
+            'token'  => $this->security->get_csrf_hash(),
+            'id_pendaftaran' => ('id_pendaftaran'),
+            'id_layanan_pendaftaran' => ('id_layanan_pendaftaran'),
+            'respon' => $response,
+        );
+        $this->response($message, REST_Controller::HTTP_OK);
+    }
+
+    // SAUIKR 4
+    function get_edit_skrining_admisi_uikr_get(){
+        if (!$this->get('id', true)) :
+            $this->response(null, REST_Controller::HTTP_BAD_REQUEST);
+        endif;
+        $data = $this->m_pelayanan->getSkriningAdmisiUikrByID($this->get('id', true));
+        $this->response($data, REST_Controller::HTTP_OK);
+    }
+
+    // SAUIKR 3
+    function hapus_skrining_admisi_uikr_delete($id) {
+        $this->db->trans_begin();
+
+        // User yang menghapus (dari session / GET)
+        $id_user_logs = $this->session->userdata('id_translucent') ?: $this->input->get('id_user');
+
+        // Ambil data lama sebelum dihapus
+        $lama = $this->db->get_where('sm_skrining_admisi_uikr', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']); // hilangkan ID asli
+
+            // Pemilik data awal
+            $log['id_user']      = $lama['id_user'];
+            // User yang menghapus
+            $log['id_user_logs'] = $id_user_logs;
+
+            $log['keterangan'] = 'Delete';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+
+            $this->m_pelayanan->insertLogsSkriningAdmisiUikr($log);
+        }
+
+        // Hapus data utama
+        $status = $this->m_pelayanan->deleteSkriningAdmisiUikr($id);
+
+        if ($this->db->trans_status() === false || !$status) {
+            $this->db->trans_rollback();
+            $response = array('status' => false, 'message' => 'Gagal menghapus data!');
+        } else {
+            $this->db->trans_commit();
+            $response = array('status' => true, 'message' => 'Berhasil menghapus data!');
+        }
+
+        $this->response($response, REST_Controller::HTTP_OK);
+    }
+
+    // SAUIKR 5
+    function update_skrining_admisi_uikr_put() {
+        $this->db->trans_begin();
+
+        $id = $this->put('id', true);
+        if (!$id) {
+            $this->response(['status' => false], REST_Controller::HTTP_OK);
+            return;
+        }
+
+        // Ambil data lama untuk log
+        $lama = $this->db->get_where('sm_skrining_admisi_uikr', ['id' => $id])->row_array();
+        if ($lama) {
+            $log = $lama;
+            unset($log['id']);
+            $log['id_user'] = $lama['id_user']; // simpan pemilik data awal
+            $log['id_user_logs'] = $this->session->userdata('id_translucent') ?: $this->put('id_user'); // user yg edit
+            $log['keterangan'] = 'Update';
+            // $log['created_at'] = date('Y-m-d H:i:s');
+
+            $log['created_at'] = $lama['created_at'];
+
+
+            $log['updated_at'] = date('Y-m-d H:i:s');
+            $this->m_pelayanan->insertLogsSkriningAdmisiUikr($log);
+        }
+
+        // Data untuk update (id_user asli tidak diubah)
+
+        $data = [
+            'id'                     => $id,
+            'tanggal_sauikr'         => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_sauikr', true)))),
+            'jam_sauikr'             => $this->put('jam_sauikr', true) ?: null,
+            'diagnosa_sauikr'        => $this->put('diagnosa_sauikr', true) ?: null,
+            'jenispersalinan_sauikr' => $this->put('jenispersalinan_sauikr', true) ?: null,
+            'aspekmaternal1'  => $this->put('aspekmaternal1', true) ?: null,
+            'aspekmaternal2'  => $this->put('aspekmaternal2', true) ?: null,
+            'aspekmaternal3'  => $this->put('aspekmaternal3', true) ?: null,
+            'aspekmaternal4'  => $this->put('aspekmaternal4', true) ?: null,
+            'aspekmaternal5'  => $this->put('aspekmaternal5', true) ?: null,
+            'aspekmaternal6'  => $this->put('aspekmaternal6', true) ?: null,
+            'aspekmaternal7'  => $this->put('aspekmaternal7', true) ?: null,
+            'aspekjanin1'  => $this->put('aspekjanin1', true) ?: null,
+            'aspekjanin2'  => $this->put('aspekjanin2', true) ?: null,
+            'aspekjanin3'  => $this->put('aspekjanin3', true) ?: null,
+            'aspekjanin4'  => $this->put('aspekjanin4', true) ?: null,
+            'aspekjanin5'  => $this->put('aspekjanin5', true) ?: null,
+            'aspekjanin6'  => $this->put('aspekjanin6', true) ?: null,
+            'aspekjanin7'  => $this->put('aspekjanin7', true) ?: null,
+            'aspekjanin8'  => $this->put('aspekjanin8', true) ?: null,
+            'aspekjanin9'  => $this->put('aspekjanin9', true) ?: null,
+            'aspekjanin10'  => $this->put('aspekjanin10', true) ?: null,
+            'aspekpenyulitpersalinan1'  => $this->put('aspekpenyulitpersalinan1', true) ?: null,
+            'aspekpenyulitpersalinan2'  => $this->put('aspekpenyulitpersalinan2', true) ?: null,
+            'aspekpenyulitpersalinan3'  => $this->put('aspekpenyulitpersalinan3', true) ?: null,
+            'aspekpenyulitpersalinan4'  => $this->put('aspekpenyulitpersalinan4', true) ?: null,
+            'aspekpenyulitpersalinan5'  => $this->put('aspekpenyulitpersalinan5', true) ?: null,
+            'aspekpenyulitpersalinan6'  => $this->put('aspekpenyulitpersalinan6', true) ?: null,
+            'aspekpenyulitpersalinan7'  => $this->put('aspekpenyulitpersalinan7', true) ?: null,
+            'aspekpenyulitpersalinan8'  => $this->put('aspekpenyulitpersalinan8', true) ?: null,
+            'aspekpenyulitpersalinan9'  => $this->put('aspekpenyulitpersalinan9', true) ?: null,
+            'aspekpenyulitpersalinan10'  => $this->put('aspekpenyulitpersalinan10', true) ?: null,
+            'aspekpenyulitpersalinan11'  => $this->put('aspekpenyulitpersalinan11', true) ?: null,
+            'aspekpenyulitpersalinan12'  => $this->put('aspekpenyulitpersalinan12', true) ?: null,
+            'aspekpenyulitpersalinan13'  => $this->put('aspekpenyulitpersalinan13', true) ?: null,
+            'aspekpenyulitpersalinan14'  => $this->put('aspekpenyulitpersalinan14', true) ?: null,
+            'aspekpenyulitpersalinan15'  => $this->put('aspekpenyulitpersalinan15', true) ?: null,
+            'aspekpenyulitpersalinan16'  => $this->put('aspekpenyulitpersalinan16', true) ?: null,
+            'aspekpenyulitpersalinan17'  => $this->put('aspekpenyulitpersalinan17', true) ?: null,
+            'aspekpenyulitpersalinan18'  => $this->put('aspekpenyulitpersalinan18', true) ?: null,
+            'aspekpenyulitpersalinan19'  => $this->put('aspekpenyulitpersalinan19', true) ?: null,
+            'jikaresikorendah1'  => $this->put('jikaresikorendah1', true) ?: null,
+            'jikaresikorendah2'  => $this->put('jikaresikorendah2', true) ?: null,
+            'jikaresikosedang1'  => $this->put('jikaresikosedang1', true) ?: null,
+            'jikaresikosedang2'  => $this->put('jikaresikosedang2', true) ?: null,
+            'jikaresikotinggi1'  => $this->put('jikaresikotinggi1', true) ?: null,
+            'jikaresikotinggi2'  => $this->put('jikaresikotinggi2', true) ?: null,
+            'jikaresikorendah3'  => $this->put('jikaresikorendah3', true) ?: null,
+            'jikaresikorendah4'  => $this->put('jikaresikorendah4', true) ?: null,
+            'perawatsauikr'      => $this->put('perawatsauikr', true) ?: null,
+            'updated_at'         => date('Y-m-d H:i:s'),
+            'id_user'       => $this->session->userdata('id_translucent') ?: $this->put('id_user'), // fallback
+        ];
+
+        $this->db->where('id', $id);
+        $status = $this->db->update('sm_skrining_admisi_uikr', $data);
+
+        if ($this->db->trans_status() === false) {
+            $this->db->trans_rollback();
+            $this->response(['status' => false], REST_Controller::HTTP_OK);
+        } else {
+            $this->db->trans_commit();
+            $this->response(['status' => true], REST_Controller::HTTP_OK);
+        }
+    }
+
+
+    // // SAUIKR 3
+    // function hapus_skrining_admisi_uikr_delete($id)
+    // {
+    //     $status = $this->m_pelayanan->deleteSkriningAdmisiUikr($id);
+    //     if ($status) :
+    //         $response = array('status' => $status, 'message' => 'Berhasil menghapus Skrining Admisi Untuk Identifikasi Kebutuhan Resusitasi!');
+    //     else :
+    //         $response = array('status' => $status, 'message' => 'Gagal menghapus Skrining Admisi Untuk Identifikasi Kebutuhan Resusitasi!');
+    //     endif;
+    //     $this->response($response, REST_Controller::HTTP_OK);
+    // }
+
+    // // KALAU YANG INI BEDA SAUIKR INI DI KASIH _ NYA PAS DI  EDIT MALAH GA BISA HARUS DI HILANGKAN SPASI
+    // function update_skrining_admisi_uikr_put()
+    // {
+    //     $id = $this->put('id', true);
+    //     if (!$id) {
+    //         $this->response(['status' => false], REST_Controller::HTTP_OK);
+    //         return;
+    //     }
+    //     $data = [
+    //         'id'                     => $id,
+    //         'tanggal_sauikr'         => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_sauikr', true)))),
+    //         'jam_sauikr'             => $this->put('jam_sauikr', true) ?: null,
+    //         'diagnosa_sauikr'        => $this->put('diagnosa_sauikr', true) ?: null,
+    //         'jenispersalinan_sauikr' => $this->put('jenispersalinan_sauikr', true) ?: null,
+    //         'aspekmaternal1'  => $this->put('aspekmaternal1', true) ?: null,
+    //         'aspekmaternal2'  => $this->put('aspekmaternal2', true) ?: null,
+    //         'aspekmaternal3'  => $this->put('aspekmaternal3', true) ?: null,
+    //         'aspekmaternal4'  => $this->put('aspekmaternal4', true) ?: null,
+    //         'aspekmaternal5'  => $this->put('aspekmaternal5', true) ?: null,
+    //         'aspekmaternal6'  => $this->put('aspekmaternal6', true) ?: null,
+    //         'aspekmaternal7'  => $this->put('aspekmaternal7', true) ?: null,
+    //         'aspekjanin1'  => $this->put('aspekjanin1', true) ?: null,
+    //         'aspekjanin2'  => $this->put('aspekjanin2', true) ?: null,
+    //         'aspekjanin3'  => $this->put('aspekjanin3', true) ?: null,
+    //         'aspekjanin4'  => $this->put('aspekjanin4', true) ?: null,
+    //         'aspekjanin5'  => $this->put('aspekjanin5', true) ?: null,
+    //         'aspekjanin6'  => $this->put('aspekjanin6', true) ?: null,
+    //         'aspekjanin7'  => $this->put('aspekjanin7', true) ?: null,
+    //         'aspekjanin8'  => $this->put('aspekjanin8', true) ?: null,
+    //         'aspekjanin9'  => $this->put('aspekjanin9', true) ?: null,
+    //         'aspekjanin10'  => $this->put('aspekjanin10', true) ?: null,
+    //         'aspekpenyulitpersalinan1'  => $this->put('aspekpenyulitpersalinan1', true) ?: null,
+    //         'aspekpenyulitpersalinan2'  => $this->put('aspekpenyulitpersalinan2', true) ?: null,
+    //         'aspekpenyulitpersalinan3'  => $this->put('aspekpenyulitpersalinan3', true) ?: null,
+    //         'aspekpenyulitpersalinan4'  => $this->put('aspekpenyulitpersalinan4', true) ?: null,
+    //         'aspekpenyulitpersalinan5'  => $this->put('aspekpenyulitpersalinan5', true) ?: null,
+    //         'aspekpenyulitpersalinan6'  => $this->put('aspekpenyulitpersalinan6', true) ?: null,
+    //         'aspekpenyulitpersalinan7'  => $this->put('aspekpenyulitpersalinan7', true) ?: null,
+    //         'aspekpenyulitpersalinan8'  => $this->put('aspekpenyulitpersalinan8', true) ?: null,
+    //         'aspekpenyulitpersalinan9'  => $this->put('aspekpenyulitpersalinan9', true) ?: null,
+    //         'aspekpenyulitpersalinan10'  => $this->put('aspekpenyulitpersalinan10', true) ?: null,
+    //         'aspekpenyulitpersalinan11'  => $this->put('aspekpenyulitpersalinan11', true) ?: null,
+    //         'aspekpenyulitpersalinan12'  => $this->put('aspekpenyulitpersalinan12', true) ?: null,
+    //         'aspekpenyulitpersalinan13'  => $this->put('aspekpenyulitpersalinan13', true) ?: null,
+    //         'aspekpenyulitpersalinan14'  => $this->put('aspekpenyulitpersalinan14', true) ?: null,
+    //         'aspekpenyulitpersalinan15'  => $this->put('aspekpenyulitpersalinan15', true) ?: null,
+    //         'aspekpenyulitpersalinan16'  => $this->put('aspekpenyulitpersalinan16', true) ?: null,
+    //         'aspekpenyulitpersalinan17'  => $this->put('aspekpenyulitpersalinan17', true) ?: null,
+    //         'aspekpenyulitpersalinan18'  => $this->put('aspekpenyulitpersalinan18', true) ?: null,
+    //         'aspekpenyulitpersalinan19'  => $this->put('aspekpenyulitpersalinan19', true) ?: null,
+    //         'jikaresikorendah1'  => $this->put('jikaresikorendah1', true) ?: null,
+    //         'jikaresikorendah2'  => $this->put('jikaresikorendah2', true) ?: null,
+    //         'jikaresikosedang1'  => $this->put('jikaresikosedang1', true) ?: null,
+    //         'jikaresikosedang2'  => $this->put('jikaresikosedang2', true) ?: null,
+    //         'jikaresikotinggi1'  => $this->put('jikaresikotinggi1', true) ?: null,
+    //         'jikaresikotinggi2'  => $this->put('jikaresikotinggi2', true) ?: null,
+    //         'jikaresikorendah3'  => $this->put('jikaresikorendah3', true) ?: null,
+    //         'jikaresikorendah4'  => $this->put('jikaresikorendah4', true) ?: null,
+    //         'perawatsauikr'      => $this->put('perawatsauikr', true) ?: null,
+    //         'updated_at'         => date('Y-m-d H:i:s'),
+    //     ];
+    //     // var_dump($data);die;
+    //     $status = $this->m_pelayanan->editSkriningAdmisiUikr($data);
+    //     $this->response(['status' => $status], REST_Controller::HTTP_OK);
+    // }
 
 
 
@@ -18601,206 +19064,14 @@ class Pelayanan extends REST_Controller
 
 
 
-    // SAUIKR 1
-    function get_data_skrining_admisi_uikr_get()
-    {
-        if (!$this->get('id_layanan_pendaftaran')) :
-            $this->response(NULL, REST_Controller::HTTP_BAD_REQUEST); // (400)
-        endif;
-        $this->load->model('pendaftaran/Pendaftaran_model', 'm_pendaftaran');
-        $this->load->model('pelayanan/Pelayanan_model', 'm_pelayanan');
-        $data                               = $this->m_pendaftaran->getPendaftaranDetail($this->get('id', true), $this->get('id_layanan', true));
-        $data['profil']                     = $this->m_pelayanan->getProfilPasien($data['pasien']->id_pasien);
-        $data['skrining_admisi_uikr']         = $this->m_pelayanan->getSkriningAdmisiUikr($this->get('id', true));
-        // $data['ds_manual_utama'] = [];
-        // $ds_manual_utamas = $this->m_pelayanan->getDiagnosaManualUtama($this->get('id', true));
-        // if (!empty($ds_manual_utamas)) {
-        //     $data['ds_manual_utama'] = $ds_manual_utamas;
-        // }
 
-        if ($data) :
-            $this->response($data, REST_Controller::HTTP_OK); // (200)
-        endif;
-        // var_dump('skrining_admisi_uikr');die;
-    }
 
-    // SAUIKR 2
-    function simpan_data_skrining_admisi_uikr_post()
-    {
-        $id_users = safe_post('id_user');
-        $layanan = array('id' => safe_post('id_layanan_pendaftaran'));
-        $pengkajian_date_skrining_admisi_uikr = safe_post('pengkajian_date_skrining_admisi_uikr');
-        // KALAU GA ADA IINI PASTI EROR
-        $id_pendaftaran           = safe_post('id_pendaftaran');
-        if (!empty($pengkajian_date_skrining_admisi_uikr)) {
-            $chek_data_sauikr = array(
-                'id_pendaftaran'            => $id_pendaftaran,
-                'id_layanan_pendaftaran'    => $layanan['id'],
-                'id_user'                   => safe_post('user_skrining_admisi_uikr') !== '' ? safe_post('user_skrining_admisi_uikr') : null,
-                'tanggal_sauikr'            => safe_post('tanggal_sauikr') !== '' ? safe_post('tanggal_sauikr') : null,
-                'jam_sauikr'                => safe_post('jam_sauikr') !== '' ? safe_post('jam_sauikr') : null,
-                'diagnosa_sauikr'           => safe_post('diagnosa_sauikr') !== '' ? safe_post('diagnosa_sauikr') : null,
-                'jenispersalinan_sauikr'    => safe_post('jenispersalinan_sauikr') !== '' ? safe_post('jenispersalinan_sauikr') : null,
-                'aspekmaternal1'      => safe_post('aspekmaternal1')      !== '' ? safe_post('aspekmaternal1') : NULL,
-                'aspekmaternal2'      => safe_post('aspekmaternal2')      !== '' ? safe_post('aspekmaternal2') : NULL,
-                'aspekmaternal3'      => safe_post('aspekmaternal3')      !== '' ? safe_post('aspekmaternal3') : NULL,
-                'aspekmaternal4'      => safe_post('aspekmaternal4')      !== '' ? safe_post('aspekmaternal4') : NULL,
-                'aspekmaternal5'      => safe_post('aspekmaternal5')      !== '' ? safe_post('aspekmaternal5') : NULL,
-                'aspekmaternal6'      => safe_post('aspekmaternal6')      !== '' ? safe_post('aspekmaternal6') : NULL,
-                'aspekmaternal7'      => safe_post('aspekmaternal7')      !== '' ? safe_post('aspekmaternal7') : NULL,
-                'aspekjanin1'      => safe_post('aspekjanin1')      !== '' ? safe_post('aspekjanin1') : NULL,
-                'aspekjanin2'      => safe_post('aspekjanin2')      !== '' ? safe_post('aspekjanin2') : NULL,
-                'aspekjanin3'      => safe_post('aspekjanin3')      !== '' ? safe_post('aspekjanin3') : NULL,
-                'aspekjanin4'      => safe_post('aspekjanin4')      !== '' ? safe_post('aspekjanin4') : NULL,
-                'aspekjanin5'      => safe_post('aspekjanin5')      !== '' ? safe_post('aspekjanin5') : NULL,
-                'aspekjanin6'      => safe_post('aspekjanin6')      !== '' ? safe_post('aspekjanin6') : NULL,
-                'aspekjanin7'      => safe_post('aspekjanin7')      !== '' ? safe_post('aspekjanin7') : NULL,
-                'aspekjanin8'      => safe_post('aspekjanin8')      !== '' ? safe_post('aspekjanin8') : NULL,
-                'aspekjanin9'      => safe_post('aspekjanin9')      !== '' ? safe_post('aspekjanin9') : NULL,
-                'aspekjanin10'     => safe_post('aspekjanin10')     !== '' ? safe_post('aspekjanin10') : NULL,
-                'aspekpenyulitpersalinan1'      => safe_post('aspekpenyulitpersalinan1')      !== '' ? safe_post('aspekpenyulitpersalinan1') : NULL,
-                'aspekpenyulitpersalinan2'      => safe_post('aspekpenyulitpersalinan2')      !== '' ? safe_post('aspekpenyulitpersalinan2') : NULL,
-                'aspekpenyulitpersalinan3'      => safe_post('aspekpenyulitpersalinan3')      !== '' ? safe_post('aspekpenyulitpersalinan3') : NULL,
-                'aspekpenyulitpersalinan4'      => safe_post('aspekpenyulitpersalinan4')      !== '' ? safe_post('aspekpenyulitpersalinan4') : NULL,
-                'aspekpenyulitpersalinan5'      => safe_post('aspekpenyulitpersalinan5')      !== '' ? safe_post('aspekpenyulitpersalinan5') : NULL,
-                'aspekpenyulitpersalinan6'      => safe_post('aspekpenyulitpersalinan6')      !== '' ? safe_post('aspekpenyulitpersalinan6') : NULL,
-                'aspekpenyulitpersalinan7'      => safe_post('aspekpenyulitpersalinan7')      !== '' ? safe_post('aspekpenyulitpersalinan7') : NULL,
-                'aspekpenyulitpersalinan8'      => safe_post('aspekpenyulitpersalinan8')      !== '' ? safe_post('aspekpenyulitpersalinan8') : NULL,
-                'aspekpenyulitpersalinan9'      => safe_post('aspekpenyulitpersalinan9')      !== '' ? safe_post('aspekpenyulitpersalinan9') : NULL,
-                'aspekpenyulitpersalinan10'     => safe_post('aspekpenyulitpersalinan10')      !== '' ? safe_post('aspekpenyulitpersalinan10') : NULL,
-                'aspekpenyulitpersalinan11'     => safe_post('aspekpenyulitpersalinan11')      !== '' ? safe_post('aspekpenyulitpersalinan11') : NULL,
-                'aspekpenyulitpersalinan12'     => safe_post('aspekpenyulitpersalinan12')      !== '' ? safe_post('aspekpenyulitpersalinan12') : NULL,
-                'aspekpenyulitpersalinan13'     => safe_post('aspekpenyulitpersalinan13')      !== '' ? safe_post('aspekpenyulitpersalinan13') : NULL,
-                'aspekpenyulitpersalinan14'     => safe_post('aspekpenyulitpersalinan14')      !== '' ? safe_post('aspekpenyulitpersalinan14') : NULL,
-                'aspekpenyulitpersalinan15'     => safe_post('aspekpenyulitpersalinan15')      !== '' ? safe_post('aspekpenyulitpersalinan15') : NULL,
-                'aspekpenyulitpersalinan16'     => safe_post('aspekpenyulitpersalinan16')      !== '' ? safe_post('aspekpenyulitpersalinan16') : NULL,
-                'aspekpenyulitpersalinan17'     => safe_post('aspekpenyulitpersalinan17')      !== '' ? safe_post('aspekpenyulitpersalinan17') : NULL,
-                'aspekpenyulitpersalinan18'     => safe_post('aspekpenyulitpersalinan18')      !== '' ? safe_post('aspekpenyulitpersalinan18') : NULL,
-                'aspekpenyulitpersalinan19'     => safe_post('aspekpenyulitpersalinan19')      !== '' ? safe_post('aspekpenyulitpersalinan19') : NULL,
-                'jikaresikorendah1'      => safe_post('jikaresikorendah1')      !== '' ? safe_post('jikaresikorendah1') : NULL,
-                'jikaresikorendah2'      => safe_post('jikaresikorendah2')      !== '' ? safe_post('jikaresikorendah2') : NULL,
-                'jikaresikosedang1'      => safe_post('jikaresikosedang1')      !== '' ? safe_post('jikaresikosedang1') : NULL,
-                'jikaresikosedang2'      => safe_post('jikaresikosedang2')      !== '' ? safe_post('jikaresikosedang2') : NULL,
-                'jikaresikotinggi1'      => safe_post('jikaresikotinggi1')      !== '' ? safe_post('jikaresikotinggi1') : NULL,
-                'jikaresikotinggi2'      => safe_post('jikaresikotinggi2')      !== '' ? safe_post('jikaresikotinggi2') : NULL,
-                'jikaresikorendah3'      => safe_post('jikaresikorendah3')      !== '' ? safe_post('jikaresikorendah3') : NULL,
-                'jikaresikorendah4'      => safe_post('jikaresikorendah4')      !== '' ? safe_post('jikaresikorendah4') : NULL,
-                'perawatsauikr'          => safe_post('perawatsauikr')             !== '' ? safe_post('perawatsauikr') : NULL,
-                'date_created'           => safe_post('pengkajian_date_skrining_admisi_uikr') !== '' ? safe_post('pengkajian_date_skrining_admisi_uikr') : null,
-            );
-            // var_dump($chek_data_sauikr);die;                      
-            $this->m_pelayanan->insertSkriningAdmisiUikr($chek_data_sauikr);
-        }
-        if (!empty($respon)) {
-            $response = $respon;
-        } else {
-            $response = null;
-        }
-        if ($this->db->trans_status() === false) :
-            $this->db->trans_rollback();
-            $status = false;
-        else :
-            $this->db->trans_commit();
-            $status = true;
-        endif;
 
-        $message = array(
-            'status' => $status,
-            'token'  => $this->security->get_csrf_hash(),
-            'id_pendaftaran' => ('id_pendaftaran'),
-            'id_layanan_pendaftaran' => ('id_layanan_pendaftaran'),
-            'respon' => $response,
-        );
-        $this->response($message, REST_Controller::HTTP_OK);
-    }
 
-    // SAUIKR 3
-    function hapus_skrining_admisi_uikr_delete($id)
-    {
-        $status = $this->m_pelayanan->deleteSkriningAdmisiUikr($id);
-        if ($status) :
-            $response = array('status' => $status, 'message' => 'Berhasil menghapus Skrining Admisi Untuk Identifikasi Kebutuhan Resusitasi!');
-        else :
-            $response = array('status' => $status, 'message' => 'Gagal menghapus Skrining Admisi Untuk Identifikasi Kebutuhan Resusitasi!');
-        endif;
-        $this->response($response, REST_Controller::HTTP_OK);
-    }
 
-    // SAUIKR 4
-    function get_edit_skrining_admisi_uikr_get()
-    {
-        if (!$this->get('id', true)) :
-            $this->response(null, REST_Controller::HTTP_BAD_REQUEST);
-        endif;
-        $data = $this->m_pelayanan->getSkriningAdmisiUikrByID($this->get('id', true));
-        $this->response($data, REST_Controller::HTTP_OK);
-    }
 
-    // KALAU YANG INI BEDA SAUIKR INI DI KASIH _ NYA PAS DI  EDIT MALAH GA BISA HARUS DI HILANGKAN SPASI
-    function update_skrining_admisi_uikr_put()
-    {
-        $id = $this->put('id', true);
-        if (!$id) {
-            $this->response(['status' => false], REST_Controller::HTTP_OK);
-            return;
-        }
-        $data = [
-            'id'                     => $id,
-            'tanggal_sauikr'         => date('Y-m-d', strtotime(str_replace('/', '-', $this->put('tanggal_sauikr', true)))),
-            'jam_sauikr'             => $this->put('jam_sauikr', true) ?: null,
-            'diagnosa_sauikr'        => $this->put('diagnosa_sauikr', true) ?: null,
-            'jenispersalinan_sauikr' => $this->put('jenispersalinan_sauikr', true) ?: null,
-            'aspekmaternal1'  => $this->put('aspekmaternal1', true) ?: null,
-            'aspekmaternal2'  => $this->put('aspekmaternal2', true) ?: null,
-            'aspekmaternal3'  => $this->put('aspekmaternal3', true) ?: null,
-            'aspekmaternal4'  => $this->put('aspekmaternal4', true) ?: null,
-            'aspekmaternal5'  => $this->put('aspekmaternal5', true) ?: null,
-            'aspekmaternal6'  => $this->put('aspekmaternal6', true) ?: null,
-            'aspekmaternal7'  => $this->put('aspekmaternal7', true) ?: null,
-            'aspekjanin1'  => $this->put('aspekjanin1', true) ?: null,
-            'aspekjanin2'  => $this->put('aspekjanin2', true) ?: null,
-            'aspekjanin3'  => $this->put('aspekjanin3', true) ?: null,
-            'aspekjanin4'  => $this->put('aspekjanin4', true) ?: null,
-            'aspekjanin5'  => $this->put('aspekjanin5', true) ?: null,
-            'aspekjanin6'  => $this->put('aspekjanin6', true) ?: null,
-            'aspekjanin7'  => $this->put('aspekjanin7', true) ?: null,
-            'aspekjanin8'  => $this->put('aspekjanin8', true) ?: null,
-            'aspekjanin9'  => $this->put('aspekjanin9', true) ?: null,
-            'aspekjanin10'  => $this->put('aspekjanin10', true) ?: null,
-            'aspekpenyulitpersalinan1'  => $this->put('aspekpenyulitpersalinan1', true) ?: null,
-            'aspekpenyulitpersalinan2'  => $this->put('aspekpenyulitpersalinan2', true) ?: null,
-            'aspekpenyulitpersalinan3'  => $this->put('aspekpenyulitpersalinan3', true) ?: null,
-            'aspekpenyulitpersalinan4'  => $this->put('aspekpenyulitpersalinan4', true) ?: null,
-            'aspekpenyulitpersalinan5'  => $this->put('aspekpenyulitpersalinan5', true) ?: null,
-            'aspekpenyulitpersalinan6'  => $this->put('aspekpenyulitpersalinan6', true) ?: null,
-            'aspekpenyulitpersalinan7'  => $this->put('aspekpenyulitpersalinan7', true) ?: null,
-            'aspekpenyulitpersalinan8'  => $this->put('aspekpenyulitpersalinan8', true) ?: null,
-            'aspekpenyulitpersalinan9'  => $this->put('aspekpenyulitpersalinan9', true) ?: null,
-            'aspekpenyulitpersalinan10'  => $this->put('aspekpenyulitpersalinan10', true) ?: null,
-            'aspekpenyulitpersalinan11'  => $this->put('aspekpenyulitpersalinan11', true) ?: null,
-            'aspekpenyulitpersalinan12'  => $this->put('aspekpenyulitpersalinan12', true) ?: null,
-            'aspekpenyulitpersalinan13'  => $this->put('aspekpenyulitpersalinan13', true) ?: null,
-            'aspekpenyulitpersalinan14'  => $this->put('aspekpenyulitpersalinan14', true) ?: null,
-            'aspekpenyulitpersalinan15'  => $this->put('aspekpenyulitpersalinan15', true) ?: null,
-            'aspekpenyulitpersalinan16'  => $this->put('aspekpenyulitpersalinan16', true) ?: null,
-            'aspekpenyulitpersalinan17'  => $this->put('aspekpenyulitpersalinan17', true) ?: null,
-            'aspekpenyulitpersalinan18'  => $this->put('aspekpenyulitpersalinan18', true) ?: null,
-            'aspekpenyulitpersalinan19'  => $this->put('aspekpenyulitpersalinan19', true) ?: null,
-            'jikaresikorendah1'  => $this->put('jikaresikorendah1', true) ?: null,
-            'jikaresikorendah2'  => $this->put('jikaresikorendah2', true) ?: null,
-            'jikaresikosedang1'  => $this->put('jikaresikosedang1', true) ?: null,
-            'jikaresikosedang2'  => $this->put('jikaresikosedang2', true) ?: null,
-            'jikaresikotinggi1'  => $this->put('jikaresikotinggi1', true) ?: null,
-            'jikaresikotinggi2'  => $this->put('jikaresikotinggi2', true) ?: null,
-            'jikaresikorendah3'  => $this->put('jikaresikorendah3', true) ?: null,
-            'jikaresikorendah4'  => $this->put('jikaresikorendah4', true) ?: null,
-            'perawatsauikr'      => $this->put('perawatsauikr', true) ?: null,
-            'updated_at'         => date('Y-m-d H:i:s'),
-        ];
-        // var_dump($data);die;
-        $status = $this->m_pelayanan->editSkriningAdmisiUikr($data);
-        $this->response(['status' => $status], REST_Controller::HTTP_OK);
-    }
+
+
 
     public function check_order_tarif_lab_get()
     {

@@ -15458,9 +15458,13 @@ class Pelayanan_model extends CI_Model
         return $this->db->query($sql)->row();
     }
 
+
+
+
+
+
     // SAFR 1 
-    function insertSkriningAdmisi($data)
-    {
+    function insertSkriningAdmisi($data){
         foreach ($data['date_created'] as $key => $value) {
             $tgl_safr = str_replace('/', '-', $data['tanggal_safr'][$key]);
             $tgl_safr = date("Y-m-d", strtotime($tgl_safr));
@@ -15513,14 +15517,12 @@ class Pelayanan_model extends CI_Model
     }
 
     // SAFR 4
-    function editSkriningAdmisi($data)
-    {
+    function editSkriningAdmisi($data){
         return $this->db->where('id', $data['id'], true)->update('sm_skrining_admisi_130', $data);
     }
 
     // SAFR 2
-    function getSkriningAdmisi($id_layanan_pendaftaran)
-    {
+    function getSkriningAdmisi($id_layanan_pendaftaran){
         return $this->db->select("safr.*, COALESCE(spg.nama, '') as perawat, 
                                           COALESCE(wid.nama, '') as akun_user")
             ->from('sm_skrining_admisi_130 as safr')
@@ -15537,8 +15539,7 @@ class Pelayanan_model extends CI_Model
     }
 
     // SAFR 3
-    function getSkriningAdmisiByID($id)
-    {
+    function getSkriningAdmisiByID($id){
         return $this->db->select("safr.*, COALESCE(spg.nama, '') as perawat, 
                                           COALESCE(wid.nama, '') as akun_user")
             ->from('sm_skrining_admisi_130 as safr')
@@ -15554,25 +15555,18 @@ class Pelayanan_model extends CI_Model
     }
 
     // SAFR 5
-    function deleteSkriningAdmisi($id)
-    {
+    function deleteSkriningAdmisi($id){
         return $this->db->where("id", $id)->delete("sm_skrining_admisi_130");
+    }
+
+    // SAFR 6
+    function insertLogsSkriningAdmisi($data) { 
+        return $this->db->insert('sm_skrining_admisi_130_logs', $data);
     }
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
+    
     // PERT 1 
     function insertPreeklampsiaEarly($data){
         foreach ($data['date_created'] as $key => $value) {
@@ -15691,6 +15685,122 @@ class Pelayanan_model extends CI_Model
         return $this->db->insert('sm_preeklampsia_early_logs', $data);
     }
 
+
+
+
+
+    // SAUIKR 1 
+    function insertSkriningAdmisiUikr($data){
+        foreach ($data['date_created'] as $key => $value) {
+            $tgl_sauikr = str_replace('/', '-', $data['tanggal_sauikr'][$key]);
+            $tgl_sauikr = date("Y-m-d", strtotime($tgl_sauikr));
+            $data_sauikr = array(
+                'id_pendaftaran'         => $data['id_pendaftaran'],
+                'id_layanan_pendaftaran' => $data['id_layanan_pendaftaran'],
+                'id_user'                => $data['id_user'][$key],
+                'tanggal_sauikr'         => $tgl_sauikr,
+                'jam_sauikr'             => $data['jam_sauikr'][$key] !== '' ? $data['jam_sauikr'][$key] : null,
+                'diagnosa_sauikr'        => $data['diagnosa_sauikr'][$key] !== '' ? $data['diagnosa_sauikr'][$key] : null,
+                'jenispersalinan_sauikr' => $data['jenispersalinan_sauikr'][$key] !== '' ? $data['jenispersalinan_sauikr'][$key] : null,
+                'aspekmaternal1'   => $data['aspekmaternal1'][$key] !== '' ? $data['aspekmaternal1'][$key] : null,
+                'aspekmaternal2'   => $data['aspekmaternal2'][$key] !== '' ? $data['aspekmaternal2'][$key] : null,
+                'aspekmaternal3'   => $data['aspekmaternal3'][$key] !== '' ? $data['aspekmaternal3'][$key] : null,
+                'aspekmaternal4'   => $data['aspekmaternal4'][$key] !== '' ? $data['aspekmaternal4'][$key] : null,
+                'aspekmaternal5'   => $data['aspekmaternal5'][$key] !== '' ? $data['aspekmaternal5'][$key] : null,
+                'aspekmaternal6'   => $data['aspekmaternal6'][$key] !== '' ? $data['aspekmaternal6'][$key] : null,
+                'aspekmaternal7'   => $data['aspekmaternal7'][$key] !== '' ? $data['aspekmaternal7'][$key] : null,
+                'aspekjanin1'   => $data['aspekjanin1'][$key] !== '' ? $data['aspekjanin1'][$key] : null,
+                'aspekjanin2'   => $data['aspekjanin2'][$key] !== '' ? $data['aspekjanin2'][$key] : null,
+                'aspekjanin3'   => $data['aspekjanin3'][$key] !== '' ? $data['aspekjanin3'][$key] : null,
+                'aspekjanin4'   => $data['aspekjanin4'][$key] !== '' ? $data['aspekjanin4'][$key] : null,
+                'aspekjanin5'   => $data['aspekjanin5'][$key] !== '' ? $data['aspekjanin5'][$key] : null,
+                'aspekjanin6'   => $data['aspekjanin6'][$key] !== '' ? $data['aspekjanin6'][$key] : null,
+                'aspekjanin7'   => $data['aspekjanin7'][$key] !== '' ? $data['aspekjanin7'][$key] : null,
+                'aspekjanin8'   => $data['aspekjanin8'][$key] !== '' ? $data['aspekjanin8'][$key] : null,
+                'aspekjanin9'   => $data['aspekjanin9'][$key] !== '' ? $data['aspekjanin9'][$key] : null,
+                'aspekjanin10'  => $data['aspekjanin10'][$key] !== '' ? $data['aspekjanin10'][$key] : null,
+                'aspekpenyulitpersalinan1'   => $data['aspekpenyulitpersalinan1'][$key] !== '' ? $data['aspekpenyulitpersalinan1'][$key] : null,
+                'aspekpenyulitpersalinan2'   => $data['aspekpenyulitpersalinan2'][$key] !== '' ? $data['aspekpenyulitpersalinan2'][$key] : null,
+                'aspekpenyulitpersalinan3'   => $data['aspekpenyulitpersalinan3'][$key] !== '' ? $data['aspekpenyulitpersalinan3'][$key] : null,
+                'aspekpenyulitpersalinan4'   => $data['aspekpenyulitpersalinan4'][$key] !== '' ? $data['aspekpenyulitpersalinan4'][$key] : null,
+                'aspekpenyulitpersalinan5'   => $data['aspekpenyulitpersalinan5'][$key] !== '' ? $data['aspekpenyulitpersalinan5'][$key] : null,
+                'aspekpenyulitpersalinan6'   => $data['aspekpenyulitpersalinan6'][$key] !== '' ? $data['aspekpenyulitpersalinan6'][$key] : null,
+                'aspekpenyulitpersalinan7'   => $data['aspekpenyulitpersalinan7'][$key] !== '' ? $data['aspekpenyulitpersalinan7'][$key] : null,
+                'aspekpenyulitpersalinan8'   => $data['aspekpenyulitpersalinan8'][$key] !== '' ? $data['aspekpenyulitpersalinan8'][$key] : null,
+                'aspekpenyulitpersalinan9'   => $data['aspekpenyulitpersalinan9'][$key] !== '' ? $data['aspekpenyulitpersalinan9'][$key] : null,
+                'aspekpenyulitpersalinan10'  => $data['aspekpenyulitpersalinan10'][$key] !== '' ? $data['aspekpenyulitpersalinan10'][$key] : null,
+                'aspekpenyulitpersalinan11'  => $data['aspekpenyulitpersalinan11'][$key] !== '' ? $data['aspekpenyulitpersalinan11'][$key] : null,
+                'aspekpenyulitpersalinan12'  => $data['aspekpenyulitpersalinan12'][$key] !== '' ? $data['aspekpenyulitpersalinan12'][$key] : null,
+                'aspekpenyulitpersalinan13'  => $data['aspekpenyulitpersalinan13'][$key] !== '' ? $data['aspekpenyulitpersalinan13'][$key] : null,
+                'aspekpenyulitpersalinan14'  => $data['aspekpenyulitpersalinan14'][$key] !== '' ? $data['aspekpenyulitpersalinan14'][$key] : null,
+                'aspekpenyulitpersalinan15'  => $data['aspekpenyulitpersalinan15'][$key] !== '' ? $data['aspekpenyulitpersalinan15'][$key] : null,
+                'aspekpenyulitpersalinan16'  => $data['aspekpenyulitpersalinan16'][$key] !== '' ? $data['aspekpenyulitpersalinan16'][$key] : null,
+                'aspekpenyulitpersalinan17'  => $data['aspekpenyulitpersalinan17'][$key] !== '' ? $data['aspekpenyulitpersalinan17'][$key] : null,
+                'aspekpenyulitpersalinan18'  => $data['aspekpenyulitpersalinan18'][$key] !== '' ? $data['aspekpenyulitpersalinan18'][$key] : null,
+                'aspekpenyulitpersalinan19'  => $data['aspekpenyulitpersalinan19'][$key] !== '' ? $data['aspekpenyulitpersalinan19'][$key] : null,
+                'jikaresikorendah1'   => $data['jikaresikorendah1'][$key] !== '' ? $data['jikaresikorendah1'][$key] : null,
+                'jikaresikorendah2'   => $data['jikaresikorendah2'][$key] !== '' ? $data['jikaresikorendah2'][$key] : null,
+                'jikaresikosedang1'   => $data['jikaresikosedang1'][$key] !== '' ? $data['jikaresikosedang1'][$key] : null,
+                'jikaresikosedang2'   => $data['jikaresikosedang2'][$key] !== '' ? $data['jikaresikosedang2'][$key] : null,
+                'jikaresikotinggi1'   => $data['jikaresikotinggi1'][$key] !== '' ? $data['jikaresikotinggi1'][$key] : null,
+                'jikaresikotinggi2'   => $data['jikaresikotinggi2'][$key] !== '' ? $data['jikaresikotinggi2'][$key] : null,
+                'jikaresikorendah3'   => $data['jikaresikorendah3'][$key] !== '' ? $data['jikaresikorendah3'][$key] : null,
+                'jikaresikorendah4'   => $data['jikaresikorendah4'][$key] !== '' ? $data['jikaresikorendah4'][$key] : null,
+                'perawatsauikr'       => $data['perawatsauikr'][$key] !== '' ? $data['perawatsauikr'][$key] : null,
+                'created_at'          => $value,
+            );
+            // var_dump($data_pert);die;
+            $this->db->insert('sm_skrining_admisi_uikr', $data_sauikr);
+        }
+    }
+
+    // SAUIKR 4
+    function editSkriningAdmisiUikr($data){
+        return $this->db->where('id', $data['id'], true)->update('sm_skrining_admisi_uikr', $data);
+    }
+
+    // SAUIKR 2
+    function getSkriningAdmisiUikr($id_layanan_pendaftaran){
+        return $this->db->select("sauikr.*, COALESCE(spg.nama, '') as perawat, 
+                                          COALESCE(wid.nama, '') as akun_user")
+            ->from('sm_skrining_admisi_uikr as sauikr')
+            ->join('sm_layanan_pendaftaran as lp', 'sauikr.id_layanan_pendaftaran = lp.id')
+            ->join('sm_tenaga_medis as tmp', 'sauikr.perawatsauikr = tmp.id', 'left')
+            ->join('sm_pegawai as spg', 'spg.id = tmp.id_pegawai', 'left')
+            // user
+            ->join('sm_translucent sid', 'sauikr.id_user = sid.id', 'left')
+            ->join('sm_pegawai wid', 'sauikr.id_user = wid.id', 'left')
+            ->where('lp.id_pendaftaran', $id_layanan_pendaftaran, true)
+            ->order_by('sauikr.tanggal_sauikr', 'asc')
+            ->get()
+            ->result();
+    }
+
+    // SAUIKR 3
+    function getSkriningAdmisiUikrByID($id){
+        return $this->db->select("sauikr.*, COALESCE(spg.nama, '') as perawat, 
+                                          COALESCE(wid.nama, '') as akun_user")
+            ->from('sm_skrining_admisi_uikr as sauikr')
+            ->join('sm_tenaga_medis as tmp', 'sauikr.perawatsauikr = tmp.id', 'left')
+            ->join('sm_pegawai as spg', 'spg.id = tmp.id_pegawai', 'left')
+            // user
+            ->join('sm_translucent sid', 'sauikr.id_user = sid.id', 'left')
+            ->join('sm_pegawai wid', 'sauikr.id_user = wid.id', 'left')
+            ->where('sauikr.id', $id)
+            ->order_by('sauikr.tanggal_sauikr', 'asc')
+            ->get()
+            ->row();
+    }
+
+    // SAUIKR 5
+    function deleteSkriningAdmisiUikr($id){
+        return $this->db->where("id", $id)->delete("sm_skrining_admisi_uikr");
+    }
+
+    // SAUIKR 6
+    function insertLogsSkriningAdmisiUikr($data) { 
+        return $this->db->insert('sm_skrining_admisi_uikr_logs', $data);
+    }
     
 
 
@@ -15962,118 +16072,11 @@ class Pelayanan_model extends CI_Model
     
 
 
-    // SAUIKR 1 
-    function insertSkriningAdmisiUikr($data)
-    {
-        foreach ($data['date_created'] as $key => $value) {
-            $tgl_sauikr = str_replace('/', '-', $data['tanggal_sauikr'][$key]);
-            $tgl_sauikr = date("Y-m-d", strtotime($tgl_sauikr));
-            $data_sauikr = array(
-                'id_pendaftaran'         => $data['id_pendaftaran'],
-                'id_layanan_pendaftaran' => $data['id_layanan_pendaftaran'],
-                'id_user'                => $data['id_user'][$key],
-                'tanggal_sauikr'         => $tgl_sauikr,
-                'jam_sauikr'             => $data['jam_sauikr'][$key] !== '' ? $data['jam_sauikr'][$key] : null,
-                'diagnosa_sauikr'        => $data['diagnosa_sauikr'][$key] !== '' ? $data['diagnosa_sauikr'][$key] : null,
-                'jenispersalinan_sauikr' => $data['jenispersalinan_sauikr'][$key] !== '' ? $data['jenispersalinan_sauikr'][$key] : null,
-                'aspekmaternal1'   => $data['aspekmaternal1'][$key] !== '' ? $data['aspekmaternal1'][$key] : null,
-                'aspekmaternal2'   => $data['aspekmaternal2'][$key] !== '' ? $data['aspekmaternal2'][$key] : null,
-                'aspekmaternal3'   => $data['aspekmaternal3'][$key] !== '' ? $data['aspekmaternal3'][$key] : null,
-                'aspekmaternal4'   => $data['aspekmaternal4'][$key] !== '' ? $data['aspekmaternal4'][$key] : null,
-                'aspekmaternal5'   => $data['aspekmaternal5'][$key] !== '' ? $data['aspekmaternal5'][$key] : null,
-                'aspekmaternal6'   => $data['aspekmaternal6'][$key] !== '' ? $data['aspekmaternal6'][$key] : null,
-                'aspekmaternal7'   => $data['aspekmaternal7'][$key] !== '' ? $data['aspekmaternal7'][$key] : null,
-                'aspekjanin1'   => $data['aspekjanin1'][$key] !== '' ? $data['aspekjanin1'][$key] : null,
-                'aspekjanin2'   => $data['aspekjanin2'][$key] !== '' ? $data['aspekjanin2'][$key] : null,
-                'aspekjanin3'   => $data['aspekjanin3'][$key] !== '' ? $data['aspekjanin3'][$key] : null,
-                'aspekjanin4'   => $data['aspekjanin4'][$key] !== '' ? $data['aspekjanin4'][$key] : null,
-                'aspekjanin5'   => $data['aspekjanin5'][$key] !== '' ? $data['aspekjanin5'][$key] : null,
-                'aspekjanin6'   => $data['aspekjanin6'][$key] !== '' ? $data['aspekjanin6'][$key] : null,
-                'aspekjanin7'   => $data['aspekjanin7'][$key] !== '' ? $data['aspekjanin7'][$key] : null,
-                'aspekjanin8'   => $data['aspekjanin8'][$key] !== '' ? $data['aspekjanin8'][$key] : null,
-                'aspekjanin9'   => $data['aspekjanin9'][$key] !== '' ? $data['aspekjanin9'][$key] : null,
-                'aspekjanin10'  => $data['aspekjanin10'][$key] !== '' ? $data['aspekjanin10'][$key] : null,
-                'aspekpenyulitpersalinan1'   => $data['aspekpenyulitpersalinan1'][$key] !== '' ? $data['aspekpenyulitpersalinan1'][$key] : null,
-                'aspekpenyulitpersalinan2'   => $data['aspekpenyulitpersalinan2'][$key] !== '' ? $data['aspekpenyulitpersalinan2'][$key] : null,
-                'aspekpenyulitpersalinan3'   => $data['aspekpenyulitpersalinan3'][$key] !== '' ? $data['aspekpenyulitpersalinan3'][$key] : null,
-                'aspekpenyulitpersalinan4'   => $data['aspekpenyulitpersalinan4'][$key] !== '' ? $data['aspekpenyulitpersalinan4'][$key] : null,
-                'aspekpenyulitpersalinan5'   => $data['aspekpenyulitpersalinan5'][$key] !== '' ? $data['aspekpenyulitpersalinan5'][$key] : null,
-                'aspekpenyulitpersalinan6'   => $data['aspekpenyulitpersalinan6'][$key] !== '' ? $data['aspekpenyulitpersalinan6'][$key] : null,
-                'aspekpenyulitpersalinan7'   => $data['aspekpenyulitpersalinan7'][$key] !== '' ? $data['aspekpenyulitpersalinan7'][$key] : null,
-                'aspekpenyulitpersalinan8'   => $data['aspekpenyulitpersalinan8'][$key] !== '' ? $data['aspekpenyulitpersalinan8'][$key] : null,
-                'aspekpenyulitpersalinan9'   => $data['aspekpenyulitpersalinan9'][$key] !== '' ? $data['aspekpenyulitpersalinan9'][$key] : null,
-                'aspekpenyulitpersalinan10'  => $data['aspekpenyulitpersalinan10'][$key] !== '' ? $data['aspekpenyulitpersalinan10'][$key] : null,
-                'aspekpenyulitpersalinan11'  => $data['aspekpenyulitpersalinan11'][$key] !== '' ? $data['aspekpenyulitpersalinan11'][$key] : null,
-                'aspekpenyulitpersalinan12'  => $data['aspekpenyulitpersalinan12'][$key] !== '' ? $data['aspekpenyulitpersalinan12'][$key] : null,
-                'aspekpenyulitpersalinan13'  => $data['aspekpenyulitpersalinan13'][$key] !== '' ? $data['aspekpenyulitpersalinan13'][$key] : null,
-                'aspekpenyulitpersalinan14'  => $data['aspekpenyulitpersalinan14'][$key] !== '' ? $data['aspekpenyulitpersalinan14'][$key] : null,
-                'aspekpenyulitpersalinan15'  => $data['aspekpenyulitpersalinan15'][$key] !== '' ? $data['aspekpenyulitpersalinan15'][$key] : null,
-                'aspekpenyulitpersalinan16'  => $data['aspekpenyulitpersalinan16'][$key] !== '' ? $data['aspekpenyulitpersalinan16'][$key] : null,
-                'aspekpenyulitpersalinan17'  => $data['aspekpenyulitpersalinan17'][$key] !== '' ? $data['aspekpenyulitpersalinan17'][$key] : null,
-                'aspekpenyulitpersalinan18'  => $data['aspekpenyulitpersalinan18'][$key] !== '' ? $data['aspekpenyulitpersalinan18'][$key] : null,
-                'aspekpenyulitpersalinan19'  => $data['aspekpenyulitpersalinan19'][$key] !== '' ? $data['aspekpenyulitpersalinan19'][$key] : null,
-                'jikaresikorendah1'   => $data['jikaresikorendah1'][$key] !== '' ? $data['jikaresikorendah1'][$key] : null,
-                'jikaresikorendah2'   => $data['jikaresikorendah2'][$key] !== '' ? $data['jikaresikorendah2'][$key] : null,
-                'jikaresikosedang1'   => $data['jikaresikosedang1'][$key] !== '' ? $data['jikaresikosedang1'][$key] : null,
-                'jikaresikosedang2'   => $data['jikaresikosedang2'][$key] !== '' ? $data['jikaresikosedang2'][$key] : null,
-                'jikaresikotinggi1'   => $data['jikaresikotinggi1'][$key] !== '' ? $data['jikaresikotinggi1'][$key] : null,
-                'jikaresikotinggi2'   => $data['jikaresikotinggi2'][$key] !== '' ? $data['jikaresikotinggi2'][$key] : null,
-                'jikaresikorendah3'   => $data['jikaresikorendah3'][$key] !== '' ? $data['jikaresikorendah3'][$key] : null,
-                'jikaresikorendah4'   => $data['jikaresikorendah4'][$key] !== '' ? $data['jikaresikorendah4'][$key] : null,
-                'perawatsauikr'       => $data['perawatsauikr'][$key] !== '' ? $data['perawatsauikr'][$key] : null,
-                'created_at'          => $value,
-            );
-            // var_dump($data_pert);die;
-            $this->db->insert('sm_skrining_admisi_uikr', $data_sauikr);
-        }
-    }
+ 
 
-    // SAUIKR 4
-    function editSkriningAdmisiUikr($data)
-    {
-        return $this->db->where('id', $data['id'], true)->update('sm_skrining_admisi_uikr', $data);
-    }
 
-    // SAUIKR 2
-    function getSkriningAdmisiUikr($id_layanan_pendaftaran)
-    {
-        return $this->db->select("sauikr.*, COALESCE(spg.nama, '') as perawat, 
-                                          COALESCE(wid.nama, '') as akun_user")
-            ->from('sm_skrining_admisi_uikr as sauikr')
-            ->join('sm_layanan_pendaftaran as lp', 'sauikr.id_layanan_pendaftaran = lp.id')
-            ->join('sm_tenaga_medis as tmp', 'sauikr.perawatsauikr = tmp.id', 'left')
-            ->join('sm_pegawai as spg', 'spg.id = tmp.id_pegawai', 'left')
-            // user
-            ->join('sm_translucent sid', 'sauikr.id_user = sid.id', 'left')
-            ->join('sm_pegawai wid', 'sauikr.id_user = wid.id', 'left')
-            ->where('lp.id_pendaftaran', $id_layanan_pendaftaran, true)
-            ->order_by('sauikr.tanggal_sauikr', 'asc')
-            ->get()
-            ->result();
-    }
 
-    // SAUIKR 3
-    function getSkriningAdmisiUikrByID($id)
-    {
-        return $this->db->select("sauikr.*, COALESCE(spg.nama, '') as perawat, 
-                                          COALESCE(wid.nama, '') as akun_user")
-            ->from('sm_skrining_admisi_uikr as sauikr')
-            ->join('sm_tenaga_medis as tmp', 'sauikr.perawatsauikr = tmp.id', 'left')
-            ->join('sm_pegawai as spg', 'spg.id = tmp.id_pegawai', 'left')
-            // user
-            ->join('sm_translucent sid', 'sauikr.id_user = sid.id', 'left')
-            ->join('sm_pegawai wid', 'sauikr.id_user = wid.id', 'left')
-            ->where('sauikr.id', $id)
-            ->order_by('sauikr.tanggal_sauikr', 'asc')
-            ->get()
-            ->row();
-    }
 
-    // SAUIKR 5
-    function deleteSkriningAdmisiUikr($id)
-    {
-        return $this->db->where("id", $id)->delete("sm_skrining_admisi_uikr");
-    }
 
     function getPendaftaranById($id)
     {

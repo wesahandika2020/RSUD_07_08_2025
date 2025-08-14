@@ -146,6 +146,17 @@
                 });
                 // console.log(diagUtamaRm);
 
+                // // Di entriPreeklampsiaEarly() PERBAIKAN
+                // const diagUtamaRm = [...data.ds_manual_utama]
+                //     .sort((a, b) => b.id_layanan_pendaftaran - a.id_layanan_pendaftaran)[0]?.nama || '-';
+
+                // // Tetap tampilkan di form
+                // $('#edit-diagnosa-pert').html(diagUtamaRm);
+                // setTimeout(() => {
+                //     $('#diagnosa-pert').html(diagUtamaRm);
+                // });
+
+
                 // TANGGAL
                 $('#data-preeklampsia-early').one('click', function() {
                         $('#tanggal-pert, #edit-tanggal-pert').datetimepicker({
@@ -215,6 +226,8 @@
                 } else {
                     $('#tabel-pert .body-table').empty();
                 }
+
+
                 $('#bed-pert').text(bed);
                
                 $('#modal_preeklampesia_early').modal('show');
@@ -226,8 +239,6 @@
                 accessFailed(e.status);
             }
         })
-
-
     }
 
     function showPreeklampsiaEarly(num) {
@@ -540,7 +551,7 @@
                                 <td> <b> Perawat</td>
                                 <td colspan="2">
                                     <div class="input-group">
-                                        <input type="text" name="perawat_pert" id= "perawat-pert" class="select2c-input ml-2">  
+                                        <input type="text" name="perawat_pert" id="perawat-pert" class="select2c-input ml-2">  
                                     </div>
                                 </td>
                             </tr>
@@ -1127,10 +1138,6 @@
     //         }
     //     });
     // }
-
-
-
-
 
     // 
     function updatePreeklampsiaEarly(id_pendaftaran, id_layanan_pendaftaran, bed) {

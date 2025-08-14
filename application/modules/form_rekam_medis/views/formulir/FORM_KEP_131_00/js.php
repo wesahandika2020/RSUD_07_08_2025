@@ -540,8 +540,8 @@
                         <td align="center">${v.jam_sauikr || '-'}</td>                       
                         <td align="center">${v.diagnosa_sauikr || '-'}</td>                       
                         <td align="center">${v.jenispersalinan_sauikr || '-'}</td>                            
-                        <td align="center">${v.perawat || '-'}</td>                            
-                        <td align="center">${v.akun_user}</td>
+                        <td align="center">${v.perawat || '-'}</td>   
+                        <td align="center"></td>                         
                         ${selOp}
                     </tr>
                 `;
@@ -550,6 +550,9 @@
             })
         }
     }
+
+    // <td align="center">${v.akun_user}</td>
+
 
     function konfirmasiSimpanSkriningAdmisiUikr() {
         if ($('#tanggal-sauikr').val() === '') {
@@ -794,28 +797,7 @@
         })
     }
 
-    function updateSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed) {
-        // console.log($('#form-edit-preeklampsia-early').serialize());
-        $.ajax({
-            type: 'PUT',
-            url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi_uikr") ?>',
-            data: $('#form-edit-skrining-admisi-uikr').serialize(),
-            cache: false,
-            dataType: 'JSON',
-            success: function(data) {
-                if (data.status) {
-                    messageEditSuccess();
-                    entriSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed);
-                } else {
-                    messageEditFailed();
-                }
-                $('#modal-edit-skrining-admisi-uikr').modal('hide');
-            },
-            error: function(e) {
-                messageEditFailed();
-            }
-        });
-    }
+
 
     if (typeof numberSauikr === 'undefined') {
         var numberSauikr = 1;
@@ -918,7 +900,6 @@
                     <input type="hidden" name="perawatsauikr[]" value="${perawatsauikr}">${perawat}
                 </td>               
                 <td align="center">
-                    <?= $this->session->userdata('nama') ?>
                     <input type="hidden" name="user_skrining_admisi_uikr[]" value="<?= $this->session->userdata("id_translucent") ?>">
                     <input type="hidden" name="pengkajian_date_skrining_admisi_uikr[]" value="<?= date("Y-m-d H:i:s") ?>"> 
 
@@ -978,7 +959,104 @@
         $('#tabel-sauikr .body-table').append(html);
     }
 
+    // <!?= $this->session->userdata('nama') ?>
+
+
+    // function updateSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed) {
+    //     // console.log($('#form-edit-preeklampsia-early').serialize());
+    //     $.ajax({
+    //         type: 'PUT',
+    //         url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi_uikr") ?>',
+    //         data: $('#form-edit-skrining-admisi-uikr').serialize(),
+    //         cache: false,
+    //         dataType: 'JSON',
+    //         success: function(data) {
+    //             if (data.status) {
+    //                 messageEditSuccess();
+    //                 entriSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed);
+    //             } else {
+    //                 messageEditFailed();
+    //             }
+    //             $('#modal-edit-skrining-admisi-uikr').modal('hide');
+    //         },
+    //         error: function(e) {
+    //             messageEditFailed();
+    //         }
+    //     });
+    // }
+
+    // function hapusSkriningAdmisiUikr(obj, id) {
+    //     bootbox.dialog({
+    //         message: "Anda yakin akan menghapus data ini?",
+    //         title: "Hapus Data",
+    //         buttons: {
+    //             batal: {
+    //                 label: '<i class="fas fa-times-circle mr-1"></i>Batal',
+    //                 className: "btn-secondary",
+    //                 callback: function() {
+    //                 }
+    //             },
+    //             hapus: {
+    //                 label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
+    //                 className: "btn-info",
+    //                 callback: function() {
+    //                     $.ajax({
+    //                         type: 'DELETE',
+    //                         url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi_uikr") ?>/' +
+    //                             id,
+    //                         cache: false,
+    //                         dataType: 'JSON',
+    //                         success: function(data) {
+    //                             if (data.status) {
+    //                                 messageCustom(data.message, 'Success');
+    //                                 removeList(obj);
+    //                             } else {
+    //                                 customAlert('Hapus Skrining Admisi', data
+    //                                     .message);
+    //                             }
+    //                         },
+    //                         error: function(e) {
+    //                             messageDeleteFailed();
+    //                         }
+    //                     });
+    //                 }
+    //             }
+    //         }
+    //     });
+    // }
+
+
+    // 
+    function updateSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed) {
+        // Ambil ID user dari input hidden
+        const id_user = $('#id-user').val();
+
+        $.ajax({
+            type: 'PUT',
+            url: '<?= base_url("pelayanan/api/pelayanan/update_skrining_admisi_uikr") ?>',
+            data: $('#form-edit-skrining-admisi-uikr').serialize() + '&id_user=' + id_user, // tetap kirim juga kalau butuh
+            cache: false,
+            dataType: 'JSON',
+            success: function(data) {
+                console.log('User yang update:', id_user); // debug
+
+                if (data.status) {
+                    messageEditSuccess();
+                    entriSkriningAdmisiUikr(id_pendaftaran, id_layanan_pendaftaran, bed);
+                } else {
+                    messageEditFailed();
+                }
+                $('#modal-edit-skrining-admisi-uikr').modal('hide');
+            },
+            error: function(e) {
+                messageEditFailed();
+            }
+        });
+    }
+
+    // 
     function hapusSkriningAdmisiUikr(obj, id) {
+        const id_user = $('#id-user').val();
         bootbox.dialog({
             message: "Anda yakin akan menghapus data ini?",
             title: "Hapus Data",
@@ -986,8 +1064,7 @@
                 batal: {
                     label: '<i class="fas fa-times-circle mr-1"></i>Batal',
                     className: "btn-secondary",
-                    callback: function() {
-                    }
+                    callback: function() {}
                 },
                 hapus: {
                     label: '<i class="fas fa-trash-alt mr-1"></i>Hapus',
@@ -995,17 +1072,18 @@
                     callback: function() {
                         $.ajax({
                             type: 'DELETE',
-                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi_uikr") ?>/' +
-                                id,
+                            url: '<?= base_url("pelayanan/api/pelayanan/hapus_skrining_admisi_uikr") ?>/' + id,
+                            data: { id_user: id_user }, // kirim id_user
                             cache: false,
                             dataType: 'JSON',
                             success: function(data) {
+                            console.log('User yang hapus:', id_user); // debug
+
                                 if (data.status) {
                                     messageCustom(data.message, 'Success');
-                                    removeList(obj);
+                                    obj.closest('tr').remove();
                                 } else {
-                                    customAlert('Hapus Skrining Admisi', data
-                                        .message);
+                                    customAlert('Hapus Data', data.message);
                                 }
                             },
                             error: function(e) {
@@ -1017,5 +1095,6 @@
             }
         });
     }
+
 
 </script>

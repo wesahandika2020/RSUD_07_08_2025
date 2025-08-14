@@ -73,7 +73,7 @@
                                                 <td class="center" style="background-color: #B0E0E6; color: black;"><b>Diagnosa</td>
                                                 <td class="center" style="background-color: #B0E0E6; color: black;"><b>Jenis Persalinan</td>                                            
                                                 <td class="center" style="background-color: #B0E0E6; color: black;"><b>Perawat</td>                                            
-                                                <td class="center" style="background-color: #B0E0E6; color: black;"><b>Petugas</td>                                               
+                                                <!-- <td class="center" style="background-color: #B0E0E6; color: black;"><b>Petugas</td>                                               -->
                                                 <td class="center" colspan="2" style="background-color: #B0E0E6; color: black;"><b>Alat</b></td>
                                             </tr>
                                         </thead>
