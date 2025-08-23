@@ -13,7 +13,7 @@
 			}
 		});
 
-        $('#signin-aakc, #timeout-aakc, #signout-aakc, #jamverifikasi-aakc').on('click', function() {
+        $('#signin-aakc, #timeout-aakc, #signout-aakc, #jamverifikasi-aakc, #jam1-aakc, #jam2-aakc, #jam3-aakc, #jam4-aakc, #jam5-aakc').on('click', function() {
             $(this).timepicker({
                 format: 'HH:mm',
                 showInputs: false,
@@ -97,46 +97,47 @@
 
 		if (action !== 'lihat') {
 			$('#btn_simpan, #btn_reset').show();
-			$('.form-asesmen-awal-keperawatan-cathlab').show();
+			$('.form-keselamatan-pasien-indakan-intervensi-non-bedah').show();
 
 			// Aktifkan semua input kalau bukan mode lihat
-			$('#modal_asesmen_awal_keperawatan_cathlab :input').prop('disabled', false);
-			$('#modal_asesmen_awal_keperawatan_cathlab textarea').prop('readonly', false);
-			$('#modal_asesmen_awal_keperawatan_cathlab select').prop('disabled', false).trigger('change.select2');
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah :input').prop('disabled', false);
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah textarea').prop('readonly', false);
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah select').prop('disabled', false).trigger('change.select2');
 
 			// Aktifkan pointer select2
-			$('#modal_asesmen_awal_keperawatan_cathlab [id^="s2id_"]').css({
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah [id^="s2id_"]').css({
 				'pointer-events': 'auto',
 				'opacity': 1
 			});
 		} else {
 			$('#btn_simpan, #btn_reset').hide();
-			$('.form-asesmen-awal-keperawatan-cathlab').hide();
+			$('.form-keselamatan-pasien-indakan-intervensi-non-bedah').hide();
 
 			// Disable semua input (kecuali tombol close/modal dismiss)
-			$('#modal_asesmen_awal_keperawatan_cathlab :input')
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah :input')
 				.not('[data-dismiss="modal"]')
 				.prop('disabled', true);
 
 			// Set readonly ke textarea
-			$('#modal_asesmen_awal_keperawatan_cathlab textarea').prop('readonly', true);
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah textarea').prop('readonly', true);
 
 			// Disable select dan select2
-			$('#modal_asesmen_awal_keperawatan_cathlab select')
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah select')
 				.prop('disabled', true)
 				.trigger('change.select2');
 
 			// Nonaktifkan interaksi select2
-			$('#modal_asesmen_awal_keperawatan_cathlab [id^="s2id_"]').css({
+			$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah [id^="s2id_"]').css({
 				'pointer-events': 'none',
 				'opacity': 0.6
 			});
 		}
+
 		tableListAsesmenAwalKepCathlab(id_pendaftaran, id_layanan_pendaftaran);
 	}
 
     function tableListAsesmenAwalKepCathlab(id_pendaftaran, id_layanan_pendaftaran) {
-        // $('#modal_asesmen_awal_keperawatan_cathlab').modal('show');
+        // $('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah').modal('show');
 		$('#table-list-aakc tbody').empty(); // Bersihkan tabel sebelum rendering ulang
 		$('#btn_update_aakc').hide(); // menyembuyikan btnupdate
 		syams_validation_remove('#tanggal-aakc');
@@ -152,7 +153,7 @@
 			success: function(data) {				
 				console.log(data);
 				resetModalAsesmenAwalKepCathlab();
-				$('#modal_asesmen_awal_keperawatan_cathlab_title').html(`<b>FORM ASESMEN AWAL KEPERAWATAN CATHLAB</b>`);
+				$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah_title').html(`<b>FORM CEKLIST KESELAMATAN PASIEN TINDAKAN INTERVENSI NON BEDAH</b>`);
 				$('#id-pendaftaran-aakc').val(id_pendaftaran);
 				$('#id-layanan-pendaftaran-aakc').val(id_layanan_pendaftaran);
 				$('#id-pasien-aakc').val(data.pendaftaran_detail.pasien.id_pasien);   
@@ -271,7 +272,7 @@
 					})
 				}
 
-				$('#modal_asesmen_awal_keperawatan_cathlab').modal('show');
+				$('#modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah').modal('show');
 			},
 			complete: function() {
 				hideLoader();
@@ -297,7 +298,7 @@
 		$.ajax({
 			type: 'POST',
 			url: '<?= base_url("radiologi_log/api/radiologi_log/simpan_asesmen_awal_keperawatan_cathlab") ?>',
-			data: $('#form-asesmen-awal-keperawatan-cathlab').serialize(),
+			data: $('#form-keselamatan-pasien-indakan-intervensi-non-bedah').serialize(),
 			cache: false,
 			dataType: 'JSON',
 			beforeSend: function() {
@@ -475,6 +476,45 @@
                     $('#s2id_perawat-aakc a .select2c-chosen').html(data.list_edit_asesmen_awal_keperawatan_cathlab.perawat);
 					$('#dokteroperator3-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.dokteroperator3_aakc);  
                     $('#s2id_dokteroperator3-aakc a .select2c-chosen').html(data.list_edit_asesmen_awal_keperawatan_cathlab.dokter_2);
+
+
+
+
+					if (data.list_edit_asesmen_awal_keperawatan_cathlab.akses_aakc_3 === '1') { document.getElementById("akses-aakc-3").checked = true; }
+
+					$('#hb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.hb_aakc);
+					$('#urcr-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.urcr_aakc);
+					$('#ht-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.ht_aakc);
+					$('#hbsag-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.hbsag_aakc);
+					$('#gds-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.gds_aakc);
+					$('#ptaptt-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.ptaptt_aakc);
+					$('#tropt-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.tropt_aakc);
+					$('#elektrolit-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.elektrolit_aakc);
+
+					$('#bb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.bb_aakc);
+					$('#tb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.tb_aakc);
+
+					$('#cpg-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.cpg_aakc);
+					$('#jam1-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam1_aakc);
+					$('#aspilet-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.aspilet_aakc);
+					$('#jam2-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam2_aakc);
+					$('#atorvastatin-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.atorvastatin_aakc);
+					$('#jam3-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam3_aakc);
+					$('#isdn-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.isdn_aakc);
+					$('#jam4-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam4_aakc);
+					$('#dll-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.dll_aakc);
+					$('#jam5-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam5_aakc);
+
+
+
+
+
+
+
+
+
+
+
                 }
             },
             complete: function() {
@@ -584,7 +624,36 @@
 					$('#perawat-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.perawat_aakc);  
                     $('#s2id_perawat-aakc a .select2c-chosen').html(data.list_edit_asesmen_awal_keperawatan_cathlab.perawat);
 					$('#dokteroperator3-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.dokteroperator3_aakc);  
-                    $('#s2id_dokteroperator3-aakc a .select2c-chosen').html(data.list_edit_asesmen_awal_keperawatan_cathlab.dokter_2);						
+                    $('#s2id_dokteroperator3-aakc a .select2c-chosen').html(data.list_edit_asesmen_awal_keperawatan_cathlab.dokter_2);		
+					
+					
+
+					if (data.list_edit_asesmen_awal_keperawatan_cathlab.akses_aakc_3 === '1') { document.getElementById("akses-aakc-3").checked = true; }
+
+					$('#hb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.hb_aakc);
+					$('#urcr-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.urcr_aakc);
+					$('#ht-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.ht_aakc);
+					$('#hbsag-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.hbsag_aakc);
+					$('#gds-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.gds_aakc);
+					$('#ptaptt-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.ptaptt_aakc);
+					$('#tropt-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.tropt_aakc);
+					$('#elektrolit-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.elektrolit_aakc);
+
+					$('#bb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.bb_aakc);
+					$('#tb-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.tb_aakc);
+					
+					$('#cpg-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.cpg_aakc);
+					$('#jam1-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam1_aakc);
+					$('#aspilet-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.aspilet_aakc);
+					$('#jam2-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam2_aakc);
+					$('#atorvastatin-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.atorvastatin_aakc);
+					$('#jam3-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam3_aakc);
+					$('#isdn-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.isdn_aakc);
+					$('#jam4-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam4_aakc);
+					$('#dll-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.dll_aakc);
+					$('#jam5-aakc').val(data.list_edit_asesmen_awal_keperawatan_cathlab.jam5_aakc);
+
+
 				}
 			},
 			complete: function() {
@@ -602,7 +671,7 @@
     // }
 
     function resetModalAsesmenAwalKepCathlab() {
-		$('#form-asesmen-awal-keperawatan-cathlab')[0].reset();
+		$('#form-keselamatan-pasien-indakan-intervensi-non-bedah')[0].reset();
         $("input[type='checkbox']").prop('checked',false);
         $("input[type='radio']").prop('checked',false); 
 		$('#id-aakc').val('');

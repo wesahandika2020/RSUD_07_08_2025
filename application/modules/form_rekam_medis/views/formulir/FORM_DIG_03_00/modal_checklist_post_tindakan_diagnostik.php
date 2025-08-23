@@ -139,12 +139,12 @@
                                                     <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 2. Ganti balutan setelah 4 jam bila masih berdarah pasang nichiban lagi 4 jam</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 3. Observasi hematoma daerah tusukan setiap jam selama 6 jam</td>
+                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 3. Observasi hematoma daerah tusukan setiap jam selama 6 jam Jika Akses Brachial, 4 jam jika akses Radial</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 4. Bila tindakan melalui brachialis cek APTT / ACT 6 jam post tindakan PCI jam
+                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 4. Bila tindakan melalui brachialis cek ACT 6 jam post Pemberian Heparin Terakhir jam
                                                         <input type="text" name="jampci_cptd" id="jampci-cptd"class="custom-form clear-input d-inline-block col-lg-1"> 
-                                                        bila hasil baik sheath boleh dicabut
+                                                        bila hasil ACT < 200 detik sheath boleh dicabut.
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -193,13 +193,13 @@
                                                     <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 2. Observasi denyut dorsalis pedis setiap jam selama 6 jam</td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 3. Cek APTT / ACT 6 jam post tindakan PCI jam
+                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 3. Cek ACT 6 jam post tindakan PCI jam
                                                         <input type="text" name="jamaptt_cptd" id="jamaptt-cptd"class="custom-form clear-input d-inline-block col-lg-1"> 
-                                                        bila hasil baik sheath boleh dicabut
+                                                        bila hasil ACT < 200 detik sheath boleh dicabut
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 4. 6 jam post cabut sheath sheath kaki tidak boleh ditekuk selama 6 jam</td>
+                                                    <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 4. 6 jam Post cabut sheath kaki tidak boleh ditekuk selama 6 jam, Selanjut mobilisasi kaki</td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="6" width="100%" style="padding-bottom: 10px; padding-left: 30px;"> 5. Bila terjadi komplikasi paska tindakan (perdarahan, hematoma, akral dingin / cyanosis dan kondisi penurunan klinis lainnya) segera hubungi dokter DPJP.</td>
@@ -219,7 +219,7 @@
                                                     </td>
                                                 </tr>
                                                 <tr>
-                                                    <td colspan="2" width="20%"><b>CD/DVD Tindakan</b></td>
+                                                    <td colspan="2" width="20%"><b>CD / DVD Tindakan / Hasil lembar Print Out</b></td>
                                                     <td colspan="2" width="10%"><input type="checkbox" name="cddvd_cptd_1" id="cddvd-cptd-1" value="1" class="mr-1"></td>
                                                     <td colspan="2" width="60%">
                                                         <input type="checkbox" name="cddvd_cptd_2" id="cddvd-cptd-2" value="1" class="mr-1">

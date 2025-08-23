@@ -176,8 +176,25 @@ class Pemeriksaan_poli extends SYAM_Controller
         endif;
     }
 
-    function cetak_penolakan_tindakan_kedokteran($id)
-    {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // FPTD
+    function cetak_penolakan_tindakan_kedokteran($id){
         if ($id !== null) :
             $penolakanTindakanKedokteran = $this->rekam_medis->getPenolakanTindakanKedokteranById($id);
             $data['penolakan_tindakan_kedokteran'] = $penolakanTindakanKedokteran[0];
@@ -199,6 +216,21 @@ class Pemeriksaan_poli extends SYAM_Controller
             $this->load->view('pemeriksaan_poli/printing/penolakan_tindakan_kedokteran', $data);
         endif;
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function cetak_persetujuan_tindakan_anestesi($id)
     {

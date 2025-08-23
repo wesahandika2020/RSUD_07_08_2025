@@ -1,17 +1,17 @@
 <!-- // AAKC -->
-<div class="modal fade" id="modal_asesmen_awal_keperawatan_cathlab" data-backdrop="static">
+<div class="modal fade" id="modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah" data-backdrop="static">
 	<div class="modal-dialog modal-dialog-scrollable" style="max-width: 90%;">
 		<div class="modal-content">
 			<div class="modal-header">
 				<div class="title">
-					<h5 class="modal-title bold" id="modal_asesmen_awal_keperawatan_cathlab_title"></h5>					
+					<h5 class="modal-title bold" id="modal_cheklis_keselamatan_pasien_indakan_intervensi_non_bedah_title"></h5>					
 				</div>
 				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 					<span aria-hidden="true" style="font-size: 16pt;">&times;</span>
 				</button>
 			</div>	
 			<div class="modal-body">
-				<?= form_open('', 'id=form-asesmen-awal-keperawatan-cathlab class="form-horizontal"') ?>
+				<?= form_open('', 'id=form-keselamatan-pasien-indakan-intervensi-non-bedah class="form-horizontal"') ?>
 					<input type="hidden" name="id_layanan_pendaftaran" id="id-layanan-pendaftaran-aakc">
 					<input type="hidden" name="id_pendaftaran" id="id-pendaftaran-aakc">
 					<input type="hidden" name="id_pasien" id="id-pasien-aakc">
@@ -59,7 +59,7 @@
 							<div class="widget-body">								
 								<div id="wizard_form_ranap">	
 									<div class="form-modal">  <!-- kalau pakek yang ini di LIHATYA hilang inputanya -->
-									     <!-- <div class="form-asesmen-awal-keperawatan-cathlab"> jangan di hapus -->
+									     <!-- <div class="form-keselamatan-pasien-indakan-intervensi-non-bedah"> jangan di hapus -->
                                         <br>
                                         <table class="table table-sm table-striped table-bordered" style="margin-top: -15px">
                                             <thead>
@@ -175,7 +175,8 @@
                                                         <td width="5%" class="center"><input type="checkbox" name="kesulitan_aakc_1" id="kesulitan-aakc-1" value="1" class="mr-1"></td>
                                                         <td width="5%" class="center"><input type="checkbox" name="kesulitan_aakc_2" id="kesulitan-aakc-2" value="1" class="mr-1"></td>
                                                     </tr>
-                                                    <tr>
+
+                                                    <!-- <tr>
                                                         <td width="3%">8.</td>
                                                         <td width="60%">Risiko kehilangan darah >500 ml (7 ml/kg BB pada anak) </td>
                                                         <td width="5%" class="center"><input type="checkbox" name="darah_aakc_1" id="darah-aakc-1" value="1" class="mr-1"></td>
@@ -186,7 +187,228 @@
                                                         <td width="60%">Akses intravena sudah terpasang </td>
                                                         <td width="5%" class="center"><input type="checkbox" name="akses_aakc_1" id="akses-aakc-1" value="1" class="mr-1"></td>
                                                         <td width="5%" class="center"><input type="checkbox" name="akses_aakc_2" id="akses-aakc-2" value="1" class="mr-1"></td>
+                                                    </tr> -->
+
+
+                                                    <tr>
+                                                        <td width="3%">8.</td>
+                                                        <td width="60%">Akses intravena sudah terpasang di line kiri No 20 G</td>
+                                                        <td width="5%" class="center"><input type="checkbox" name="darah_aakc_1" id="darah-aakc-1" value="1" class="mr-1"></td>
+                                                        <td width="5%" class="center"><input type="checkbox" name="darah_aakc_2" id="darah-aakc-2" value="1" class="mr-1"></td>
                                                     </tr>
+
+                                                    <tr>
+                                                        <td width="3%">9.</td>
+                                                        <td colspan="3">
+                                                            Pasien Sudah Puasa 
+                                                            4 <input type="checkbox" name="akses_aakc_1" id="akses-aakc-1" value="1" class="mr-1">
+                                                            6 <input type="checkbox" name="akses_aakc_2" id="akses-aakc-2" value="1" class="mr-1">
+
+                                                            8 <input type="checkbox" name="akses_aakc_3" id="akses-aakc-3" value="1" class="mr-1"> Jam (ceklis)
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <style>
+                                                        .lab-row {
+                                                            display: flex;
+                                                            align-items: center;
+                                                            gap: 40px;
+                                                            margin-bottom: 6px;
+                                                        }
+                                                        .lab-item {
+                                                            display: flex;
+                                                            align-items: center;
+                                                            gap: 10px;
+                                                        }
+                                                        .lab-item label {
+                                                            width: 80px; /* bikin label sama rata */
+                                                            text-align: right; /* biar titik dua sejajar */
+                                                        }
+                                                        .lab-item input {
+                                                            width: 150px;
+                                                        }
+                                                    </style>
+
+                                                    <tr>
+                                                        <td width="3%">10.</td>
+                                                        <td colspan="3">Hasil Lab Pasien :</td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="hb-aakc">HB :</label>
+                                                                    <input type="text" name="hb_aakc" id="hb-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="urcr-aakc">UR/CR :</label>
+                                                                    <input type="text" name="urcr_aakc" id="urcr-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="ht-aakc">HT :</label>
+                                                                    <input type="text" name="ht_aakc" id="ht-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="hbsag-aakc">HbSag :</label>
+                                                                    <input type="text" name="hbsag_aakc" id="hbsag-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="gds-aakc">GDS :</label>
+                                                                    <input type="text" name="gds_aakc" id="gds-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="ptaptt-aakc">PT/APTT :</label>
+                                                                    <input type="text" name="ptaptt_aakc" id="ptaptt-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="tropt-aakc">TROP T :</label>
+                                                                    <input type="text" name="tropt_aakc" id="tropt-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="elektrolit-aakc">Elektrolit :</label>
+                                                                    <input type="text" name="elektrolit_aakc" id="elektrolit-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td width="3%">11.</td>
+                                                        <td colspan="3">
+                                                            <div style="display: flex; align-items: center; gap: 30px;">
+                                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                                <label>BB :</label>
+                                                                <input type="text" name="bb_aakc" id="bb-aakc" class="custom-form clear-input" style="width: 150px;">kg
+                                                            </div>
+                                                            <div style="display: flex; align-items: center; gap: 10px;">
+                                                                <label>TB :</label>
+                                                                <input type="text" name="tb_aakc" id="tb-aakc" class="custom-form clear-input" style="width: 150px;">cm
+                                                            </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+                                                    <tr>
+                                                        <td width="3%">12.</td>
+                                                        <td colspan="3">
+                                                            Loading Obat : 
+                                                        </td>
+                                                    </tr>
+
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="cpg-aakc">CPG :</label>
+                                                                    <input type="text" name="cpg_aakc" id="cpg-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="jam1-aakc">Jam :</label>
+                                                                    <input type="text" name="jam1_aakc" id="jam1-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="aspilet-aakc">ASPILET :</label>
+                                                                    <input type="text" name="aspilet_aakc" id="aspilet-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="jam2-aakc">Jam :</label>
+                                                                    <input type="text" name="jam2_aakc" id="jam2-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="atorvastatin-aakc">ATORVASTATIN :</label>
+                                                                    <input type="text" name="atorvastatin_aakc" id="atorvastatin-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="jam3-aakc">Jam :</label>
+                                                                    <input type="text" name="jam3_aakc" id="jam3-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="isdn-aakc">ISDN :</label>
+                                                                    <input type="text" name="isdn_aakc" id="isdn-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="jam4-aakc">Jam :</label>
+                                                                    <input type="text" name="jam4_aakc" id="jam4-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td></td>
+                                                        <td colspan="3">
+                                                            <div class="lab-row">
+                                                                <div class="lab-item">
+                                                                    <label for="dll-aakc">DLL :</label>
+                                                                    <input type="text" name="dll_aakc" id="dll-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                                <div class="lab-item">
+                                                                    <label for="jam5-aakc">Jam :</label>
+                                                                    <input type="text" name="jam5_aakc" id="jam5-aakc" class="custom-form clear-input">
+                                                                </div>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+
+
+
+                                                    
+
+
+
+
+
+
+
                                                 </table>
                                             </div>
 
@@ -404,7 +626,7 @@
                                                 <table class="table table-no-border table-sm table-striped">
                                                     <tr>
                                                         <th colspan="4" style="background-color:rgb(237, 242, 243); color: black; text-align: center;">
-                                                            <b>DOKTER OPERATOR :</b>
+                                                            <b>PERAWAT RUANG CATHLAB :</b>
                                                         </th>
                                                     </tr>
                                                     <tr>
@@ -428,7 +650,7 @@
                                                 <table class="table table-no-border table-sm table-striped">
                                                     <tr>
                                                         <th colspan="4" style="background-color:rgb(237, 242, 243); color: black; text-align: center;">
-                                                            <b>DOKTER OPERATOR :</b>
+                                                            <b>VERIVIKASI DOKTER OPERATOR :</b>
                                                         </th>
                                                     </tr>
                                                     <tr>
@@ -477,11 +699,11 @@
                                         </tr>
                                         <tr>
                                             <th>Jam</th>
-                                            <th>Dokter Operator</th>
+                                            <th>PERAWAT RUANG CATHLAB</th>
                                             <th>Jam</th>
                                             <th>Perawat Sirkuler</th>
                                             <th>Jam</th>
-                                            <th>Dokter Operator</th>
+                                            <th>VERIVIKASI DOKTER OPERATOR</th>
                                         </tr>
                                     </thead>
 								    <tbody></tbody>

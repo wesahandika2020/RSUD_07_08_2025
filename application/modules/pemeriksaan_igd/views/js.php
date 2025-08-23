@@ -2134,6 +2134,33 @@
         });
     }*/
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+
+
+
+
     // Migrasi eRM
     /*function cetakPenolakanTindakanKedokteran(details) {
         let detail = details.split('#');
@@ -2202,6 +2229,35 @@
             }
         });
     }*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     /*function cetakPersetujuanTindakanAnestesi(details) {
         let detail = details.split('#');

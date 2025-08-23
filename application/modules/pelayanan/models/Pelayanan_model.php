@@ -14394,9 +14394,29 @@ class Pelayanan_model extends CI_Model
         return $result;
     }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     // Kelaikan Bekerja
-    function getKb($id_layanan)
-    {
+    function getKb($id_layanan){
         return $this->db
             ->select("kb.*")
             ->from('sm_mcu_16_00 as kb')
@@ -14407,6 +14427,35 @@ class Pelayanan_model extends CI_Model
             ->row();
         $this->db->close();
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
 
     // Laporan pemeriksaan kesehatan
     function getLpk($id_layanan)
@@ -18159,7 +18208,7 @@ class Pelayanan_model extends CI_Model
                                         prw2.nama as perawat_2, 
                                         prw2.tanda_tangan as ttd_perawat_2, 
                                         lp.tanggal_layanan as tanggal')
-        ->from('sm_cheklist_persiapan_tindakan_diagnostik_invasif as cptdi')	  
+        ->from('sm_asesmen_awalkep_tdkinfasifnonbedah as cptdi')	  
         ->join('sm_layanan_pendaftaran as lp', 'lp.id = cptdi.id_layanan_pendaftaran')
         ->join('sm_tenaga_medis as tmp1 ', ' tmp1.id = cptdi.perawat_cptdi', 'left')
         ->join('sm_pegawai as prw1 ', ' prw1.id = tmp1.id_pegawai', 'left')
@@ -18173,7 +18222,7 @@ class Pelayanan_model extends CI_Model
 	// CPTDI LOGS 
 	function getCheklistPersiapanTindakanDiagnostikInvasifLogs($id_pendaftaran){ 
         return $this->db->select('cptdi.*, prw1.nama as perawat_1, prw2.nama as perawat_2')
-        ->from('sm_cheklist_persiapan_tindakan_diagnostik_invasif as cptdi')	  
+        ->from('sm_asesmen_awalkep_tdkinfasifnonbedah as cptdi')	  
         ->join('sm_layanan_pendaftaran as lp', 'lp.id = cptdi.id_layanan_pendaftaran')
         ->join('sm_tenaga_medis as tmp1 ', ' tmp1.id = cptdi.perawat_cptdi', 'left')
         ->join('sm_pegawai as prw1 ', ' prw1.id = tmp1.id_pegawai', 'left')
@@ -18189,7 +18238,7 @@ class Pelayanan_model extends CI_Model
         $this->db->trans_begin();
 
         if (!empty($id_cptdi)) {
-            $sebelumnya = $this->db->get_where('sm_cheklist_persiapan_tindakan_diagnostik_invasif', ['id' => $id_cptdi])->row_array();
+            $sebelumnya = $this->db->get_where('sm_asesmen_awalkep_tdkinfasifnonbedah', ['id' => $id_cptdi])->row_array();
 
             if ($sebelumnya) {
                 $sebelumnya['id_cptdi_ref'] = $sebelumnya['id'];
@@ -18198,17 +18247,17 @@ class Pelayanan_model extends CI_Model
                 $sebelumnya['edited_by'] = $edited_by;
                 $sebelumnya['tanggal_ubah_cptdi'] = date('Y-m-d H:i:s');
 
-                $this->db->insert('sm_cheklist_persiapan_tindakan_diagnostik_invasif_logs', $sebelumnya);
+                $this->db->insert('sm_asesmen_awalkep_tdkinfasifnonbedah_logs', $sebelumnya);
             }
 
             // Simpan waktu update ke tabel utama
             $data['updated_date'] = date('Y-m-d H:i:s');
 
             $this->db->where('id', $id_cptdi);
-            $this->db->update('sm_cheklist_persiapan_tindakan_diagnostik_invasif', $data);
+            $this->db->update('sm_asesmen_awalkep_tdkinfasifnonbedah', $data);
         } else {
             $data['created_date'] = date('Y-m-d H:i:s');
-            $this->db->insert('sm_cheklist_persiapan_tindakan_diagnostik_invasif', $data);
+            $this->db->insert('sm_asesmen_awalkep_tdkinfasifnonbedah', $data);
             $id_cptdi = $this->db->insert_id();
         }
 

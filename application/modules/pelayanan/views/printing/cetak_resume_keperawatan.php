@@ -517,7 +517,39 @@
 					</tbody>
 				</table>
 				<h4>Bila Emergensi atau gawat darurat: Ke IGD RSUD Kota Tangerang atau Rumah sakit / Klinik terdekat yang memiliki layanan IGD 24 Jam. <b>No Telp 021 2972 0201, 021 2972 0202</b></h4>				
-				<p></p>			
+				<p></p>		
+				
+
+				<table width="100%" class="table-no-borderc center">
+					<tr>
+						<td width="33%"></td>
+						<td width="33%"></td>
+						<td width="33%">Tangerang,
+							<!-- <br> -->
+							<!-- <!?= $resume_keperawatan->created_date; ?> -->
+
+							<?php
+								$tanggal_mysql = $resume_keperawatan->created_date; // Perbaiki akses properti
+
+								if (!empty($tanggal_mysql)) {
+									setlocale(LC_TIME, 'id_ID.UTF-8'); // Pastikan locale diatur (jika server mendukung)
+									$tanggal_diinginkan = date("d F Y", strtotime($tanggal_mysql));
+
+									// Ganti nama bulan ke Bahasa Indonesia
+									$bulanInggris = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+									$bulanIndonesia = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+									$tanggal_diinginkan = str_replace($bulanInggris, $bulanIndonesia, $tanggal_diinginkan);
+
+									echo $tanggal_diinginkan;
+								} else {
+									echo "-"; // Jika tidak ada tanggal, tampilkan "-"
+								}
+							?>
+						</td>
+					</tr>
+				</table>
+				
+
 				<table width="100%" class="table-no-borderc center">
 					<tr>
 						<td width="33%">Yang Menyerahkan,</td>

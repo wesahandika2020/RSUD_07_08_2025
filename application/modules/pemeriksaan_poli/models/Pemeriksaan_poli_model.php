@@ -10,38 +10,184 @@ class Pemeriksaan_poli_model extends CI_Model
         $this->datetime = date('Y-m-d H:i:s');
     }
 
-    private function sqlPemeriksaanPoliklinik($search)
-    {
-        $groupDokter = false;
-		if($search['id_dokter'] !== '')
-		{
-			$groupDokter = $this->db->select('tr.id')->from('sm_translucent tr')
-			                        ->join('sm_account_group sg', 'sg.id = tr.id_account_group')
-			                        ->where('tr.id', $search['id_dokter'])
-			                        ->where('sg.id', 93)
-			                        ->get()->row();
-		}
+
+
+
+
+
+
+
+
+
+
+
+
+    // private function sqlPemeriksaanPoliklinik($search)
+    // {
+    //     $groupDokter = false;
+	// 	if($search['id_dokter'] !== '')
+	// 	{
+	// 		$groupDokter = $this->db->select('tr.id')->from('sm_translucent tr')
+	// 		                        ->join('sm_account_group sg', 'sg.id = tr.id_account_group')
+	// 		                        ->where('tr.id', $search['id_dokter'])
+	// 		                        ->where('sg.id', 93)
+	// 		                        ->get()->row();
+	// 	}
 		
-		if (!empty($search['shifpoli'])) {
+	// 	if (!empty($search['shifpoli'])) {
+    //         $shifpoli= " (jd.shift_poli = '" . $search['shifpoli'] ."' OR jd.id is null)";
+    //     } else {
+    //         $shifpoli= "";
+    //     }
+
+    //     $this->db->select("DISTINCT ON (lp.id) lp.*, 
+    //                     pd.tanggal_daftar, pd.tanggal_keluar, 
+    //                     pd.id_pasien, pd.no_register,
+	// 					CONCAT_WS(' ', COALESCE(p.status_pasien, ''), p.nama) as nama, 
+    //                     p.tanggal_lahir, p.telp,
+    //                     r.id as id_resep,
+    //                     coalesce(pj.nama, '') as penjamin,
+    //                     coalesce(sp.nama, '') as layanan, 
+    //                     coalesce(pg.nama, '') as dokter, 
+    //                     lp.no_antrian, ab.task_empat, ab.task_lima, pd.keterangan_antrean,
+    //                     sp.kode_bpjs, coalesce(tr.account, '') as user_sep, skk.id id_skk,
+    //                     pd.kode_booking,
+    //                     ab.id as id_antrian_bpjs, ab.no_rm id_pasien_antrian_bpjs, ab.kode_booking kode_booking_antrian_bpjs, ab.no_kartu no_kartu_antrian_bpjs, ab.no_referensi, ab.id_jadwal_dokter, 
+    //                     jd.tanggal tanggal_jadwal, jd.nama_poli nama_poli_jadwal, jd.shift_poli, jd.nama_dokter nama_dokter_jadwal", false);
+
+    //     $this->db->from('sm_layanan_pendaftaran as lp')
+    //         ->join('sm_pendaftaran as pd', 'pd.id = lp.id_pendaftaran')
+    //         ->join('sm_pasien as p', 'p.id = pd.id_pasien')
+    //         ->join('sm_resep as r', 'r.id_layanan_pendaftaran = lp.id', 'left')
+    //         ->join('sm_antrian_bpjs as ab', 'pd.id = ab.id_pendaftaran', 'left')
+    //         ->join('sm_spesialisasi as sp', 'sp.id = lp.id_unit_layanan', 'left')
+    //         ->join('sm_tenaga_medis as tm', 'tm.id = lp.id_dokter', 'left')
+    //         ->join('sm_pegawai as pg', 'pg.id = tm.id_pegawai', 'left')
+    //         ->join('sm_penjamin as pj', 'pj.id = lp.id_penjamin', 'left')
+    //         ->join('sm_translucent as tr', 'tr.id = lp.id_users_sep', 'left')
+    //         ->join('sm_surat_kontrol as skk', 'skk.id_layanan_pendaftaran=lp.id', 'left')
+    //         ->join('sm_jadwal_dokter jd', "jd.id = ab.id_jadwal_dokter", 'left');
+
+    //     if (($search['tanggal_awal'] !== '') & ($search['tanggal_akhir'] !== '')) :
+    //         $this->db->where("pd.tanggal_daftar BETWEEN '" . date2mysql($search['tanggal_awal']) . " 00:00:00' AND '" . date2mysql($search['tanggal_akhir']) . " 23:59:59'");
+    //     endif;
+
+	// 	if (($search['tanggal_awal_layanan'] !== '') & ($search['tanggal_akhir_layanan'] !== '')) :
+    //         $this->db->where("lp.tanggal_layanan BETWEEN '" . date2mysql($search['tanggal_awal_layanan']) . " 00:00:00' AND '" . date2mysql($search['tanggal_akhir_layanan']) . " 23:59:59'");
+    //     endif;
+		
+    //     if ($search['jenis_layanan'] !== '') :
+    //         $this->db->where('lp.jenis_layanan', $search['jenis_layanan'], true);
+    //     endif;
+
+    //     if ($search['no_register'] !== '') :
+    //         $this->db->where('pd.no_register', $search['no_register'], true);
+    //     endif;
+
+    //     if ($search['no_rm'] !== '') :
+    //         $this->db->like('p.id', $search['no_rm'], 'before', true);
+    //     endif;
+
+    //     if ($search['nik'] !== '') :
+    //         $this->db->where('p.no_identitas', $search['nik']);
+    //     endif;
+
+    //     if ($search['nama'] !== '') :
+    //         $this->db->where("p.nama ilike '%" . strtolower($search['nama']) . "%'");
+    //     endif;
+
+    //     if ($search['layanan'] !== '' && isset($search['layanan'])) :
+    //         $this->db->where('lp.id_unit_layanan', $search['layanan']);
+    //     endif;
+
+    //     if ($search['id_dokter'] !== '' && !$groupDokter) :
+    //         $this->db->where('pg.id', $search['id_dokter']);
+    //     endif;
+		
+	// 	if ($shifpoli !== '') :
+    //         $this->db->where($shifpoli);
+    //     endif; 
+		
+    //     return $this->db->order_by('lp.id', 'desc');    
+
+    //     // return $this->db->group_by('lp.id, r.id, pd.tanggal_daftar, pd.tanggal_keluar, pd.id_pasien, pd.no_register, p.nama, p.tanggal_lahir, pj.nama, sp.nama, pg.nama, tr.account, sp.kode_bpjs');
+    // }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    // MRMERM
+    private function sqlPemeriksaanPoliklinik($search) {
+        $groupDokter = false;
+        if($search['id_dokter'] !== '') {
+            $groupDokter = $this->db->select('tr.id')
+                ->from('sm_translucent tr')
+                ->join('sm_account_group sg', 'sg.id = tr.id_account_group')
+                ->where('tr.id', $search['id_dokter'])
+                ->where('sg.id', 93)
+                ->get()
+                ->row();
+        }
+
+        if (!empty($search['shifpoli'])) {
             $shifpoli= " (jd.shift_poli = '" . $search['shifpoli'] ."' OR jd.id is null)";
         } else {
             $shifpoli= "";
         }
 
-        $this->db->select("DISTINCT ON (lp.id) lp.*, 
-                        pd.tanggal_daftar, pd.tanggal_keluar, 
-                        pd.id_pasien, pd.no_register,
-						CONCAT_WS(' ', COALESCE(p.status_pasien, ''), p.nama) as nama, 
-                        p.tanggal_lahir, p.telp,
-                        r.id as id_resep,
-                        coalesce(pj.nama, '') as penjamin,
-                        coalesce(sp.nama, '') as layanan, 
-                        coalesce(pg.nama, '') as dokter, 
-                        lp.no_antrian, ab.task_empat, ab.task_lima, pd.keterangan_antrean,
-                        sp.kode_bpjs, coalesce(tr.account, '') as user_sep, skk.id id_skk,
-                        pd.kode_booking,
-                        ab.id as id_antrian_bpjs, ab.no_rm id_pasien_antrian_bpjs, ab.kode_booking kode_booking_antrian_bpjs, ab.no_kartu no_kartu_antrian_bpjs, ab.no_referensi, ab.id_jadwal_dokter, 
-                        jd.tanggal tanggal_jadwal, jd.nama_poli nama_poli_jadwal, jd.shift_poli, jd.nama_dokter nama_dokter_jadwal", false);
+        $this->db->select("
+            DISTINCT ON (lp.id_pendaftaran) 
+            lp.*,
+            pd.tanggal_daftar,
+            pd.tanggal_keluar,
+            pd.id_pasien,
+            pd.no_register,
+            CONCAT_WS(' ', COALESCE(p.status_pasien, ''), p.nama) as nama,
+            p.tanggal_lahir,
+            p.telp,
+            r.id as id_resep,
+            coalesce(pj.nama, '') as penjamin,
+            coalesce(sp.nama, '') as layanan,
+            coalesce(pg.nama, '') as dokter,
+            lp.no_antrian,
+            ab.task_empat,
+            ab.task_lima,
+            pd.keterangan_antrean,
+            sp.kode_bpjs,
+            coalesce(tr.account, '') as user_sep,
+            skk.id id_skk,
+            pd.kode_booking,
+            ab.id as id_antrian_bpjs,
+            ab.no_rm id_pasien_antrian_bpjs,
+            ab.kode_booking kode_booking_antrian_bpjs,
+            ab.no_kartu no_kartu_antrian_bpjs,
+            ab.no_referensi,
+            ab.id_jadwal_dokter,
+            jd.tanggal tanggal_jadwal,
+            jd.nama_poli nama_poli_jadwal,
+            jd.shift_poli,
+            jd.nama_dokter nama_dokter_jadwal
+        ", false);
 
         $this->db->from('sm_layanan_pendaftaran as lp')
             ->join('sm_pendaftaran as pd', 'pd.id = lp.id_pendaftaran')
@@ -60,10 +206,10 @@ class Pemeriksaan_poli_model extends CI_Model
             $this->db->where("pd.tanggal_daftar BETWEEN '" . date2mysql($search['tanggal_awal']) . " 00:00:00' AND '" . date2mysql($search['tanggal_akhir']) . " 23:59:59'");
         endif;
 
-		if (($search['tanggal_awal_layanan'] !== '') & ($search['tanggal_akhir_layanan'] !== '')) :
+        if (($search['tanggal_awal_layanan'] !== '') & ($search['tanggal_akhir_layanan'] !== '')) :
             $this->db->where("lp.tanggal_layanan BETWEEN '" . date2mysql($search['tanggal_awal_layanan']) . " 00:00:00' AND '" . date2mysql($search['tanggal_akhir_layanan']) . " 23:59:59'");
         endif;
-		
+
         if ($search['jenis_layanan'] !== '') :
             $this->db->where('lp.jenis_layanan', $search['jenis_layanan'], true);
         endif;
@@ -91,15 +237,40 @@ class Pemeriksaan_poli_model extends CI_Model
         if ($search['id_dokter'] !== '' && !$groupDokter) :
             $this->db->where('pg.id', $search['id_dokter']);
         endif;
-		
-		if ($shifpoli !== '') :
-            $this->db->where($shifpoli);
-        endif; 
-		
-        return $this->db->order_by('lp.id', 'desc');    
 
-        // return $this->db->group_by('lp.id, r.id, pd.tanggal_daftar, pd.tanggal_keluar, pd.id_pasien, pd.no_register, p.nama, p.tanggal_lahir, pj.nama, sp.nama, pg.nama, tr.account, sp.kode_bpjs');
+        if ($shifpoli !== '') :
+            $this->db->where($shifpoli);
+        endif;
+
+        // Prioritaskan MCU jika ada
+        return $this->db->order_by("
+            lp.id_pendaftaran,
+            CASE WHEN lp.jenis_layanan = 'Medical Check Up' THEN 1 ELSE 2 END,
+            lp.id DESC
+        ", false);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private function _listPemeriksaanPoliklinik($limit, $start, $search)
     {

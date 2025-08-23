@@ -16,8 +16,15 @@
                                 class="fas fa-print m-r-5"></i>Surat Keterangan Sehat</button>
                         <button type="button" class="btn btn-info btn-block" id="btn_sbn"><i
                                 class="fas fa-print m-r-5"></i>Surat Keterangan Bebas Narkoba</button>
+
+
+
+                                <!-- // MRM -->
                         <button type="button" class="btn btn-info btn-block" id="btn_mcu"><i
                                 class="fas fa-print m-r-5"></i>Resume Medis Pasien</button>
+
+
+
                                 <!-- // SKKJ1 -->
                         <button type="button" class="btn btn-info btn-block" id="btn_skkj_1"><i
                                 class="fas fa-print m-r-5"></i>Surat Keterangan Kesehatan Jiwa Tipe 1</button>

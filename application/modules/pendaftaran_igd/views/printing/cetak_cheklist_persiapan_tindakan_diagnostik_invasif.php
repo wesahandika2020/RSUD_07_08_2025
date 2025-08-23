@@ -182,7 +182,7 @@
             <div class="tpgd__container container">
                 <table class="no__border small__line__spacing small__font" style="font-size: 12px; width: 100%; border-collapse: collapse;">
                     <tr>
-                        <b style="font-size: 12pt; display: flex; justify-content: center"> CHEKLIST PERSIAPAN TINDAKAN DIAGNOSTIK INVASIF DAN INTERVENSI NON BEDAH</b>
+                        <b style="font-size: 12pt; display: flex; justify-content: center"> ASESMEN AWAL KEPERAWATAN TINDAKAN INVASIF NON BEDAH</b>
                     </tr>
                 </table>
 
@@ -377,7 +377,8 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">4.</td>
                         <td width="20%" style="border: none;">Sistem pernafasan</td>
@@ -406,9 +407,11 @@
                                 <?= $ttd_sistempernafasan_cptdi['sistempernafasan_cptdi_1'] ?? '' ?>
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+
+
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">5.</td>
                         <td width="20%" style="border: none;">Sistem pencernaan</td>
@@ -441,9 +444,12 @@
                                 <input type="checkbox" <?= ($ttd_sistempencernaan_cptdi['sistempencernaan_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Darah segar 
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+
+
+
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">6.</td>
                         <td width="20%" style="border: none;">Sistem perkemihan</td>
@@ -453,11 +459,14 @@
                                 <?= $ttd_sistemkemih_cptdi; ?> cc
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
+
+
+
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">7.</td>
+                        <td width="1%" style="border: none;">4.</td>
                         <td width="20%" style="border: none;">Riwayat pengobatan</td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -514,7 +523,7 @@
                     </tr>
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">8.</td>
+                        <td width="1%" style="border: none;">5.</td>
                         <td width="20%" style="border: none;">Riwayat alergi</td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -532,7 +541,7 @@
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">9.</td>
+                        <td width="1%" style="border: none;">6.</td>
                         <td width="20%" style="border: none;">Tanda-tanda vital</td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -561,7 +570,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">10.</td>
                         <td width="20%" style="border: none;">Tes Allen</td>
@@ -590,9 +599,9 @@
                                 <input type="checkbox" <?= ($ttd_testalent_cptdi['testalent_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Tidak adekuat 
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">11.</td>
                         <td width="20%" style="border: none;">Arteri Dorsalis Pedis</td>
@@ -621,11 +630,11 @@
                                 <input type="checkbox" <?= ($ttd_arteridor_cptdi['arteridor_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Tidak adekuat 
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">12.</td>
+                        <td width="1%" style="border: none;">7.</td>
                         <td width="20%" style="border: none;">Berat badan</td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -638,7 +647,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">13.</td>
                         <td width="20%" style="border: none;">Keluhan nyeri</td>
@@ -701,9 +710,9 @@
                                 <?= $ttd_keluhannyeri_cptdi['keluhannyeri_cptdi_10'] ?? '' ?>
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">14.</td>
                         <td width="20%" style="border: none;">Kebutuhan edukasi </td>
@@ -748,11 +757,12 @@
                                 <?= $ttd_kebutuhanedu_cptdi['kebutuhanedu_cptdi_10'] ?? '' ?>
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
+
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">15.</td>
+                        <td width="1%" style="border: none;">8.</td>
                         <td width="20%" style="border: none;">Laboratorium</td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -798,16 +808,30 @@
                         <td width="20%" style="border: none;"></td>
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
-                            <label style="margin-right: 20px;"> Na :
+                            <label style="margin-right: 20px;"> Elektrolit :
                                 <?= $ttd_labroturiem_cptdi['labroturiem_cptdi_7'] ?? '' ?>
                             </label>
-                            <label style="margin-right: 20px;"> K : 
+                            <label style="margin-right: 20px;"> PT/APTT : 
                                 <?= $ttd_labroturiem_cptdi['labroturiem_cptdi_8'] ?? '' ?>
                             </label>
                         </td>
                     </tr>
-
                     <tr>
+                        <td width="1%" style="border: none;"></td>
+                        <td width="1%" style="border: none;"></td>
+                        <td width="20%" style="border: none;"></td>
+                        <td width="1%" style="border: none;"></td>
+                        <td colspan="6" style="border: none;">
+                            <label style="margin-right: 20px;"> Tropt T :
+                                <?= $ttd_labroturiem_cptdi['labroturiem_cptdi_9'] ?? '' ?>
+                            </label>
+                            <label style="margin-right: 20px;"> GDS : 
+                                <?= $ttd_labroturiem_cptdi['labroturiem_cptdi_10'] ?? '' ?>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="1%" style="border: none;">16.</td>
                         <td width="20%" style="border: none;">Skrining jatuh </td>
@@ -826,11 +850,11 @@
                                 <input type="checkbox" <?= ($ttd_skrining_cptdi['skrining_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko sedang
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td width="1%" style="border: none;">17.</td>
+                        <td width="1%" style="border: none;">9.</td>
                         <td width="20%" style="border: none;">Hasil Echo </td>
                         <td width="1%" style="border: none;">:</td>
                         <td colspan="6" style="border: none;">
@@ -844,6 +868,22 @@
                         </td>
                     </tr>
                     <tr>
+                        <td width="1%" style="border: none;"></td>
+                        <td width="1%" style="border: none;">10.</td>
+                        <td width="20%" style="border: none;">Hasil TMT/ MSCT </td>
+                        <td width="1%" style="border: none;">:</td>
+                        <td colspan="6" style="border: none;">
+                            <label style="margin-right: 20px;">
+                                <input type="checkbox" <?= ($ttd_hasitmt_cptdi['hasitmt_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Tidak ada 
+                            </label>
+                            <label style="margin-right: 5px;">
+                                <input type="checkbox" <?= ($ttd_hasitmt_cptdi['hasitmt_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> ada, Kesan  : 
+                                <?= $ttd_hasitmt_cptdi['hasitmt_cptdi_3'] ?? '' ?>
+                            </label>
+                        </td>
+                    </tr>
+
+                    <tr>
                         <td width="1%" style="border: none;"></b></td>
                         <td colspan="8" style="border: none;"><b>Masalah keperawatan</b></td>
                     </tr>
@@ -852,13 +892,13 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan curah jantung
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan curah jantung (D.0003)
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Nyeri 
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Nyeri Akut (D.0077) 
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko perdarahan
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko perdarahan (D.0012)
                             </label>
                         </td>
                     </tr>
@@ -867,13 +907,13 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan perfusi jaringan
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan perfusi jaringan (D.0009)
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko tinggi infeksi 
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko infeksi (D.0142) 
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Risiko jatuh
+                                <input type="checkbox" <?= ($ttd_mskep_cptdi['mskep_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Anxietas (D.0080)
                             </label>
                         </td>
                     </tr>
@@ -887,13 +927,13 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Manajemen nyeri 
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Monitor tanda tanda vital 
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring tanda-tanda vital  
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Manajemen nyeri
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perubahan kesadaran
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perdarahan
                             </label>
                         </td>
                     </tr>
@@ -902,13 +942,31 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perdarahan  
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perubahan Kesadaran 
                             </label>
                             <label style="margin-right: 5px;">
-                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>>
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Monitor tanda dan gejala infeksi
                             </label>
                             <label style="margin-right: 5px;">
-                                <?= $ttd_rctindkep_cptdi['rctindkep_cptdi_6'] ?? '' ?>
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Ajarkan Teknik Relaksasi
+                            </label>
+                        </td>
+                    </tr>
+                     <tr>
+                        <td width="1%" style="border: none;"></td>
+                        <td width="1%" style="border: none;"></td>
+                        <td colspan="6" style="border: none;">
+                            <label style="margin-right: 20px;">
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_7'] ?? 0) == 1 ? 'checked' : '' ?>> &nbsp;&nbsp;
+                                <?= $ttd_rctindkep_cptdi['rctindkep_cptdi_8'] ?? '' ?>
+                            </label>
+                            <label style="margin-right: 20px;">
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_9'] ?? 0) == 1 ? 'checked' : '' ?>> &nbsp;&nbsp;
+                                <?= $ttd_rctindkep_cptdi['rctindkep_cptdi_10'] ?? '' ?>
+                            </label>
+                            <label style="margin-right: 20px;">
+                                <input type="checkbox" <?= ($ttd_rctindkep_cptdi['rctindkep_cptdi_11'] ?? 0) == 1 ? 'checked' : '' ?>> &nbsp;&nbsp;
+                                <?= $ttd_rctindkep_cptdi['rctindkep_cptdi_12'] ?? '' ?>
                             </label>
                         </td>
                     </tr>
@@ -1247,7 +1305,7 @@
                 </table>
 
 				<table class="big__line__spacing small__font" style="border-none: no__border; width: 100%;">
-                    <tr>
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="20%" style="border: none;">Pasien tiba di RR jam</td>
                         <td width="1%" style="border: none;">:</td>
@@ -1262,6 +1320,16 @@
                             <label style="margin-right: 20px;"></label>
                             <label style="margin-right: 20px;"> Jumlah : 
                                 <?= $ttd_pasientiba_cptdi['pasientiba_cptdi_3'] ?? '' ?>
+                            </label>
+                        </td>
+                    </tr> -->
+                    <tr>
+                        <td width="1%" style="border: none;"></td>
+                        <td width="20%" style="border: none;">Pasien tiba di RR jam</td>
+                        <td width="1%" style="border: none;">:</td>
+                        <td colspan="6" style="border: none;">
+                            <label style="margin-right: 20px;">
+                                <?= $ttd_pasientiba_cptdi['pasientiba_cptdi_1'] ?? '' ?>
                             </label>
                         </td>
                     </tr>
@@ -1283,7 +1351,8 @@
                         </td>
                     </tr>
 
-                    <tr>
+
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="20%" style="border: none;">Pulsasi A. Radialis </td>
                         <td width="1%" style="border: none;">:</td>
@@ -1308,9 +1377,11 @@
                                 <input type="checkbox" <?= ($ttd_pulsasia_cptdi['pulsasia_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Tidak adekuat  
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
-                    <tr>
+
+
+                    <!-- <tr>
                         <td width="1%" style="border: none;"></td>
                         <td width="20%" style="border: none;">Pulsasi A. Dorsalis Pedis </td>
                         <td width="1%" style="border: none;">:</td>
@@ -1335,7 +1406,9 @@
                                 <input type="checkbox" <?= ($ttd_pulsasidor_cptdi['pulsasidor_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Tidak adekuat  
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
+
+
 
                     <tr>
                         <td width="1%" style="border: none;"></td>
@@ -1592,7 +1665,7 @@
                         </td>
                     </tr>
 
-                    <tr>
+                    <!-- <tr>
                         <td colspan="10" style="border: none;"><b>Instruksi paska tindakan</b></td>
                     </tr>
                     <tr>
@@ -1642,7 +1715,7 @@
                                 <?= $ttd_imobil_cptdi['imobil_cptdi_6'] ?? '' ?>
                             </label>
                         </td>
-                    </tr>
+                    </tr> -->
 
                     <tr>
                         <td colspan="10" style="border: none;"><b>Masalah keperawatan</b></td>
@@ -1651,26 +1724,26 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan curah jantung 
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Hipotermi (D.0131) 
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Nyeri 
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Nyeri Akut (D.0077)  
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Resiko perdarahan
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Resiko perdarahan (D.0012)
                         </td>
                     </tr>
                     <tr>
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan perfusi jaringan 
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Penurunan perfusi jaringan (D.0009)
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Resiko tinggi infeksi  
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Resiko infeksi (D.0142)   
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Gangguan mobilitas fisik
+                                <input type="checkbox" <?= ($ttd_maskeptan_cptdi['maskeptan_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Gangguan mobilitas fisik (D.0054)
                             </label>
                         </td>
                     </tr>
@@ -1700,42 +1773,53 @@
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Manajemen nyeri  
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_1'] ?? 0) == 1 ? 'checked' : '' ?>> Berijkan selimut / blankat warmer  
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring tanda-tanda vital  
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_2'] ?? 0) == 1 ? 'checked' : '' ?>> Manajemen Nyeri 
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> 
-                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_4'] ?? '' ?>
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_3'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perdarahan
                         </td>
                     </tr>
                     <tr>
                         <td width="1%" style="border: none;"></td>
                         <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Manajemen nyeri  
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_4'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring perubahan kesadaran 
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring tanda-tanda vital  
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_5'] ?? 0) == 1 ? 'checked' : '' ?>> Monitoring tanda dan gejala infeksi   
                             </label>
+                            <label style="margin-right: 20px;">
+                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_6'] ?? 0) == 1 ? 'checked' : '' ?>> Bantu pasien melakukan ambulasi
+                        </td>
+                    </tr>
+                    <tr>
+                        <td width="1%" style="border: none;"></td>
+                        <td colspan="6" style="border: none;">
                             <label style="margin-right: 20px;">
                                 <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_7'] ?? 0) == 1 ? 'checked' : '' ?>> 
                                 <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_8'] ?? '' ?>
+                            </label>
+                            <label style="margin-right: 20px;">
+                                 <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_9'] ?? 0) == 1 ? 'checked' : '' ?>> 
+                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_10'] ?? '' ?>
+                            </label>
+                            <label style="margin-right: 20px;">
+                                 <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_11'] ?? 0) == 1 ? 'checked' : '' ?>> 
+                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_12'] ?? '' ?>
                         </td>
                     </tr>
                     <tr>
                         <td width="1%" style="border: none;"></td>
-                        <td colspan="6" style="border: none;">
-                            <label style="margin-right: 20px;"> Kepuusan rawat : 
-                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_9'] ?? '' ?>
+                        <td colspan="6" style="border: none;"> Keputusan Rawat : 
+                            <label style="margin-right: 20px;">
+                                 <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_13'] ?? 0) == 1 ? 'checked' : '' ?>>  ODC   
                             </label>
                             <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_10'] ?? 0) == 1 ? 'checked' : '' ?>> ODC  
-                            </label>
-                            <label style="margin-right: 20px;">
-                                <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_11'] ?? 0) == 1 ? 'checked' : '' ?>>  Dirawat di : 
-                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_12'] ?? '' ?>
+                                 <input type="checkbox" <?= ($ttd_tdmandiri_cptdi['tdmandiri_cptdi_14'] ?? 0) == 1 ? 'checked' : '' ?>> Dirawat di 
+                                <?= $ttd_tdmandiri_cptdi['tdmandiri_cptdi_15'] ?? '' ?>
                         </td>
                     </tr>
 

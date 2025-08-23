@@ -619,8 +619,17 @@ class Pelayanan extends REST_Controller
         $data['grafik_wflg'] = $this->m_pelayanan->getGrafikWflg($noRM);
         // grafik fenton pretern growth chart - girl
         $data['grafik_fpgg'] = $this->m_pelayanan->getGrafikFpgg($noRM);
+
+
+
+
+
         // Kelaikan Bekerja
         $data['kb'] = $this->m_pelayanan->getKb($this->get('id_layanan'));
+
+
+
+
         // laporan kesehatan
         $data['lpk'] = $this->m_pelayanan->getLpk($this->get('id_layanan'));
         // Lembar Observasi
@@ -3412,6 +3421,20 @@ class Pelayanan extends REST_Controller
             return true;
         }
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
 
     function simpan_entri_keperawatan_post()
     {
@@ -7062,6 +7085,25 @@ class Pelayanan extends REST_Controller
 
         $this->response($message, REST_Controller::HTTP_OK);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     private function konverTimeStamp($time)
     {
@@ -23402,29 +23444,35 @@ class Pelayanan extends REST_Controller
             'tujuan_cptdi'              => ambil_data_json('tujuan_cptdi', 11),
             'statuspsikologis_cptdi'    => ambil_data_json('statuspsikologis_cptdi', 6), 
             'riwayatpenyakit_cptdi'     => ambil_data_json('riwayatpenyakit_cptdi', 10), 
-            'sistempernafasan_cptdi'    => ambil_data_json('sistempernafasan_cptdi', 5), 
-            'sistempencernaan_cptdi'    => ambil_data_json('sistempencernaan_cptdi', 5), 
-            'sistemkemih_cptdi'         => (safe_post('sistemkemih_cptdi') !== '' ? safe_post('sistemkemih_cptdi') : NULL),
+
+            // 'sistempernafasan_cptdi'    => ambil_data_json('sistempernafasan_cptdi', 5), 
+            // 'sistempencernaan_cptdi'    => ambil_data_json('sistempencernaan_cptdi', 5), 
+            // 'sistemkemih_cptdi'         => (safe_post('sistemkemih_cptdi') !== '' ? safe_post('sistemkemih_cptdi') : NULL),
+
+
             'riwayatpengob_cptdi'       => ambil_data_json('riwayatpengob_cptdi', 9), 
             'riwayatalergi_cptdi'       => ambil_data_json('riwayatalergi_cptdi', 3), 
             'ttv_cptdi'                 => ambil_data_json('ttv_cptdi', 4), 
-            'testalent_cptdi'           => ambil_data_json('testalent_cptdi', 4), 
-            'arteridor_cptdi'           => ambil_data_json('arteridor_cptdi', 4), 
+            // 'testalent_cptdi'           => ambil_data_json('testalent_cptdi', 4), 
+            // 'arteridor_cptdi'           => ambil_data_json('arteridor_cptdi', 4), 
             'bb_cptdi'                  => (safe_post('bb_cptdi') !== '' ? safe_post('bb_cptdi') : NULL),
             'tb_cptdi'                  => (safe_post('tb_cptdi') !== '' ? safe_post('tb_cptdi') : NULL),
-            'keluhannyeri_cptdi'        => ambil_data_json('keluhannyeri_cptdi', 10), 
-            'kebutuhanedu_cptdi'        => ambil_data_json('kebutuhanedu_cptdi', 10), 
-            'labroturiem_cptdi'         => ambil_data_json('labroturiem_cptdi', 8), 
-            'skrining_cptdi'            => ambil_data_json('skrining_cptdi', 4), 
+            // 'keluhannyeri_cptdi'        => ambil_data_json('keluhannyeri_cptdi', 10), 
+            // 'kebutuhanedu_cptdi'        => ambil_data_json('kebutuhanedu_cptdi', 10), 
+            'labroturiem_cptdi'         => ambil_data_json('labroturiem_cptdi', 10), 
+            // 'skrining_cptdi'            => ambil_data_json('skrining_cptdi', 4), 
             'hasilecho_cptdi'           => ambil_data_json('hasilecho_cptdi', 3), 
+            'hasitmt_cptdi'           => ambil_data_json('hasitmt_cptdi', 3), 
             'mskep_cptdi'               => ambil_data_json('mskep_cptdi', 6), 
-            'rctindkep_cptdi'           => ambil_data_json('rctindkep_cptdi', 6), 
+            'rctindkep_cptdi'           => ambil_data_json('rctindkep_cptdi', 12), 
             'perawat_cptdi'             => (safe_post('perawat_cptdi') !== '' ? safe_post('perawat_cptdi') : NULL),
             'tanggaljam_cptdi'          => (safe_post('tanggaljam_cptdi') !== '' ? datetime2mysql(safe_post('tanggaljam_cptdi')) : NULL),
-            'pasientiba_cptdi'          => ambil_data_json('pasientiba_cptdi', 3), 
+
+            'pasientiba_cptdi'          => ambil_data_json('pasientiba_cptdi', 3), // ini senganja blm di ubah tadiya json 3 cuma tinggal 1 coba dulu kalau eror di perbaiki lagi
+
             'terpasang_cptdi'           => ambil_data_json('terpasang_cptdi', 3), 
-            'pulsasia_cptdi'            => ambil_data_json('pulsasia_cptdi', 6), 
-            'pulsasidor_cptdi'          => ambil_data_json('pulsasidor_cptdi', 6), 
+            // 'pulsasia_cptdi'            => ambil_data_json('pulsasia_cptdi', 6), 
+            // 'pulsasidor_cptdi'          => ambil_data_json('pulsasidor_cptdi', 6), 
             'alatyt_cptdi'              => ambil_data_json('alatyt_cptdi', 8), 
             'jenisanest_cptdi'          => ambil_data_json('jenisanest_cptdi', 5), 
             'sedasi_cptdi'              => (safe_post('sedasi_cptdi') !== '' ? safe_post('sedasi_cptdi') : NULL),
@@ -23433,9 +23481,9 @@ class Pelayanan extends REST_Controller
             'leserasi_cptdi'            => ambil_data_json('leserasi_cptdi', 4), 
             'reaksif_cptdi'             => ambil_data_json('reaksif_cptdi', 3), 
             'intaker_cptdi'             => ambil_data_json('intaker_cptdi', 6), 
-            'imobil_cptdi'              => ambil_data_json('imobil_cptdi', 6), 
+            // 'imobil_cptdi'              => ambil_data_json('imobil_cptdi', 6), 
             'maskeptan_cptdi'           => ambil_data_json('maskeptan_cptdi', 12), 
-            'tdmandiri_cptdi'           => ambil_data_json('tdmandiri_cptdi', 12), 
+            'tdmandiri_cptdi'           => ambil_data_json('tdmandiri_cptdi', 15), 
             'saturasy_cptdi'            => ambil_data_json('saturasy_cptdi', 8), 
             'pulsasi_cptdi'             => ambil_data_json('pulsasi_cptdi', 8), 
             'reflek_cptdi'              => ambil_data_json('reflek_cptdi', 8), 
@@ -23592,6 +23640,9 @@ class Pelayanan extends REST_Controller
         $this->response($data, REST_Controller::HTTP_OK);
     }
 
+
+
+    
 
     // LEMBAR OBSERVASI
     function get_data_lembar_observasi_get(){

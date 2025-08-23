@@ -86,239 +86,8 @@ class Medical_check_up extends REST_Controller
         $this->response(array('status' => $status, 'message' => $message));
     }
 
-    function simpan_pemeriksaan_mcu_post()
-    {
 
-
-        /*$this->db->trans_begin();
-
-		$checkPaketLayanan = $this->m_mcu->getByIdPaketIdLayananPendaftaran(safe_post('id_layanan'), safe_post('id_paket'));
-
-		if($checkPaketLayanan == NULL) {
-			$paketLayanan = array(
-				'id_layanan_pendaftaran' => safe_post('id_layanan'),
-				'id_paket' => safe_post('id_paket'),            
-				'created_at' => $this->datetime, 
-				'created_by' => $this->session->userdata('id_translucent'),             
-			);        				
-	
-			$this->db->insert('sm_layanan_pendaftaran_paket', $paketLayanan);
-		}		*/
-
-        $this->db->trans_begin();
-
-        // update alergi pasien
-        $this->m_pelayanan->updateAlergiPasien(safe_post('id_pasien'), safe_post('alergi'));
-        $lp_status = $this->db->select('status_terlayani, id_pendaftaran')->where('id', safe_post('id_layanan'))->get('sm_layanan_pendaftaran')->row();
-        $id_sub_spesialis = NULL;
-
-        // check subspesialis post
-        if (isset($_POST['subspesialis'])) :
-            $id_sub_spesialis = safe_post('subspesialis') !== '' ? safe_post('subspesialis') : NULL;
-        endif;
-
-        $dokter = safe_post('dokter') !== '' ? safe_post('dokter') : NULL;
-        $layanan = array('id' => safe_post('id_layanan'), 'id_dokter' => $dokter, 'status_terlayani' => 'Sudah', 'id_sub_spesialis' => $id_sub_spesialis);
-
-        // check dokter pengganti post
-        if (isset($_POST['dokter_pengganti'])) :
-            $layanan['id_dokter_pengganti'] = !empty($_POST['dokter_pengganti']) ? $_POST['dokter_pengganti'] : NULL;
-        endif;
-
-        // update layanan pendaftaran
-        $this->m_pelayanan->updateLayananPendaftaran($layanan);
-
-
-        // data anamnesa
-        if (safe_post('jenis_layanan') !== 'Rawat Inap') {
-            $anamnesa = array(
-                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
-                'waktu'                     => $this->datetime,
-                'keluhan_utama'             => safe_post('keluhan_utama') !== '' ? safe_post('keluhan_utama') : NULL,
-                'riwayat_penyakit_keluarga' => safe_post('riwayat_penyakit_keluarga') !== '' ? safe_post('riwayat_penyakit_keluarga') : NULL,
-                'riwayat_penyakit_sekarang' => safe_post('riwayat_penyakit_sekarang') !== '' ? safe_post('riwayat_penyakit_sekarang') : NULL,
-                'anamnesa_sosial'           => safe_post('anamnesa_sosial') !== '' ? safe_post('anamnesa_sosial') : NULL,
-                'riwayat_penyakit_dahulu'   => safe_post('riwayat_penyakit_dahulu') !== '' ? safe_post('riwayat_penyakit_dahulu') : NULL,
-                'keadaan_umum'              => safe_post('keadaan_umum') !== '' ? safe_post('keadaan_umum') : NULL,
-                'kesadaran'                 => safe_post('kesadaran') !== '' ? safe_post('kesadaran') : NULL,
-                'gcs'                       => safe_post('gcs') !== '' ? safe_post('gcs') : NULL,
-                'tensi_sistolik'            => safe_post('tensi_sistolik') !== '' ? safe_post('tensi_sistolik') : NULL,
-                'tensi_diastolik'           => safe_post('tensi_diastolik') !== '' ? safe_post('tensi_diastolik') : NULL,
-                'suhu'                      => safe_post('suhu') !== '' ? safe_post('suhu') : NULL,
-                'nadi'                      => safe_post('nadi') !== '' ? safe_post('nadi') : NULL,
-                'tinggi_badan'              => safe_post('tinggi_badan') !== '' ? safe_post('tinggi_badan') : NULL,
-                'berat_badan'               => safe_post('berat_badan') !== '' ? safe_post('berat_badan') : NULL,
-                'rr'                        => safe_post('rr') !== '' ? safe_post('rr') : NULL,
-                'nps'                       => safe_post('nps') !== '' ? safe_post('nps') : NULL,
-                'kepala'                    => safe_post('kepala') !== '' ? safe_post('kepala') : NULL,
-                'thorax'                    => safe_post('thorax') !== '' ? safe_post('thorax') : NULL,
-                'cor'                       => safe_post('cor') !== '' ? safe_post('cor') : NULL,
-                'genitalia'                 => safe_post('genitalia') !== '' ? safe_post('genitalia') : NULL,
-                'pemeriksaan_penunjang'     => safe_post('pemeriksaan_penunjang') !== '' ? safe_post('pemeriksaan_penunjang') : NULL,
-                'status_mentalis'           => safe_post('status_mentalis') !== '' ? safe_post('status_mentalis') : NULL,
-                'status_gizi'               => safe_post('status_gizi') !== '' ? safe_post('status_gizi') : NULL,
-                'hidung'                    => safe_post('hidung') !== '' ? safe_post('hidung') : NULL,
-                'mata'                      => safe_post('mata') !== '' ? safe_post('mata') : NULL,
-                'usul_tindak_lanjut'        => safe_post('usul_tindak_lanjut') !== '' ? safe_post('usul_tindak_lanjut') : NULL,
-                'leher'                     => safe_post('leher') !== '' ? safe_post('leher') : NULL,
-                'pulmo'                     => safe_post('pulmo') !== '' ? safe_post('pulmo') : NULL,
-                'abdomen'                   => safe_post('abdomen') !== '' ? safe_post('abdomen') : NULL,
-                'ekstrimitas'               => safe_post('ekstrimitas') !== '' ? safe_post('ekstrimitas') : NULL,
-                'prognosis'                 => safe_post('prognosis') !== '' ? safe_post('prognosis') : NULL,
-                'lingkar_kepala'            => safe_post('lingkar_kepala') !== '' ? safe_post('lingkar_kepala') : NULL,
-                'telinga'                   => safe_post('telinga') !== '' ? safe_post('telinga') : NULL,
-                'tenggorok'                 => safe_post('tenggorok') !== '' ? safe_post('tenggorok') : NULL,
-                'kulit_kelamin'             => safe_post('kulit_kelamin') !== '' ? safe_post('kulit_kelamin') : NULL,
-                'pupil_dbn'                 => safe_post('pupil_dbn') !== '' ? safe_post('pupil_dbn') : NULL,
-                'pupil_bentuk'              => safe_post('pupil_bentuk') !== '' ? safe_post('pupil_bentuk') : NULL,
-                'pupil_ukuran'              => safe_post('pupil_ukuran') !== '' ? safe_post('pupil_ukuran') : NULL,
-                'pupil_reflek_cahaya'       => safe_post('pupil_reflek_cahaya') !== '' ? safe_post('pupil_reflek_cahaya') : NULL,
-                'nervi_cranialis_dbn'       => safe_post('nervi_cranialis_dbn') !== '' ? safe_post('nervi_cranialis_dbn') : NULL,
-                'nervi_cranialis_paresis'   => safe_post('nervi_cranialis_paresis') !== '' ? safe_post('nervi_cranialis_paresis') : NULL,
-                'rf_kiri_atas'              => safe_post('rf_kiri_atas') !== '' ? safe_post('rf_kiri_atas') : NULL,
-                'rf_kiri_bawah'             => safe_post('rf_kiri_bawah') !== '' ? safe_post('rf_kiri_bawah') : NULL,
-                'rf_kanan_atas'             => safe_post('rf_kanan_atas') !== '' ? safe_post('rf_kanan_atas') : NULL,
-                'rf_kanan_bawah'            => safe_post('rf_kanan_bawah') !== '' ? safe_post('rf_kanan_bawah') : NULL,
-                'sensorik_dbn'              => safe_post('sensorik_dbn') !== '' ? safe_post('sensorik_dbn') : NULL,
-                'sensorik_lain'             => safe_post('sensorik_lain') !== '' ? safe_post('sensorik_lain') : NULL,
-                'pemeriksaan_khusus'        => safe_post('pemeriksaan_khusus') !== '' ? safe_post('pemeriksaan_khusus') : NULL,
-                'trm_dbn'                   => safe_post('trm_dbn') !== '' ? safe_post('trm_dbn') : NULL,
-                'trm_kaku_kuduk'            => safe_post('trm_kaku_kuduk') !== '' ? safe_post('trm_kaku_kuduk') : NULL,
-                'trm_laseque'               => safe_post('trm_laseque') !== '' ? safe_post('trm_laseque') : NULL,
-                'trm_kerning'               => safe_post('trm_kerning') !== '' ? safe_post('trm_kerning') : NULL,
-                'motorik_kiri_atas'         => safe_post('motorik_kiri_atas') !== '' ? safe_post('motorik_kiri_atas') : NULL,
-                'motorik_kiri_bawah'        => safe_post('motorik_kiri_bawah') !== '' ? safe_post('motorik_kiri_bawah') : NULL,
-                'motorik_kanan_atas'        => safe_post('motorik_kanan_atas') !== '' ? safe_post('motorik_kanan_atas') : NULL,
-                'motorik_kanan_bawah'       => safe_post('motorik_kanan_bawah') !== '' ? safe_post('motorik_kanan_bawah') : NULL,
-                'reflek_patologis'          => safe_post('reflek_patologis') !== '' ? safe_post('reflek_patologis') : NULL,
-                'otonom'                    => safe_post('otonom') !== '' ? safe_post('otonom') : NULL,
-                'riwayat_kelahiran'         => safe_post('riwayat_kelahiran') !== '' ? safe_post('riwayat_kelahiran') : NULL,
-                'riwayat_nutrisi'           => safe_post('riwayat_nutrisi') !== '' ? safe_post('riwayat_nutrisi') : NULL,
-                'riwayat_imunisasi'         => safe_post('riwayat_imunisasi') !== '' ? safe_post('riwayat_imunisasi') : NULL,
-                'riwayat_tumbuh_kembang'    => safe_post('riwayat_tumbuh_kembang') !== '' ? safe_post('riwayat_tumbuh_kembang') : NULL,
-                's_soap'                    => safe_post('s_soap') !== '' ? safe_post('s_soap') : NULL,
-                'o_soap'                    => safe_post('o_soap') !== '' ? safe_post('o_soap') : NULL,
-                'a_soap'                    => safe_post('a_soap') !== '' ? safe_post('a_soap') : NULL,
-                'p_soap'                    => safe_post('p_soap') !== '' ? safe_post('p_soap') : NULL,
-                'kritik'                    => safe_post('kritik') !== '' ? safe_post('kritik') : NULL,
-                'saran'                     => safe_post('saran') !== '' ? safe_post('saran') : NULL,
-            );
-        } else {
-            $visitasi = array(
-                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
-                'waktu'                     => $this->datetime,
-                'keluhan_utama'             => safe_post('keluhan_utama_ri') !== '' ? safe_post('keluhan_utama_ri') : NULL,
-                'tensi_sistolik'            => safe_post('tensi_s') !== '' ? safe_post('tensi_s') : NULL,
-                'tensi_diastolik'           => safe_post('tensi_d') !== '' ? safe_post('tensi_d') : NULL,
-                'suhu'                      => safe_post('suhu_ri') !== '' ? safe_post('suhu_ri') : NULL,
-                'nadi'                      => safe_post('nadi_ri') !== '' ? safe_post('nadi_ri') : NULL,
-                'nps'                       => safe_post('nafas_ri') !== '' ? safe_post('nafas_ri') : NULL,
-                'rr'                        => safe_post('respirasi_ri') !== '' ? safe_post('respirasi_ri') : NULL,
-            );
-
-            $soap = array(
-                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
-                'waktu'                     => $this->datetime,
-                'id_dokter'                 => safe_post('dokter') !== '' ? safe_post('dokter') : NULL,
-                'jenis'                     => safe_post('jenis_layanan'),
-                's_soap'                    => safe_post('s_soap') !== '' ? safe_post('s_soap') : NULL,
-                'o_soap'                    => safe_post('o_soap') !== '' ? safe_post('o_soap') : NULL,
-                'a_soap'                    => safe_post('a_soap') !== '' ? safe_post('a_soap') : NULL,
-                'p_soap'                    => safe_post('p_soap') !== '' ? safe_post('p_soap') : NULL,
-                'keterangan'                => safe_post('keterangan') !== '' ? safe_post('keterangan') : NULL,
-            );
-        }
-
-        // insert data anamnesa
-        if (safe_post('jenis_layanan') === 'Rawat Inap') :
-            $this->m_pelayanan->insertAnamnesa($visitasi);
-            $this->m_pelayanan->insertSOAP($soap);
-            $jenis = 'Rawat Inap';
-        else :
-            if (safe_post('jenis_layanan') === 'IGD') :
-                $this->m_pelayanan->updateAnamnesa($anamnesa);
-                $jenis = 'IGD';
-            else :
-                if (safe_post('jenis_layanan') === 'Pemulasaran Jenazah') :
-                    $jenis = 'Pemulasaran Jenazah';
-                else :
-                    if (safe_post('jenis_layanan') === 'Hemodialisa') :
-                        $this->m_pelayanan->updateAnamnesa($anamnesa);
-                        $jenis = 'Hemodialisa';
-                    else :
-                        if (safe_post('jenis_layanan') === 'MCU') :
-                        $this->m_pelayanan->updateAnamnesa($anamnesa);
-                        $jenis = 'MCU';
-                    else :
-                        $this->m_pelayanan->updateAnamnesa($anamnesa);
-                        $jenis = 'Rawat Jalan';
-                    endif;
-                    endif;
-                endif;
-            endif;
-        endif;
-
-        // data diagnosa
-        $diagnosa = array(
-            'id_diag'                   => $this->post('id_diag'),
-            'id_dokter'                 => $this->post('dokter_diag'),
-            'id_golongan_sebab_sakit'   => $this->post('id_golongan_sebab_sakit') !== '' ? $this->post('id_golongan_sebab_sakit') : NULL,
-            'kode_diagnosa'             => $this->post('kode_diag') !== '' ? $this->post('kode_diag') : NULL,
-            'diagnosa_manual'           => $this->post('diag_manual') === "on" ? NULL : $this->post('diag_manual'),
-            'golongan_sebab_sakit_lain' => $this->post('gol_sebab_sakit_lain') !== '' ? $this->post('gol_sebab_sakit_lain') : NULL,
-            'diagnosa_klinis'           => $this->post('diag_klinis') === "on" ? NULL : $this->post('diag_klinis'),
-            'prioritas'                 => $this->post('prioritas') !== '' ? $this->post('prioritas') : NULL,
-            'diagnosa_banding'          => $this->post('diag_banding') !== '' ? $this->post('diag_banding') : NULL,
-            'diagnosa_akhir'            => $this->post('diag_akhir') === "on" ? 0 : $this->post('diag_akhir'),
-            'penyebab_kematian'         => $this->post('sebab_kematian') === "on" ? 0 : $this->post('sebab_kematian'),
-            'jenis_kasus'               => $this->post('jenis_kasus') !== '' ? $this->post('jenis_kasus') : NULL,
-        );
-
-        if ($jenis !== "Intensive Care") :
-            $diagnosa['post'] = array(1);
-        endif;
-        // echo json_encode($diagnosa); die;
-        // insert data diagnosa
-        $this->m_pelayanan->simpanDiagnosaPemeriksaan($layanan['id'], $diagnosa, safe_post('id_pasien'));
-
-        // data tindakan
-        $tindakan = array(
-            'operator' => $this->post('id_operator'),
-            'tindakan' => $this->post('id_tindakan'),
-            'tindakan_icd9' => $this->post('id_tindakan_icd9'),
-            'qty'      => $this->post('qty'),
-        );
-        // var_dump($tindakan);die;
-
-        // Looping setiap tindakan
-        // for ($i = 0; $i < count($tindakan['operator']); $i++) {
-        //     $data = array(
-        //         'operator' => $tindakan['operator'][$i],
-        //         'tindakan' => $tindakan['tindakan'][$i],
-        //        'tindakan_icd9' => $tindakan['id_tindakan_icd9'][$i],
-        //         'qty'      => $tindakan['qty'][$i],
-        //     );
-        // }
-
-        //  insert data tindakan
-        $this->m_pelayanan->simpanTindakanPemeriksaan(safe_post('id_layanan'), $tindakan, safe_post('jenis_layanan'));
-        
-
-
-
-
-        if ($this->db->trans_status() === false) :
-            $this->db->trans_rollback();
-            $status = false;
-            $message = 'Gagal menyimpan pemeriksaan MCU';
-        else :
-            $this->db->trans_commit();
-            $status = true;
-            $message = 'Berhasil menyimpan pemeriksaan MCU';
-        endif;
-
-        $this->response(array('status' => $status, 'message' => $message));
-    }
+ 
 
     function detail_pemeriksaan_get()
     {
@@ -680,9 +449,252 @@ class Medical_check_up extends REST_Controller
         $this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
     }
 
-    function form_rekam_medis_get()
-    {
 
+
+
+
+
+
+
+    function simpan_pemeriksaan_mcu_post() {
+
+
+        /*$this->db->trans_begin();
+
+		$checkPaketLayanan = $this->m_mcu->getByIdPaketIdLayananPendaftaran(safe_post('id_layanan'), safe_post('id_paket'));
+
+		if($checkPaketLayanan == NULL) {
+			$paketLayanan = array(
+				'id_layanan_pendaftaran' => safe_post('id_layanan'),
+				'id_paket' => safe_post('id_paket'),            
+				'created_at' => $this->datetime, 
+				'created_by' => $this->session->userdata('id_translucent'),             
+			);        				
+	
+			$this->db->insert('sm_layanan_pendaftaran_paket', $paketLayanan);
+		}		*/
+
+        $this->db->trans_begin();
+
+        // update alergi pasien
+        $this->m_pelayanan->updateAlergiPasien(safe_post('id_pasien'), safe_post('alergi'));
+        $lp_status = $this->db->select('status_terlayani, id_pendaftaran')->where('id', safe_post('id_layanan'))->get('sm_layanan_pendaftaran')->row();
+        $id_sub_spesialis = NULL;
+
+        // check subspesialis post
+        if (isset($_POST['subspesialis'])) :
+            $id_sub_spesialis = safe_post('subspesialis') !== '' ? safe_post('subspesialis') : NULL;
+        endif;
+
+        $dokter = safe_post('dokter') !== '' ? safe_post('dokter') : NULL;
+        $layanan = array('id' => safe_post('id_layanan'), 'id_dokter' => $dokter, 'status_terlayani' => 'Sudah', 'id_sub_spesialis' => $id_sub_spesialis);
+
+        // check dokter pengganti post
+        if (isset($_POST['dokter_pengganti'])) :
+            $layanan['id_dokter_pengganti'] = !empty($_POST['dokter_pengganti']) ? $_POST['dokter_pengganti'] : NULL;
+        endif;
+
+        // update layanan pendaftaran
+        $this->m_pelayanan->updateLayananPendaftaran($layanan);
+
+
+        // data anamnesa
+        if (safe_post('jenis_layanan') !== 'Rawat Inap') {
+            $anamnesa = array(
+                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
+                'waktu'                     => $this->datetime,
+                'keluhan_utama'             => safe_post('keluhan_utama') !== '' ? safe_post('keluhan_utama') : NULL,
+                'riwayat_penyakit_keluarga' => safe_post('riwayat_penyakit_keluarga') !== '' ? safe_post('riwayat_penyakit_keluarga') : NULL,
+                'riwayat_penyakit_sekarang' => safe_post('riwayat_penyakit_sekarang') !== '' ? safe_post('riwayat_penyakit_sekarang') : NULL,
+                'anamnesa_sosial'           => safe_post('anamnesa_sosial') !== '' ? safe_post('anamnesa_sosial') : NULL,
+                'riwayat_penyakit_dahulu'   => safe_post('riwayat_penyakit_dahulu') !== '' ? safe_post('riwayat_penyakit_dahulu') : NULL,
+                'keadaan_umum'              => safe_post('keadaan_umum') !== '' ? safe_post('keadaan_umum') : NULL,
+                'kesadaran'                 => safe_post('kesadaran') !== '' ? safe_post('kesadaran') : NULL,
+                'gcs'                       => safe_post('gcs') !== '' ? safe_post('gcs') : NULL,
+                'tensi_sistolik'            => safe_post('tensi_sistolik') !== '' ? safe_post('tensi_sistolik') : NULL,
+                'tensi_diastolik'           => safe_post('tensi_diastolik') !== '' ? safe_post('tensi_diastolik') : NULL,
+                'suhu'                      => safe_post('suhu') !== '' ? safe_post('suhu') : NULL,
+                'nadi'                      => safe_post('nadi') !== '' ? safe_post('nadi') : NULL,
+                'tinggi_badan'              => safe_post('tinggi_badan') !== '' ? safe_post('tinggi_badan') : NULL,
+                'berat_badan'               => safe_post('berat_badan') !== '' ? safe_post('berat_badan') : NULL,
+                'rr'                        => safe_post('rr') !== '' ? safe_post('rr') : NULL,
+                'nps'                       => safe_post('nps') !== '' ? safe_post('nps') : NULL,
+                'kepala'                    => safe_post('kepala') !== '' ? safe_post('kepala') : NULL,
+                'thorax'                    => safe_post('thorax') !== '' ? safe_post('thorax') : NULL,
+                'cor'                       => safe_post('cor') !== '' ? safe_post('cor') : NULL,
+                'genitalia'                 => safe_post('genitalia') !== '' ? safe_post('genitalia') : NULL,
+                'pemeriksaan_penunjang'     => safe_post('pemeriksaan_penunjang') !== '' ? safe_post('pemeriksaan_penunjang') : NULL,
+                'status_mentalis'           => safe_post('status_mentalis') !== '' ? safe_post('status_mentalis') : NULL,
+                'status_gizi'               => safe_post('status_gizi') !== '' ? safe_post('status_gizi') : NULL,
+                'hidung'                    => safe_post('hidung') !== '' ? safe_post('hidung') : NULL,
+                'mata'                      => safe_post('mata') !== '' ? safe_post('mata') : NULL,
+                'usul_tindak_lanjut'        => safe_post('usul_tindak_lanjut') !== '' ? safe_post('usul_tindak_lanjut') : NULL,
+                'leher'                     => safe_post('leher') !== '' ? safe_post('leher') : NULL,
+                'pulmo'                     => safe_post('pulmo') !== '' ? safe_post('pulmo') : NULL,
+                'abdomen'                   => safe_post('abdomen') !== '' ? safe_post('abdomen') : NULL,
+                'ekstrimitas'               => safe_post('ekstrimitas') !== '' ? safe_post('ekstrimitas') : NULL,
+                'prognosis'                 => safe_post('prognosis') !== '' ? safe_post('prognosis') : NULL,
+                'lingkar_kepala'            => safe_post('lingkar_kepala') !== '' ? safe_post('lingkar_kepala') : NULL,
+                'telinga'                   => safe_post('telinga') !== '' ? safe_post('telinga') : NULL,
+                'tenggorok'                 => safe_post('tenggorok') !== '' ? safe_post('tenggorok') : NULL,
+                'kulit_kelamin'             => safe_post('kulit_kelamin') !== '' ? safe_post('kulit_kelamin') : NULL,
+                'pupil_dbn'                 => safe_post('pupil_dbn') !== '' ? safe_post('pupil_dbn') : NULL,
+                'pupil_bentuk'              => safe_post('pupil_bentuk') !== '' ? safe_post('pupil_bentuk') : NULL,
+                'pupil_ukuran'              => safe_post('pupil_ukuran') !== '' ? safe_post('pupil_ukuran') : NULL,
+                'pupil_reflek_cahaya'       => safe_post('pupil_reflek_cahaya') !== '' ? safe_post('pupil_reflek_cahaya') : NULL,
+                'nervi_cranialis_dbn'       => safe_post('nervi_cranialis_dbn') !== '' ? safe_post('nervi_cranialis_dbn') : NULL,
+                'nervi_cranialis_paresis'   => safe_post('nervi_cranialis_paresis') !== '' ? safe_post('nervi_cranialis_paresis') : NULL,
+                'rf_kiri_atas'              => safe_post('rf_kiri_atas') !== '' ? safe_post('rf_kiri_atas') : NULL,
+                'rf_kiri_bawah'             => safe_post('rf_kiri_bawah') !== '' ? safe_post('rf_kiri_bawah') : NULL,
+                'rf_kanan_atas'             => safe_post('rf_kanan_atas') !== '' ? safe_post('rf_kanan_atas') : NULL,
+                'rf_kanan_bawah'            => safe_post('rf_kanan_bawah') !== '' ? safe_post('rf_kanan_bawah') : NULL,
+                'sensorik_dbn'              => safe_post('sensorik_dbn') !== '' ? safe_post('sensorik_dbn') : NULL,
+                'sensorik_lain'             => safe_post('sensorik_lain') !== '' ? safe_post('sensorik_lain') : NULL,
+                'pemeriksaan_khusus'        => safe_post('pemeriksaan_khusus') !== '' ? safe_post('pemeriksaan_khusus') : NULL,
+                'trm_dbn'                   => safe_post('trm_dbn') !== '' ? safe_post('trm_dbn') : NULL,
+                'trm_kaku_kuduk'            => safe_post('trm_kaku_kuduk') !== '' ? safe_post('trm_kaku_kuduk') : NULL,
+                'trm_laseque'               => safe_post('trm_laseque') !== '' ? safe_post('trm_laseque') : NULL,
+                'trm_kerning'               => safe_post('trm_kerning') !== '' ? safe_post('trm_kerning') : NULL,
+                'motorik_kiri_atas'         => safe_post('motorik_kiri_atas') !== '' ? safe_post('motorik_kiri_atas') : NULL,
+                'motorik_kiri_bawah'        => safe_post('motorik_kiri_bawah') !== '' ? safe_post('motorik_kiri_bawah') : NULL,
+                'motorik_kanan_atas'        => safe_post('motorik_kanan_atas') !== '' ? safe_post('motorik_kanan_atas') : NULL,
+                'motorik_kanan_bawah'       => safe_post('motorik_kanan_bawah') !== '' ? safe_post('motorik_kanan_bawah') : NULL,
+                'reflek_patologis'          => safe_post('reflek_patologis') !== '' ? safe_post('reflek_patologis') : NULL,
+                'otonom'                    => safe_post('otonom') !== '' ? safe_post('otonom') : NULL,
+                'riwayat_kelahiran'         => safe_post('riwayat_kelahiran') !== '' ? safe_post('riwayat_kelahiran') : NULL,
+                'riwayat_nutrisi'           => safe_post('riwayat_nutrisi') !== '' ? safe_post('riwayat_nutrisi') : NULL,
+                'riwayat_imunisasi'         => safe_post('riwayat_imunisasi') !== '' ? safe_post('riwayat_imunisasi') : NULL,
+                'riwayat_tumbuh_kembang'    => safe_post('riwayat_tumbuh_kembang') !== '' ? safe_post('riwayat_tumbuh_kembang') : NULL,
+                's_soap'                    => safe_post('s_soap') !== '' ? safe_post('s_soap') : NULL,
+                'o_soap'                    => safe_post('o_soap') !== '' ? safe_post('o_soap') : NULL,
+                'a_soap'                    => safe_post('a_soap') !== '' ? safe_post('a_soap') : NULL,
+                'p_soap'                    => safe_post('p_soap') !== '' ? safe_post('p_soap') : NULL,
+                'kritik'                    => safe_post('kritik') !== '' ? safe_post('kritik') : NULL,
+                'saran'                     => safe_post('saran') !== '' ? safe_post('saran') : NULL,
+            );
+        } else {
+            $visitasi = array(
+                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
+                'waktu'                     => $this->datetime,
+                'keluhan_utama'             => safe_post('keluhan_utama_ri') !== '' ? safe_post('keluhan_utama_ri') : NULL,
+                'tensi_sistolik'            => safe_post('tensi_s') !== '' ? safe_post('tensi_s') : NULL,
+                'tensi_diastolik'           => safe_post('tensi_d') !== '' ? safe_post('tensi_d') : NULL,
+                'suhu'                      => safe_post('suhu_ri') !== '' ? safe_post('suhu_ri') : NULL,
+                'nadi'                      => safe_post('nadi_ri') !== '' ? safe_post('nadi_ri') : NULL,
+                'nps'                       => safe_post('nafas_ri') !== '' ? safe_post('nafas_ri') : NULL,
+                'rr'                        => safe_post('respirasi_ri') !== '' ? safe_post('respirasi_ri') : NULL,
+            );
+
+            $soap = array(
+                'id_layanan_pendaftaran'    => safe_post('id_layanan'),
+                'waktu'                     => $this->datetime,
+                'id_dokter'                 => safe_post('dokter') !== '' ? safe_post('dokter') : NULL,
+                'jenis'                     => safe_post('jenis_layanan'),
+                's_soap'                    => safe_post('s_soap') !== '' ? safe_post('s_soap') : NULL,
+                'o_soap'                    => safe_post('o_soap') !== '' ? safe_post('o_soap') : NULL,
+                'a_soap'                    => safe_post('a_soap') !== '' ? safe_post('a_soap') : NULL,
+                'p_soap'                    => safe_post('p_soap') !== '' ? safe_post('p_soap') : NULL,
+                'keterangan'                => safe_post('keterangan') !== '' ? safe_post('keterangan') : NULL,
+            );
+        }
+
+        // insert data anamnesa
+        if (safe_post('jenis_layanan') === 'Rawat Inap') :
+            $this->m_pelayanan->insertAnamnesa($visitasi);
+            $this->m_pelayanan->insertSOAP($soap);
+            $jenis = 'Rawat Inap';
+        else :
+            if (safe_post('jenis_layanan') === 'IGD') :
+                $this->m_pelayanan->updateAnamnesa($anamnesa);
+                $jenis = 'IGD';
+            else :
+                if (safe_post('jenis_layanan') === 'Pemulasaran Jenazah') :
+                    $jenis = 'Pemulasaran Jenazah';
+                else :
+                    if (safe_post('jenis_layanan') === 'Hemodialisa') :
+                        $this->m_pelayanan->updateAnamnesa($anamnesa);
+                        $jenis = 'Hemodialisa';
+                    else :
+                        if (safe_post('jenis_layanan') === 'MCU') :
+                        $this->m_pelayanan->updateAnamnesa($anamnesa);
+                        $jenis = 'MCU';
+                    else :
+                        $this->m_pelayanan->updateAnamnesa($anamnesa);
+                        $jenis = 'Rawat Jalan';
+                    endif;
+                    endif;
+                endif;
+            endif;
+        endif;
+
+        // data diagnosa
+        $diagnosa = array(
+            'id_diag'                   => $this->post('id_diag'),
+            'id_dokter'                 => $this->post('dokter_diag'),
+            'id_golongan_sebab_sakit'   => $this->post('id_golongan_sebab_sakit') !== '' ? $this->post('id_golongan_sebab_sakit') : NULL,
+            'kode_diagnosa'             => $this->post('kode_diag') !== '' ? $this->post('kode_diag') : NULL,
+            'diagnosa_manual'           => $this->post('diag_manual') === "on" ? NULL : $this->post('diag_manual'),
+            'golongan_sebab_sakit_lain' => $this->post('gol_sebab_sakit_lain') !== '' ? $this->post('gol_sebab_sakit_lain') : NULL,
+            'diagnosa_klinis'           => $this->post('diag_klinis') === "on" ? NULL : $this->post('diag_klinis'),
+            'prioritas'                 => $this->post('prioritas') !== '' ? $this->post('prioritas') : NULL,
+            'diagnosa_banding'          => $this->post('diag_banding') !== '' ? $this->post('diag_banding') : NULL,
+            'diagnosa_akhir'            => $this->post('diag_akhir') === "on" ? 0 : $this->post('diag_akhir'),
+            'penyebab_kematian'         => $this->post('sebab_kematian') === "on" ? 0 : $this->post('sebab_kematian'),
+            'jenis_kasus'               => $this->post('jenis_kasus') !== '' ? $this->post('jenis_kasus') : NULL,
+        );
+
+        if ($jenis !== "Intensive Care") :
+            $diagnosa['post'] = array(1);
+        endif;
+        // echo json_encode($diagnosa); die;
+        // insert data diagnosa
+        $this->m_pelayanan->simpanDiagnosaPemeriksaan($layanan['id'], $diagnosa, safe_post('id_pasien'));
+
+        // data tindakan
+        $tindakan = array(
+            'operator' => $this->post('id_operator'),
+            'tindakan' => $this->post('id_tindakan'),
+            'tindakan_icd9' => $this->post('id_tindakan_icd9'),
+            'qty'      => $this->post('qty'),
+        );
+        // var_dump($tindakan);die;
+
+        // Looping setiap tindakan
+        // for ($i = 0; $i < count($tindakan['operator']); $i++) {
+        //     $data = array(
+        //         'operator' => $tindakan['operator'][$i],
+        //         'tindakan' => $tindakan['tindakan'][$i],
+        //        'tindakan_icd9' => $tindakan['id_tindakan_icd9'][$i],
+        //         'qty'      => $tindakan['qty'][$i],
+        //     );
+        // }
+
+        //  insert data tindakan
+        $this->m_pelayanan->simpanTindakanPemeriksaan(safe_post('id_layanan'), $tindakan, safe_post('jenis_layanan'));
+
+        if ($this->db->trans_status() === false) :
+            $this->db->trans_rollback();
+            $status = false;
+            $message = 'Gagal menyimpan pemeriksaan MCU';
+        else :
+            $this->db->trans_commit();
+            $status = true;
+            $message = 'Berhasil menyimpan pemeriksaan MCU';
+        endif;
+
+        $this->response(array('status' => $status, 'message' => $message));
+    }
+
+
+
+
+
+
+
+    
+
+    // MRM
+    function form_rekam_medis_get(){
         $this->load->model('pendaftaran/Pendaftaran_model', 'm_pendaftaran');
 
         $data['pendaftaran_detail'] = [];
@@ -703,8 +715,8 @@ class Medical_check_up extends REST_Controller
         }
     }
 
-    function simpan_mcu_post()
-    {
+    // MRM
+    function simpan_mcu_post(){
         $checkDataMCU = '';
         $checkDataMCU = $this->m_mcu->getMCU(safe_post('id_layanan_pendaftaran'));
 
@@ -771,6 +783,20 @@ class Medical_check_up extends REST_Controller
 
         $this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

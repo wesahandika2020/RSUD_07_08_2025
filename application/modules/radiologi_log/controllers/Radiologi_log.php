@@ -58,6 +58,9 @@ class Radiologi_log extends SYAM_Controller
     //     }
     // }
 
+
+
+
     // PPPDJ
     function cetak_ppp_diagnostik_jantung($id, $id_pendaftaran, $id_layanan_pendaftaran, $type = null) {
         // Mengecek apakah $id tersedia, jika tidak ada maka fungsi berhenti
@@ -87,6 +90,8 @@ class Radiologi_log extends SYAM_Controller
         }
     }
 
+
+
     // CPTD
     function cetak_checklist_post_tindakan_diagnostik($id, $id_pendaftaran, $id_layanan_pendaftaran, $type = null) {
         // Mengecek apakah $id tersedia, jika tidak ada maka fungsi berhenti
@@ -115,9 +120,11 @@ class Radiologi_log extends SYAM_Controller
             return $data;
         }
     }
+
+
      
-    // CPTDQ
-    function cetak_checklist_post_tindakan_diagnostik_qembar($id, $id_pendaftaran, $id_layanan_pendaftaran, $type = null) {
+    // QCPTD
+    function cetak_checklist_persiapan_tindakan_diagnostik($id, $id_pendaftaran, $id_layanan_pendaftaran, $type = null) {
         // Mengecek apakah $id tersedia, jika tidak ada maka fungsi berhenti
         if (!$id) exit();
     
@@ -134,16 +141,19 @@ class Radiologi_log extends SYAM_Controller
         $data = $this->radiologi->getPendaftaranDetailTindakanRadiologi($id_pendaftaran); 
     
         // Mengambil data Formulir Kesediaan Pemulasaran Organ Amputasi berdasarkan ID
-        $cptdq = $this->radiologi->getCheklistPostTindakanDiagnostikQembarById($id);  
+        $cptdq = $this->radiologi->getCheklistPersiapanTindakanDiagnostikById($id);  
         $data['cptdq'] = $cptdq;  // Menyimpan data PPPDJ ke dalam array $data
         // var_dump($data['cptdq']);die;
         if ($type !== 'data') {
-            $this->load->view('radiologi_log/printing/cetak_checklist_post_tindakan_diagnostik_qembar', $data);
+            $this->load->view('radiologi_log/printing/cetak_checklist_persiapan_tindakan_diagnostik', $data);
         } else {
             // Jika $type adalah 'data', kembalikan data tanpa menampilkan tampilan
             return $data;
         }
     }
+
+
+
 
     // // AAKC INI DI TUTUP DULU KARNA BLM ADA PERINTAH UNTUK BIKIN PRINTYA
     // function cetak_asesmen_awal_keperawatan_cathlab($id, $id_pendaftaran, $id_layanan_pendaftaran, $type = null) {

@@ -982,6 +982,9 @@ class Radiologi_log extends REST_Controller
 
 
 
+
+	
+
 	// CPTD LOGS
 	function get_data_cheklist_post_tindakan_diagnostik_get(){
 		$data['pendaftaran_detail'] = "";
@@ -1228,6 +1231,8 @@ class Radiologi_log extends REST_Controller
 	}
 
 
+
+
 	
 	// AAKC LOGS
 	function get_data_asesmen_awal_keperawatan_cathlab_get(){
@@ -1329,6 +1334,28 @@ class Radiologi_log extends REST_Controller
 				'jamverifikasi_aakc'        => safe_post('jamverifikasi_aakc') == '' ? null : safe_post('jamverifikasi_aakc'),
 				'tanggal_aakc' 	    		=> safe_post('tanggal_aakc') == '' ? null : date2mysql(safe_post('tanggal_aakc')),
 
+				'akses_aakc_3'            	=> safe_post('akses_aakc_3') == '' ? null : safe_post('akses_aakc_3'),
+				'hb_aakc'            		=> safe_post('hb_aakc') == '' ? null : safe_post('hb_aakc'),
+				'urcr_aakc'            		=> safe_post('urcr_aakc') == '' ? null : safe_post('urcr_aakc'),
+				'ht_aakc'            		=> safe_post('ht_aakc') == '' ? null : safe_post('ht_aakc'),
+				'hbsag_aakc'            	=> safe_post('hbsag_aakc') == '' ? null : safe_post('hbsag_aakc'),
+				'gds_aakc'            		=> safe_post('gds_aakc') == '' ? null : safe_post('gds_aakc'),
+				'ptaptt_aakc'            	=> safe_post('ptaptt_aakc') == '' ? null : safe_post('ptaptt_aakc'),
+				'tropt_aakc'            	=> safe_post('tropt_aakc') == '' ? null : safe_post('tropt_aakc'),
+				'elektrolit_aakc'           => safe_post('elektrolit_aakc') == '' ? null : safe_post('elektrolit_aakc'),
+				'bb_aakc'            		=> safe_post('bb_aakc') == '' ? null : safe_post('bb_aakc'),
+				'tb_aakc'            		=> safe_post('tb_aakc') == '' ? null : safe_post('tb_aakc'),
+				'cpg_aakc'            		=> safe_post('cpg_aakc') == '' ? null : safe_post('cpg_aakc'),
+				'jam1_aakc'            		=> safe_post('jam1_aakc') == '' ? null : safe_post('jam1_aakc'),
+				'aspilet_aakc'            	=> safe_post('aspilet_aakc') == '' ? null : safe_post('aspilet_aakc'),
+				'jam2_aakc'            		=> safe_post('jam2_aakc') == '' ? null : safe_post('jam2_aakc'),
+				'atorvastatin_aakc'         => safe_post('atorvastatin_aakc') == '' ? null : safe_post('atorvastatin_aakc'),
+				'jam3_aakc'            		=> safe_post('jam3_aakc') == '' ? null : safe_post('jam3_aakc'),
+				'isdn_aakc'            		=> safe_post('isdn_aakc') == '' ? null : safe_post('isdn_aakc'),
+				'jam4_aakc'            		=> safe_post('jam4_aakc') == '' ? null : safe_post('jam4_aakc'),
+				'dll_aakc'            		=> safe_post('dll_aakc') == '' ? null : safe_post('dll_aakc'),
+				'jam5_aakc'            		=> safe_post('jam5_aakc') == '' ? null : safe_post('jam5_aakc'),
+
 				'dokteroperator2_aakc'      => safe_post('dokteroperator2_aakc') == '' ? null : safe_post('dokteroperator2_aakc'),
 				'perawat_aakc'            	=> safe_post('perawat_aakc') == '' ? null : safe_post('perawat_aakc'),
 				'dokteroperator3_aakc'      => safe_post('dokteroperator3_aakc') == '' ? null : safe_post('dokteroperator3_aakc'),
@@ -1336,7 +1363,7 @@ class Radiologi_log extends REST_Controller
 				'created_date'				=> $this->datetime,
 				'updated_on'             	=> $this->datetime	
 			);
-			$this->db->insert('sm_asesmen_awal_keperawatan_cathlab', $data);
+			$this->db->insert('sm_cheklis_kes_pasien_tdk_inter_bedah', $data);
 	
 		} else {
 			// UPDATE DATA
@@ -1416,6 +1443,28 @@ class Radiologi_log extends REST_Controller
 				'jamverifikasi_aakc'        => safe_post('jamverifikasi_aakc') == '' ? null : safe_post('jamverifikasi_aakc'),
 				'tanggal_aakc' 	    		=> safe_post('tanggal_aakc') == '' ? null : date2mysql(safe_post('tanggal_aakc')),
 
+				'akses_aakc_3'            	=> safe_post('akses_aakc_3') == '' ? null : safe_post('akses_aakc_3'),
+				'hb_aakc'            		=> safe_post('hb_aakc') == '' ? null : safe_post('hb_aakc'),
+				'urcr_aakc'            		=> safe_post('urcr_aakc') == '' ? null : safe_post('urcr_aakc'),
+				'ht_aakc'            		=> safe_post('ht_aakc') == '' ? null : safe_post('ht_aakc'),
+				'hbsag_aakc'            	=> safe_post('hbsag_aakc') == '' ? null : safe_post('hbsag_aakc'),
+				'gds_aakc'            		=> safe_post('gds_aakc') == '' ? null : safe_post('gds_aakc'),
+				'ptaptt_aakc'            	=> safe_post('ptaptt_aakc') == '' ? null : safe_post('ptaptt_aakc'),
+				'tropt_aakc'            	=> safe_post('tropt_aakc') == '' ? null : safe_post('tropt_aakc'),
+				'elektrolit_aakc'           => safe_post('elektrolit_aakc') == '' ? null : safe_post('elektrolit_aakc'),
+				'bb_aakc'            		=> safe_post('bb_aakc') == '' ? null : safe_post('bb_aakc'),
+				'tb_aakc'            		=> safe_post('tb_aakc') == '' ? null : safe_post('tb_aakc'),
+				'cpg_aakc'            		=> safe_post('cpg_aakc') == '' ? null : safe_post('cpg_aakc'),
+				'jam1_aakc'            		=> safe_post('jam1_aakc') == '' ? null : safe_post('jam1_aakc'),
+				'aspilet_aakc'            	=> safe_post('aspilet_aakc') == '' ? null : safe_post('aspilet_aakc'),
+				'jam2_aakc'            		=> safe_post('jam2_aakc') == '' ? null : safe_post('jam2_aakc'),
+				'atorvastatin_aakc'         => safe_post('atorvastatin_aakc') == '' ? null : safe_post('atorvastatin_aakc'),
+				'jam3_aakc'            		=> safe_post('jam3_aakc') == '' ? null : safe_post('jam3_aakc'),
+				'isdn_aakc'            		=> safe_post('isdn_aakc') == '' ? null : safe_post('isdn_aakc'),
+				'jam4_aakc'            		=> safe_post('jam4_aakc') == '' ? null : safe_post('jam4_aakc'),
+				'dll_aakc'            		=> safe_post('dll_aakc') == '' ? null : safe_post('dll_aakc'),
+				'jam5_aakc'            		=> safe_post('jam5_aakc') == '' ? null : safe_post('jam5_aakc'),
+
 				'dokteroperator2_aakc'      => safe_post('dokteroperator2_aakc') == '' ? null : safe_post('dokteroperator2_aakc'),
 				'perawat_aakc'            	=> safe_post('perawat_aakc') == '' ? null : safe_post('perawat_aakc'),
 				'dokteroperator3_aakc'      => safe_post('dokteroperator3_aakc') == '' ? null : safe_post('dokteroperator3_aakc'),
@@ -1493,8 +1542,32 @@ class Radiologi_log extends REST_Controller
 
 				'ada_aakc_1'            => $checkDataAaKC->ada_aakc_1,
 				'ada_aakc_2'            => $checkDataAaKC->ada_aakc_2,
-				'tdada_aakc_1'         => $checkDataAaKC->tdada_aakc_1,
+				'tdada_aakc_1'         	=> $checkDataAaKC->tdada_aakc_1,
 				'ya_aakc_2'            	=> $checkDataAaKC->ya_aakc_2,
+
+
+				'akses_aakc_3'         	=> $checkDataAaKC->akses_aakc_3,
+				'hb_aakc'         		=> $checkDataAaKC->hb_aakc,
+				'urcr_aakc'         	=> $checkDataAaKC->urcr_aakc,
+				'ht_aakc'         		=> $checkDataAaKC->ht_aakc,
+				'hbsag_aakc'         	=> $checkDataAaKC->hbsag_aakc,
+				'gds_aakc'         		=> $checkDataAaKC->gds_aakc,
+				'ptaptt_aakc'         	=> $checkDataAaKC->ptaptt_aakc,
+				'tropt_aakc'         	=> $checkDataAaKC->tropt_aakc,
+				'elektrolit_aakc'       => $checkDataAaKC->elektrolit_aakc,
+				'bb_aakc'         		=> $checkDataAaKC->bb_aakc,
+				'tb_aakc'         		=> $checkDataAaKC->tb_aakc,
+				'cpg_aakc'         		=> $checkDataAaKC->cpg_aakc,
+				'jam1_aakc'         	=> $checkDataAaKC->jam1_aakc,
+				'aspilet_aakc'         	=> $checkDataAaKC->aspilet_aakc,
+				'jam2_aakc'         	=> $checkDataAaKC->jam2_aakc,
+				'atorvastatin_aakc'     => $checkDataAaKC->atorvastatin_aakc,
+				'jam3_aakc'         	=> $checkDataAaKC->jam3_aakc,
+				'isdn_aakc'         	=> $checkDataAaKC->isdn_aakc,
+				'jam4_aakc'         	=> $checkDataAaKC->jam4_aakc,
+				'dll_aakc'         		=> $checkDataAaKC->dll_aakc,
+				'jam5_aakc'         	=> $checkDataAaKC->jam5_aakc,
+
 
 				'jelaskan_aakc'         => $checkDataAaKC->jelaskan_aakc,
 				'jamverifikasi_aakc'    => $checkDataAaKC->jamverifikasi_aakc,
@@ -1510,10 +1583,10 @@ class Radiologi_log extends REST_Controller
 				'log_action'           	=> 'update'
 			);
 
-			$this->db->insert('sm_asesmen_awal_keperawatan_cathlab_logs', $logData);
+			$this->db->insert('sm_cheklis_kes_pasien_tdk_inter_bedah_logs', $logData);
 	
 			$this->db->where('id', safe_post('id_aakc'));
-			$this->db->update('sm_asesmen_awal_keperawatan_cathlab', $data);
+			$this->db->update('sm_cheklis_kes_pasien_tdk_inter_bedah', $data);
 		}
 	
 		if ($this->db->trans_status() === false) {
@@ -1535,7 +1608,7 @@ class Radiologi_log extends REST_Controller
 			$this->response(null, REST_Controller::HTTP_BAD_REQUEST);
 		endif;
 		// Ambil data sebelum dihapus
-		$AaKcHapus = $this->db->where('id', safe_post('id'))->get('sm_asesmen_awal_keperawatan_cathlab')->row();
+		$AaKcHapus = $this->db->where('id', safe_post('id'))->get('sm_cheklis_kes_pasien_tdk_inter_bedah')->row();
 		$this->db->trans_begin();
 		if ($AaKcHapus) {
 			// Simpan ke log
@@ -1610,8 +1683,30 @@ class Radiologi_log extends REST_Controller
 
 				'ada_aakc_1'            => $AaKcHapus->ada_aakc_1,
 				'ada_aakc_2'            => $AaKcHapus->ada_aakc_2,
-				'tdada_aakc_1'         => $AaKcHapus->tdada_aakc_1,
+				'tdada_aakc_1'         	=> $AaKcHapus->tdada_aakc_1,
 				'ya_aakc_2'            	=> $AaKcHapus->ya_aakc_2,
+
+				'akses_aakc_3'         	=> $AaKcHapus->akses_aakc_3,
+				'hb_aakc'         		=> $AaKcHapus->hb_aakc,
+				'urcr_aakc'         	=> $AaKcHapus->urcr_aakc,
+				'ht_aakc'         		=> $AaKcHapus->ht_aakc,
+				'hbsag_aakc'         	=> $AaKcHapus->hbsag_aakc,
+				'gds_aakc'         		=> $AaKcHapus->gds_aakc,
+				'ptaptt_aakc'         	=> $AaKcHapus->ptaptt_aakc,
+				'tropt_aakc'         	=> $AaKcHapus->tropt_aakc,
+				'elektrolit_aakc'       => $AaKcHapus->elektrolit_aakc,
+				'bb_aakc'         		=> $AaKcHapus->bb_aakc,
+				'tb_aakc'         		=> $AaKcHapus->tb_aakc,
+				'cpg_aakc'         		=> $AaKcHapus->cpg_aakc,
+				'jam1_aakc'         	=> $AaKcHapus->jam1_aakc,
+				'aspilet_aakc'         	=> $AaKcHapus->aspilet_aakc,
+				'jam2_aakc'         	=> $AaKcHapus->jam2_aakc,
+				'atorvastatin_aakc'     => $AaKcHapus->atorvastatin_aakc,
+				'jam3_aakc'         	=> $AaKcHapus->jam3_aakc,
+				'isdn_aakc'         	=> $AaKcHapus->isdn_aakc,
+				'jam4_aakc'         	=> $AaKcHapus->jam4_aakc,
+				'dll_aakc'         		=> $AaKcHapus->dll_aakc,
+				'jam5_aakc'         	=> $AaKcHapus->jam5_aakc,
 
 				'jelaskan_aakc'         => $AaKcHapus->jelaskan_aakc,
 				'jamverifikasi_aakc'    => $AaKcHapus->jamverifikasi_aakc,
@@ -1626,10 +1721,10 @@ class Radiologi_log extends REST_Controller
 				'updated_on'           	=> $this->datetime,
 				'log_action'           	=> 'delete'
 			);
-			$this->db->insert('sm_asesmen_awal_keperawatan_cathlab_logs', $logDataAaKc);
+			$this->db->insert('sm_cheklis_kes_pasien_tdk_inter_bedah_logs', $logDataAaKc);
 		}
 		// Hapus data utama
-		$this->db->where('id', safe_post('id'))->delete('sm_asesmen_awal_keperawatan_cathlab');
+		$this->db->where('id', safe_post('id'))->delete('sm_cheklis_kes_pasien_tdk_inter_bedah');
 	
 		if ($this->db->trans_status() === false) :
 			$this->db->trans_rollback();
@@ -1658,14 +1753,17 @@ class Radiologi_log extends REST_Controller
 	}
 
 
-	// CPTDQ LOGS
-	function get_data_cheklist_post_tindakan_diagnostik_qembar_get(){
+
+
+
+	// QCPTD LOGS
+	function get_data_cheklist_persiapan_tindakan_diagnostik_get(){
 		$data['pendaftaran_detail'] = "";
-		$data['list_checklist_post_tindakan_diagnostik_qembar'] = [];
+		$data['list_checklist_persiapan_tindakan_diagnostik'] = [];
 		$data = $this->radiologi->getPendaftaranDetailTindakanRadiologi($this->get('id_pendaftaran', true), $this->get('id_layanan', true));
 		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
-		$data['list_checklist_post_tindakan_diagnostik_qembar'] = $this->radiologi->getCheklistPostTindakanDiagnostikQembar($this->get('id_pendaftaran'));	
-		$data['list_checklist_post_tindakan_diagnostik_qembar_logs'] = $this->radiologi->getCheklistPostTindakanDiagnostikQembarLogs($this->get('id_pendaftaran'));	
+		$data['list_checklist_persiapan_tindakan_diagnostik'] = $this->radiologi->getCheklistPersiapanTindakanDiagnostik($this->get('id_pendaftaran'));	
+		$data['list_checklist_persiapan_tindakan_diagnostik_logs'] = $this->radiologi->getCheklistPersiapanTindakanDiagnostikLogs($this->get('id_pendaftaran'));	
 		if ($data != null) {
 			$this->response($data, REST_Controller::HTTP_OK);
 		} else {
@@ -1673,11 +1771,11 @@ class Radiologi_log extends REST_Controller
 		}
 	}
 
-	// CPTDQ LOGS
-	function simpan_checklist_post_tindakan_diagnostik_qembar_post(){
+	// QCPTD LOGS
+	function simpan_checklist_persiapan_tindakan_diagnostik_post(){
 		$checkDataCptdq = '';
 		if (safe_post('id_cptdq') !== '') {
-			$checkDataCptdq = $this->radiologi->getCheklistPostTindakanDiagnostikQembarById(safe_post('id_cptdq'));
+			$checkDataCptdq = $this->radiologi->getCheklistPersiapanTindakanDiagnostikById(safe_post('id_cptdq'));
 		}
 		$this->db->trans_begin();
 	
@@ -1686,75 +1784,237 @@ class Radiologi_log extends REST_Controller
 			$data = array(
 				'id_pendaftaran'			=> safe_post('id_pendaftaran'),
 				'id_layanan_pendaftaran'    => safe_post('id_layanan_pendaftaran'),
-				'td_cptdq'                 	=> safe_post('td_cptdq') == '' ? null : safe_post('td_cptdq'),
-				'hr_cptdq'                 	=> safe_post('hr_cptdq') == '' ? null : safe_post('hr_cptdq'),
-				'rr_cptdq'                 	=> safe_post('rr_cptdq') == '' ? null : safe_post('rr_cptdq'),
-				'suhu_cptdq'                => safe_post('suhu_cptdq') == '' ? null : safe_post('suhu_cptdq'),
-				'radical_cptdq_1'           => safe_post('radical_cptdq_1') == '' ? null : safe_post('radical_cptdq_1'),
-				'radical_cptdq_2'           => safe_post('radical_cptdq_2') == '' ? null : safe_post('radical_cptdq_2'),
-				'radical_cptdq_3'           => safe_post('radical_cptdq_3') == '' ? null : safe_post('radical_cptdq_3'),
-				'hematom_cptdq_1'           => safe_post('hematom_cptdq_1') == '' ? null : safe_post('hematom_cptdq_1'),
-				'hematom_cptdq_2'           => safe_post('hematom_cptdq_2') == '' ? null : safe_post('hematom_cptdq_2'),
-				'hematom_cptdq_3'           => safe_post('hematom_cptdq_3') == '' ? null : safe_post('hematom_cptdq_3'),
-				'jampergelangan_cptdq'      => safe_post('jampergelangan_cptdq') == '' ? null : safe_post('jampergelangan_cptdq'),
-				'jamsiku_cptdq'             => safe_post('jamsiku_cptdq') == '' ? null : safe_post('jamsiku_cptdq'),
-				'jampci_cptdq'              => safe_post('jampci_cptdq') == '' ? null : safe_post('jampci_cptdq'),
-				'denyut_cptdq_1'            => safe_post('denyut_cptdq_1') == '' ? null : safe_post('denyut_cptdq_1'),
-				'denyut_cptdq_2'            => safe_post('denyut_cptdq_2') == '' ? null : safe_post('denyut_cptdq_2'),
-				'denyut_cptdq_3'            => safe_post('denyut_cptdq_3') == '' ? null : safe_post('denyut_cptdq_3'),
-				'hemmattom_cptdq_1'         => safe_post('hemmattom_cptdq_1') == '' ? null : safe_post('hemmattom_cptdq_1'),
-				'hemmattom_cptdq_2'         => safe_post('hemmattom_cptdq_2') == '' ? null : safe_post('hemmattom_cptdq_2'),
-				'hemmattom_cptdq_3'         => safe_post('hemmattom_cptdq_3') == '' ? null : safe_post('hemmattom_cptdq_3'),
-				'jamkaki_cptdq'             => safe_post('jamkaki_cptdq') == '' ? null : safe_post('jamkaki_cptdq'),
-				'jamkitekuk_cptdq'          => safe_post('jamkitekuk_cptdq') == '' ? null : safe_post('jamkitekuk_cptdq'),
-				'jamaptt_cptdq'             => safe_post('jamaptt_cptdq') == '' ? null : safe_post('jamaptt_cptdq'),
-				'hasil_cptdq_1'             => safe_post('hasil_cptdq_1') == '' ? null : safe_post('hasil_cptdq_1'),
-				'hasil_cptdq_2'             => safe_post('hasil_cptdq_2') == '' ? null : safe_post('hasil_cptdq_2'),
-				'hasil_cptdq_3'             => safe_post('hasil_cptdq_3') == '' ? null : safe_post('hasil_cptdq_3'),
-				'cddvd_cptdq_1'             => safe_post('cddvd_cptdq_1') == '' ? null : safe_post('cddvd_cptdq_1'),
-				'cddvd_cptdq_2'             => safe_post('cddvd_cptdq_2') == '' ? null : safe_post('cddvd_cptdq_2'),
-				'cddvd_cptdq_3'             => safe_post('cddvd_cptdq_3') == '' ? null : safe_post('cddvd_cptdq_3'),
 				'tanggal_cptdq' 	    	=> safe_post('tanggal_cptdq') == '' ? null : date2mysql(safe_post('tanggal_cptdq')),
+
+				'dpjptb_cptdq'              => safe_post('dpjptb_cptdq') == '' ? null : safe_post('dpjptb_cptdq'),
+				'rencana_cptdq'             => safe_post('rencana_cptdq') == '' ? null : safe_post('rencana_cptdq'),
+				'diagnosa_cptdq'            => safe_post('diagnosa_cptdq') == '' ? null : safe_post('diagnosa_cptdq'),
+				'tb_cptdq'                	=> safe_post('tb_cptdq') == '' ? null : safe_post('tb_cptdq'),
+				'bb_cptdq'           		=> safe_post('bb_cptdq') == '' ? null : safe_post('bb_cptdq'),
+
+				'kesadaran_cptdq_1'         => safe_post('kesadaran_cptdq_1') == '' ? null : safe_post('kesadaran_cptdq_1'),
+				'kesadaran_cptdq_2'        	=> safe_post('kesadaran_cptdq_2') == '' ? null : safe_post('kesadaran_cptdq_2'),
+				'kesadaran_cptdq_3'         => safe_post('kesadaran_cptdq_3') == '' ? null : safe_post('kesadaran_cptdq_3'),
+
+				'puasa_cptdq_1'           	=> safe_post('puasa_cptdq_1') == '' ? null : safe_post('puasa_cptdq_1'),
+				'puasa_cptdq_2'           	=> safe_post('puasa_cptdq_2') == '' ? null : safe_post('puasa_cptdq_2'),
+				'puasa_cptdq_3'           	=> safe_post('puasa_cptdq_3') == '' ? null : safe_post('puasa_cptdq_3'),
+
+				'cukurdaerah_cptdq_1'       => safe_post('cukurdaerah_cptdq_1') == '' ? null : safe_post('cukurdaerah_cptdq_1'),
+				'cukurdaerah_cptdq_2'      	=> safe_post('cukurdaerah_cptdq_2') == '' ? null : safe_post('cukurdaerah_cptdq_2'),
+				'cukurdaerah_cptdq_3'       => safe_post('cukurdaerah_cptdq_3') == '' ? null : safe_post('cukurdaerah_cptdq_3'),
+
+				'cdaerahkanan_cptdq_1'      => safe_post('cdaerahkanan_cptdq_1') == '' ? null : safe_post('cdaerahkanan_cptdq_1'),
+				'cdaerahkanan_cptdq_2'      => safe_post('cdaerahkanan_cptdq_2') == '' ? null : safe_post('cdaerahkanan_cptdq_2'),
+				'cdaerahkanan_cptdq_3'      => safe_post('cdaerahkanan_cptdq_3') == '' ? null : safe_post('cdaerahkanan_cptdq_3'),
+
+				'ivlineterpasang_cptdq_1'   => safe_post('ivlineterpasang_cptdq_1') == '' ? null : safe_post('ivlineterpasang_cptdq_1'),
+				'ivlineterpasang_cptdq_2'   => safe_post('ivlineterpasang_cptdq_2') == '' ? null : safe_post('ivlineterpasang_cptdq_2'),
+				'ivlineterpasang_cptdq_3'   => safe_post('ivlineterpasang_cptdq_3') == '' ? null : safe_post('ivlineterpasang_cptdq_3'),
+
+				'gigipalsu_cptdq_1'         => safe_post('gigipalsu_cptdq_1') == '' ? null : safe_post('gigipalsu_cptdq_1'),
+				'gigipalsu_cptdq_2'         => safe_post('gigipalsu_cptdq_2') == '' ? null : safe_post('gigipalsu_cptdq_2'),
+				'gigipalsu_cptdq_3'         => safe_post('gigipalsu_cptdq_3') == '' ? null : safe_post('gigipalsu_cptdq_3'),
+
+				'kontaklensa_cptdq_1'       => safe_post('kontaklensa_cptdq_1') == '' ? null : safe_post('kontaklensa_cptdq_1'),
+				'kontaklensa_cptdq_2'       => safe_post('kontaklensa_cptdq_2') == '' ? null : safe_post('kontaklensa_cptdq_2'),
+				'kontaklensa_cptdq_3'       => safe_post('kontaklensa_cptdq_3') == '' ? null : safe_post('kontaklensa_cptdq_3'),
+
+				'perhiasan_cptdq_1'         => safe_post('perhiasan_cptdq_1') == '' ? null : safe_post('perhiasan_cptdq_1'),
+				'perhiasan_cptdq_2'         => safe_post('perhiasan_cptdq_2') == '' ? null : safe_post('perhiasan_cptdq_2'),
+				'perhiasan_cptdq_3'         => safe_post('perhiasan_cptdq_3') == '' ? null : safe_post('perhiasan_cptdq_3'),
+				
+				'alergiobat_cptdq'          => safe_post('alergiobat_cptdq') == '' ? null : safe_post('alergiobat_cptdq'),
+				'alergizat_cptdq'           => safe_post('alergizat_cptdq') == '' ? null : safe_post('alergizat_cptdq'),
+				'alergimakanan_cptdq'       => safe_post('alergimakanan_cptdq') == '' ? null : safe_post('alergimakanan_cptdq'),
+
+				'riwayatpen_cptdq_1'        => safe_post('riwayatpen_cptdq_1') == '' ? null : safe_post('riwayatpen_cptdq_1'),
+				'riwayatpen_cptdq_2'        => safe_post('riwayatpen_cptdq_2') == '' ? null : safe_post('riwayatpen_cptdq_2'),
+				'riwayatpen_cptdq_3'       	=> safe_post('riwayatpen_cptdq_3') == '' ? null : safe_post('riwayatpen_cptdq_3'),
+
+				'obatpengen_cptdq'          => safe_post('obatpengen_cptdq') == '' ? null : safe_post('obatpengen_cptdq'),
+				'obatobatan_cptdq'          => safe_post('obatobatan_cptdq') == '' ? null : safe_post('obatobatan_cptdq'),
+
+
+				'pasienevektif_cptdq_1'     => safe_post('pasienevektif_cptdq_1') == '' ? null : safe_post('pasienevektif_cptdq_1'),
+				'pasienevektif_cptdq_2'     => safe_post('pasienevektif_cptdq_2') == '' ? null : safe_post('pasienevektif_cptdq_2'),
+				'pasienevektif_cptdq_3'     => safe_post('pasienevektif_cptdq_3') == '' ? null : safe_post('pasienevektif_cptdq_3'),
+
+				'pasangkater_cptdq_1'       => safe_post('pasangkater_cptdq_1') == '' ? null : safe_post('pasangkater_cptdq_1'),
+				'pasangkater_cptdq_2'       => safe_post('pasangkater_cptdq_2') == '' ? null : safe_post('pasangkater_cptdq_2'),
+				'pasangkater_cptdq_3'       => safe_post('pasangkater_cptdq_3') == '' ? null : safe_post('pasangkater_cptdq_3'),
+				'pasangkater_cptdq_4'       => safe_post('pasangkater_cptdq_4') == '' ? null : safe_post('pasangkater_cptdq_4'),
+				'pasangkater_cptdq_5'       => safe_post('pasangkater_cptdq_5') == '' ? null : safe_post('pasangkater_cptdq_5'),
+
+				'suratijin_cptdq_1'         => safe_post('suratijin_cptdq_1') == '' ? null : safe_post('suratijin_cptdq_1'),
+				'suratijin_cptdq_2'         => safe_post('suratijin_cptdq_2') == '' ? null : safe_post('suratijin_cptdq_2'),
+				'suratijin_cptdq_3'         => safe_post('suratijin_cptdq_3') == '' ? null : safe_post('suratijin_cptdq_3'),
+
+				'suratpermin_cptdq_1'       => safe_post('suratpermin_cptdq_1') == '' ? null : safe_post('suratpermin_cptdq_1'),
+				'suratpermin_cptdq_2'       => safe_post('suratpermin_cptdq_2') == '' ? null : safe_post('suratpermin_cptdq_2'),
+				'suratpermin_cptdq_3'       => safe_post('suratpermin_cptdq_3') == '' ? null : safe_post('suratpermin_cptdq_3'),
+
+				'surateduk_cptdq_1'         => safe_post('surateduk_cptdq_1') == '' ? null : safe_post('surateduk_cptdq_1'),
+				'surateduk_cptdq_2'         => safe_post('surateduk_cptdq_2') == '' ? null : safe_post('surateduk_cptdq_2'),
+				'surateduk_cptdq_3'         => safe_post('surateduk_cptdq_3') == '' ? null : safe_post('surateduk_cptdq_3'),
+
+				'gelang_cptdq_1'           	=> safe_post('gelang_cptdq_1') == '' ? null : safe_post('gelang_cptdq_1'),
+				'gelang_cptdq_2'           	=> safe_post('gelang_cptdq_2') == '' ? null : safe_post('gelang_cptdq_2'),
+				'gelang_cptdq_3'           	=> safe_post('gelang_cptdq_3') == '' ? null : safe_post('gelang_cptdq_3'),
+
+				'statsu_cptdq_1'           	=> safe_post('statsu_cptdq_1') == '' ? null : safe_post('statsu_cptdq_1'),
+				'statsu_cptdq_2'           	=> safe_post('statsu_cptdq_2') == '' ? null : safe_post('statsu_cptdq_2'),
+				'statsu_cptdq_3'           	=> safe_post('statsu_cptdq_3') == '' ? null : safe_post('statsu_cptdq_3'),
+
+				'therapi_cptdq_1'           => safe_post('therapi_cptdq_1') == '' ? null : safe_post('therapi_cptdq_1'),
+				'therapi_cptdq_2'           => safe_post('therapi_cptdq_2') == '' ? null : safe_post('therapi_cptdq_2'),
+				'therapi_cptdq_3'           => safe_post('therapi_cptdq_3') == '' ? null : safe_post('therapi_cptdq_3'),
+
+				'surattulis_cptdq_1'        => safe_post('surattulis_cptdq_1') == '' ? null : safe_post('surattulis_cptdq_1'),
+				'surattulis_cptdq_2'        => safe_post('surattulis_cptdq_2') == '' ? null : safe_post('surattulis_cptdq_2'),
+				'surattulis_cptdq_3'        => safe_post('surattulis_cptdq_3') == '' ? null : safe_post('surattulis_cptdq_3'),
+
+				'darahrutin_cptdq'          => safe_post('darahrutin_cptdq') == '' ? null : safe_post('darahrutin_cptdq'),
+				'urcr_cptdq'           		=> safe_post('urcr_cptdq') == '' ? null : safe_post('urcr_cptdq'),
+				'app_cptdq'           		=> safe_post('app_cptdq') == '' ? null : safe_post('app_cptdq'),
+				'pt_cptdq'           		=> safe_post('pt_cptdq') == '' ? null : safe_post('pt_cptdq'),
+				'inr_cptdq'           		=> safe_post('inr_cptdq') == '' ? null : safe_post('inr_cptdq'),
+				'gds_cptdq'           		=> safe_post('gds_cptdq') == '' ? null : safe_post('gds_cptdq'),
+				'trop_cptdq'           		=> safe_post('trop_cptdq') == '' ? null : safe_post('trop_cptdq'),
+				'hbsag_cptdq'           	=> safe_post('hbsag_cptdq') == '' ? null : safe_post('hbsag_cptdq'),
+				'elektrik_cptdq'           	=> safe_post('elektrik_cptdq') == '' ? null : safe_post('elektrik_cptdq'),
+
+				'ekg_cptdq_1'           	=> safe_post('ekg_cptdq_1') == '' ? null : safe_post('ekg_cptdq_1'),
+				'ekg_cptdq_2'           	=> safe_post('ekg_cptdq_2') == '' ? null : safe_post('ekg_cptdq_2'),
+				'ekg_cptdq_3'           	=> safe_post('ekg_cptdq_3') == '' ? null : safe_post('ekg_cptdq_3'),
+
+				'xray_cptdq_1'           	=> safe_post('xray_cptdq_1') == '' ? null : safe_post('xray_cptdq_1'),
+				'xray_cptdq_2'           	=> safe_post('xray_cptdq_2') == '' ? null : safe_post('xray_cptdq_2'),
+				'xray_cptdq_3'           	=> safe_post('xray_cptdq_3') == '' ? null : safe_post('xray_cptdq_3'),
+				'xray_cptdq_4'           	=> safe_post('xray_cptdq_4') == '' ? null : safe_post('xray_cptdq_4'),
+				'xray_cptdq_5'           	=> safe_post('xray_cptdq_5') == '' ? null : safe_post('xray_cptdq_5'),
+
 				'perawatcathlab_cptdq'   	=> safe_post('perawatcathlab_cptdq') == '' ? null : safe_post('perawatcathlab_cptdq'),
 				'perawatruangan_cptdq'   	=> safe_post('perawatruangan_cptdq') == '' ? null : safe_post('perawatruangan_cptdq'),
 				'id_users'					=> $this->session->userdata('id_translucent'),
 				'created_date'				=> $this->datetime,
 				'updated_on'             	=> $this->datetime	
 			);
-			$this->db->insert('sm_cheklist_post_tindakan_diagnostik_qembar', $data);
+			$this->db->insert('sm_cheklis_persiapan_tindakan_diagnostik', $data);
 	
 		} else {
 			// UPDATE DATA
 			$data = array(
-				'td_cptdq'                 	=> safe_post('td_cptdq') == '' ? null : safe_post('td_cptdq'),
-				'hr_cptdq'                 	=> safe_post('hr_cptdq') == '' ? null : safe_post('hr_cptdq'),
-				'rr_cptdq'                 	=> safe_post('rr_cptdq') == '' ? null : safe_post('rr_cptdq'),
-				'suhu_cptdq'                 => safe_post('suhu_cptdq') == '' ? null : safe_post('suhu_cptdq'),
-				'radical_cptdq_1'            => safe_post('radical_cptdq_1') == '' ? null : safe_post('radical_cptdq_1'),
-				'radical_cptdq_2'            => safe_post('radical_cptdq_2') == '' ? null : safe_post('radical_cptdq_2'),
-				'radical_cptdq_3'            => safe_post('radical_cptdq_3') == '' ? null : safe_post('radical_cptdq_3'),
-				'hematom_cptdq_1'            => safe_post('hematom_cptdq_1') == '' ? null : safe_post('hematom_cptdq_1'),
-				'hematom_cptdq_2'            => safe_post('hematom_cptdq_2') == '' ? null : safe_post('hematom_cptdq_2'),
-				'hematom_cptdq_3'            => safe_post('hematom_cptdq_3') == '' ? null : safe_post('hematom_cptdq_3'),
-				'jampergelangan_cptdq'       => safe_post('jampergelangan_cptdq') == '' ? null : safe_post('jampergelangan_cptdq'),
-				'jamsiku_cptdq'              => safe_post('jamsiku_cptdq') == '' ? null : safe_post('jamsiku_cptdq'),
-				'jampci_cptdq'               => safe_post('jampci_cptdq') == '' ? null : safe_post('jampci_cptdq'),
-				'denyut_cptdq_1'             => safe_post('denyut_cptdq_1') == '' ? null : safe_post('denyut_cptdq_1'),
-				'denyut_cptdq_2'             => safe_post('denyut_cptdq_2') == '' ? null : safe_post('denyut_cptdq_2'),
-				'denyut_cptdq_3'             => safe_post('denyut_cptdq_3') == '' ? null : safe_post('denyut_cptdq_3'),
-				'hemmattom_cptdq_1'          => safe_post('hemmattom_cptdq_1') == '' ? null : safe_post('hemmattom_cptdq_1'),
-				'hemmattom_cptdq_2'          => safe_post('hemmattom_cptdq_2') == '' ? null : safe_post('hemmattom_cptdq_2'),
-				'hemmattom_cptdq_3'          => safe_post('hemmattom_cptdq_3') == '' ? null : safe_post('hemmattom_cptdq_3'),
-				'jamkaki_cptdq'              => safe_post('jamkaki_cptdq') == '' ? null : safe_post('jamkaki_cptdq'),
-				'jamkitekuk_cptdq'           => safe_post('jamkitekuk_cptdq') == '' ? null : safe_post('jamkitekuk_cptdq'),
-				'jamaptt_cptdq'              => safe_post('jamaptt_cptdq') == '' ? null : safe_post('jamaptt_cptdq'),
-				'hasil_cptdq_1'              => safe_post('hasil_cptdq_1') == '' ? null : safe_post('hasil_cptdq_1'),
-				'hasil_cptdq_2'              => safe_post('hasil_cptdq_2') == '' ? null : safe_post('hasil_cptdq_2'),
-				'hasil_cptdq_3'              => safe_post('hasil_cptdq_3') == '' ? null : safe_post('hasil_cptdq_3'),
-				'cddvd_cptdq_1'              => safe_post('cddvd_cptdq_1') == '' ? null : safe_post('cddvd_cptdq_1'),
-				'cddvd_cptdq_2'              => safe_post('cddvd_cptdq_2') == '' ? null : safe_post('cddvd_cptdq_2'),
-				'cddvd_cptdq_3'              => safe_post('cddvd_cptdq_3') == '' ? null : safe_post('cddvd_cptdq_3'),
-				'tanggal_cptdq' 	    		=> safe_post('tanggal_cptdq') == '' ? null : date2mysql(safe_post('tanggal_cptdq')),
+
+				'tanggal_cptdq' 	    	=> safe_post('tanggal_cptdq') == '' ? null : date2mysql(safe_post('tanggal_cptdq')),
+				'dpjptb_cptdq'              => safe_post('dpjptb_cptdq') == '' ? null : safe_post('dpjptb_cptdq'),
+				'rencana_cptdq'             => safe_post('rencana_cptdq') == '' ? null : safe_post('rencana_cptdq'),
+				'diagnosa_cptdq'            => safe_post('diagnosa_cptdq') == '' ? null : safe_post('diagnosa_cptdq'),
+				'tb_cptdq'                	=> safe_post('tb_cptdq') == '' ? null : safe_post('tb_cptdq'),
+				'bb_cptdq'           		=> safe_post('bb_cptdq') == '' ? null : safe_post('bb_cptdq'),
+
+				'kesadaran_cptdq_1'         => safe_post('kesadaran_cptdq_1') == '' ? null : safe_post('kesadaran_cptdq_1'),
+				'kesadaran_cptdq_2'        	=> safe_post('kesadaran_cptdq_2') == '' ? null : safe_post('kesadaran_cptdq_2'),
+				'kesadaran_cptdq_3'         => safe_post('kesadaran_cptdq_3') == '' ? null : safe_post('kesadaran_cptdq_3'),
+
+				'puasa_cptdq_1'           	=> safe_post('puasa_cptdq_1') == '' ? null : safe_post('puasa_cptdq_1'),
+				'puasa_cptdq_2'           	=> safe_post('puasa_cptdq_2') == '' ? null : safe_post('puasa_cptdq_2'),
+				'puasa_cptdq_3'           	=> safe_post('puasa_cptdq_3') == '' ? null : safe_post('puasa_cptdq_3'),
+
+				'cukurdaerah_cptdq_1'       => safe_post('cukurdaerah_cptdq_1') == '' ? null : safe_post('cukurdaerah_cptdq_1'),
+				'cukurdaerah_cptdq_2'      	=> safe_post('cukurdaerah_cptdq_2') == '' ? null : safe_post('cukurdaerah_cptdq_2'),
+				'cukurdaerah_cptdq_3'       => safe_post('cukurdaerah_cptdq_3') == '' ? null : safe_post('cukurdaerah_cptdq_3'),
+
+				'cdaerahkanan_cptdq_1'      => safe_post('cdaerahkanan_cptdq_1') == '' ? null : safe_post('cdaerahkanan_cptdq_1'),
+				'cdaerahkanan_cptdq_2'      => safe_post('cdaerahkanan_cptdq_2') == '' ? null : safe_post('cdaerahkanan_cptdq_2'),
+				'cdaerahkanan_cptdq_3'      => safe_post('cdaerahkanan_cptdq_3') == '' ? null : safe_post('cdaerahkanan_cptdq_3'),
+
+				'ivlineterpasang_cptdq_1'   => safe_post('ivlineterpasang_cptdq_1') == '' ? null : safe_post('ivlineterpasang_cptdq_1'),
+				'ivlineterpasang_cptdq_2'   => safe_post('ivlineterpasang_cptdq_2') == '' ? null : safe_post('ivlineterpasang_cptdq_2'),
+				'ivlineterpasang_cptdq_3'   => safe_post('ivlineterpasang_cptdq_3') == '' ? null : safe_post('ivlineterpasang_cptdq_3'),
+
+				'gigipalsu_cptdq_1'         => safe_post('gigipalsu_cptdq_1') == '' ? null : safe_post('gigipalsu_cptdq_1'),
+				'gigipalsu_cptdq_2'         => safe_post('gigipalsu_cptdq_2') == '' ? null : safe_post('gigipalsu_cptdq_2'),
+				'gigipalsu_cptdq_3'         => safe_post('gigipalsu_cptdq_3') == '' ? null : safe_post('gigipalsu_cptdq_3'),
+
+				'kontaklensa_cptdq_1'       => safe_post('kontaklensa_cptdq_1') == '' ? null : safe_post('kontaklensa_cptdq_1'),
+				'kontaklensa_cptdq_2'       => safe_post('kontaklensa_cptdq_2') == '' ? null : safe_post('kontaklensa_cptdq_2'),
+				'kontaklensa_cptdq_3'       => safe_post('kontaklensa_cptdq_3') == '' ? null : safe_post('kontaklensa_cptdq_3'),
+
+				'perhiasan_cptdq_1'         => safe_post('perhiasan_cptdq_1') == '' ? null : safe_post('perhiasan_cptdq_1'),
+				'perhiasan_cptdq_2'         => safe_post('perhiasan_cptdq_2') == '' ? null : safe_post('perhiasan_cptdq_2'),
+				'perhiasan_cptdq_3'         => safe_post('perhiasan_cptdq_3') == '' ? null : safe_post('perhiasan_cptdq_3'),
+				
+				'alergiobat_cptdq'          => safe_post('alergiobat_cptdq') == '' ? null : safe_post('alergiobat_cptdq'),
+				'alergizat_cptdq'           => safe_post('alergizat_cptdq') == '' ? null : safe_post('alergizat_cptdq'),
+				'alergimakanan_cptdq'       => safe_post('alergimakanan_cptdq') == '' ? null : safe_post('alergimakanan_cptdq'),
+
+				'riwayatpen_cptdq_1'        => safe_post('riwayatpen_cptdq_1') == '' ? null : safe_post('riwayatpen_cptdq_1'),
+				'riwayatpen_cptdq_2'        => safe_post('riwayatpen_cptdq_2') == '' ? null : safe_post('riwayatpen_cptdq_2'),
+				'riwayatpen_cptdq_3'       	=> safe_post('riwayatpen_cptdq_3') == '' ? null : safe_post('riwayatpen_cptdq_3'),
+
+				'obatpengen_cptdq'          => safe_post('obatpengen_cptdq') == '' ? null : safe_post('obatpengen_cptdq'),
+				'obatobatan_cptdq'          => safe_post('obatobatan_cptdq') == '' ? null : safe_post('obatobatan_cptdq'),
+
+
+				'pasienevektif_cptdq_1'     => safe_post('pasienevektif_cptdq_1') == '' ? null : safe_post('pasienevektif_cptdq_1'),
+				'pasienevektif_cptdq_2'     => safe_post('pasienevektif_cptdq_2') == '' ? null : safe_post('pasienevektif_cptdq_2'),
+				'pasienevektif_cptdq_3'     => safe_post('pasienevektif_cptdq_3') == '' ? null : safe_post('pasienevektif_cptdq_3'),
+
+				'pasangkater_cptdq_1'       => safe_post('pasangkater_cptdq_1') == '' ? null : safe_post('pasangkater_cptdq_1'),
+				'pasangkater_cptdq_2'       => safe_post('pasangkater_cptdq_2') == '' ? null : safe_post('pasangkater_cptdq_2'),
+				'pasangkater_cptdq_3'       => safe_post('pasangkater_cptdq_3') == '' ? null : safe_post('pasangkater_cptdq_3'),
+				'pasangkater_cptdq_4'       => safe_post('pasangkater_cptdq_4') == '' ? null : safe_post('pasangkater_cptdq_4'),
+				'pasangkater_cptdq_5'       => safe_post('pasangkater_cptdq_5') == '' ? null : safe_post('pasangkater_cptdq_5'),
+
+				'suratijin_cptdq_1'         => safe_post('suratijin_cptdq_1') == '' ? null : safe_post('suratijin_cptdq_1'),
+				'suratijin_cptdq_2'         => safe_post('suratijin_cptdq_2') == '' ? null : safe_post('suratijin_cptdq_2'),
+				'suratijin_cptdq_3'         => safe_post('suratijin_cptdq_3') == '' ? null : safe_post('suratijin_cptdq_3'),
+
+				'suratpermin_cptdq_1'       => safe_post('suratpermin_cptdq_1') == '' ? null : safe_post('suratpermin_cptdq_1'),
+				'suratpermin_cptdq_2'       => safe_post('suratpermin_cptdq_2') == '' ? null : safe_post('suratpermin_cptdq_2'),
+				'suratpermin_cptdq_3'       => safe_post('suratpermin_cptdq_3') == '' ? null : safe_post('suratpermin_cptdq_3'),
+
+				'surateduk_cptdq_1'         => safe_post('surateduk_cptdq_1') == '' ? null : safe_post('surateduk_cptdq_1'),
+				'surateduk_cptdq_2'         => safe_post('surateduk_cptdq_2') == '' ? null : safe_post('surateduk_cptdq_2'),
+				'surateduk_cptdq_3'         => safe_post('surateduk_cptdq_3') == '' ? null : safe_post('surateduk_cptdq_3'),
+
+				'gelang_cptdq_1'           	=> safe_post('gelang_cptdq_1') == '' ? null : safe_post('gelang_cptdq_1'),
+				'gelang_cptdq_2'           	=> safe_post('gelang_cptdq_2') == '' ? null : safe_post('gelang_cptdq_2'),
+				'gelang_cptdq_3'           	=> safe_post('gelang_cptdq_3') == '' ? null : safe_post('gelang_cptdq_3'),
+
+				'statsu_cptdq_1'           	=> safe_post('statsu_cptdq_1') == '' ? null : safe_post('statsu_cptdq_1'),
+				'statsu_cptdq_2'           	=> safe_post('statsu_cptdq_2') == '' ? null : safe_post('statsu_cptdq_2'),
+				'statsu_cptdq_3'           	=> safe_post('statsu_cptdq_3') == '' ? null : safe_post('statsu_cptdq_3'),
+
+				'therapi_cptdq_1'           => safe_post('therapi_cptdq_1') == '' ? null : safe_post('therapi_cptdq_1'),
+				'therapi_cptdq_2'           => safe_post('therapi_cptdq_2') == '' ? null : safe_post('therapi_cptdq_2'),
+				'therapi_cptdq_3'           => safe_post('therapi_cptdq_3') == '' ? null : safe_post('therapi_cptdq_3'),
+
+				'surattulis_cptdq_1'        => safe_post('surattulis_cptdq_1') == '' ? null : safe_post('surattulis_cptdq_1'),
+				'surattulis_cptdq_2'        => safe_post('surattulis_cptdq_2') == '' ? null : safe_post('surattulis_cptdq_2'),
+				'surattulis_cptdq_3'        => safe_post('surattulis_cptdq_3') == '' ? null : safe_post('surattulis_cptdq_3'),
+
+				'darahrutin_cptdq'          => safe_post('darahrutin_cptdq') == '' ? null : safe_post('darahrutin_cptdq'),
+				'urcr_cptdq'           		=> safe_post('urcr_cptdq') == '' ? null : safe_post('urcr_cptdq'),
+				'app_cptdq'           		=> safe_post('app_cptdq') == '' ? null : safe_post('app_cptdq'),
+				'pt_cptdq'           		=> safe_post('pt_cptdq') == '' ? null : safe_post('pt_cptdq'),
+				'inr_cptdq'           		=> safe_post('inr_cptdq') == '' ? null : safe_post('inr_cptdq'),
+				'gds_cptdq'           		=> safe_post('gds_cptdq') == '' ? null : safe_post('gds_cptdq'),
+				'trop_cptdq'           		=> safe_post('trop_cptdq') == '' ? null : safe_post('trop_cptdq'),
+				'hbsag_cptdq'           	=> safe_post('hbsag_cptdq') == '' ? null : safe_post('hbsag_cptdq'),
+				'elektrik_cptdq'           	=> safe_post('elektrik_cptdq') == '' ? null : safe_post('elektrik_cptdq'),
+
+				'ekg_cptdq_1'           	=> safe_post('ekg_cptdq_1') == '' ? null : safe_post('ekg_cptdq_1'),
+				'ekg_cptdq_2'           	=> safe_post('ekg_cptdq_2') == '' ? null : safe_post('ekg_cptdq_2'),
+				'ekg_cptdq_3'           	=> safe_post('ekg_cptdq_3') == '' ? null : safe_post('ekg_cptdq_3'),
+
+				'xray_cptdq_1'           	=> safe_post('xray_cptdq_1') == '' ? null : safe_post('xray_cptdq_1'),
+				'xray_cptdq_2'           	=> safe_post('xray_cptdq_2') == '' ? null : safe_post('xray_cptdq_2'),
+				'xray_cptdq_3'           	=> safe_post('xray_cptdq_3') == '' ? null : safe_post('xray_cptdq_3'),
+				'xray_cptdq_4'           	=> safe_post('xray_cptdq_4') == '' ? null : safe_post('xray_cptdq_4'),
+				'xray_cptdq_5'           	=> safe_post('xray_cptdq_5') == '' ? null : safe_post('xray_cptdq_5'),
+
 				'perawatcathlab_cptdq'   	=> safe_post('perawatcathlab_cptdq') == '' ? null : safe_post('perawatcathlab_cptdq'),
 				'perawatruangan_cptdq'   	=> safe_post('perawatruangan_cptdq') == '' ? null : safe_post('perawatruangan_cptdq'),
 				'updated_on'              	=> $this->datetime
@@ -1762,50 +2022,130 @@ class Radiologi_log extends REST_Controller
 	
 			$logData = array(
 				'id_cptdq'              	=> $checkDataCptdq->id, // 🆕 ID utama
-				'id_pendaftaran'       	=> $checkDataCptdq->id_pendaftaran,
-				'id_layanan_pendaftaran'=> $checkDataCptdq->id_layanan_pendaftaran,
-				'td_cptdq'             	=> $checkDataCptdq->td_cptdq,
-				'hr_cptdq'             	=> $checkDataCptdq->hr_cptdq,
-				'rr_cptdq'             	=> $checkDataCptdq->rr_cptdq,
-				'suhu_cptdq'             => $checkDataCptdq->suhu_cptdq,
-				'radical_cptdq_1'        => $checkDataCptdq->radical_cptdq_1,
-				'radical_cptdq_2'        => $checkDataCptdq->radical_cptdq_2,
-				'radical_cptdq_3'        => $checkDataCptdq->radical_cptdq_3,
-				'hematom_cptdq_1'        => $checkDataCptdq->hematom_cptdq_1,
-				'hematom_cptdq_2'        => $checkDataCptdq->hematom_cptdq_2,
-				'hematom_cptdq_3'        => $checkDataCptdq->hematom_cptdq_3,
-				'jampergelangan_cptdq'   => $checkDataCptdq->jampergelangan_cptdq,
-				'jamsiku_cptdq'         	=> $checkDataCptdq->jamsiku_cptdq,
-				'jampci_cptdq'           => $checkDataCptdq->jampci_cptdq,
-				'denyut_cptdq_1'         => $checkDataCptdq->denyut_cptdq_1,
-				'denyut_cptdq_2'         => $checkDataCptdq->denyut_cptdq_2,
-				'denyut_cptdq_3'         => $checkDataCptdq->denyut_cptdq_3,
-				'hemmattom_cptdq_1'      => $checkDataCptdq->hemmattom_cptdq_1,
-				'hemmattom_cptdq_2'      => $checkDataCptdq->hemmattom_cptdq_2,
-				'hemmattom_cptdq_3'      => $checkDataCptdq->hemmattom_cptdq_3,
-				'jamkaki_cptdq'          => $checkDataCptdq->jamkaki_cptdq,
-				'jamkitekuk_cptdq'       => $checkDataCptdq->jamkitekuk_cptdq,
-				'jamaptt_cptdq'          => $checkDataCptdq->jamaptt_cptdq,
-				'hasil_cptdq_1'          => $checkDataCptdq->hasil_cptdq_1,
-				'hasil_cptdq_2'          => $checkDataCptdq->hasil_cptdq_2,
-				'hasil_cptdq_3'          => $checkDataCptdq->hasil_cptdq_3,
-				'cddvd_cptdq_1'          => $checkDataCptdq->cddvd_cptdq_1,
-				'cddvd_cptdq_2'          => $checkDataCptdq->cddvd_cptdq_2,
-				'cddvd_cptdq_3'          => $checkDataCptdq->cddvd_cptdq_3,
-				'tanggal_cptdq'          => $checkDataCptdq->tanggal_cptdq,
-				'perawatcathlab_cptdq'   => $checkDataCptdq->perawatcathlab_cptdq,
-				'perawatruangan_cptdq'   => $checkDataCptdq->perawatruangan_cptdq,
-				'id_users'             	=> $checkDataCptdq->id_users, // ✅ user input pertama
-				'updated_by'           	=> $this->session->userdata('id_translucent'), // ✅ user yang edit
-				'created_date'         	=> $checkDataCptdq->created_date,
-				'updated_on'           	=> $this->datetime,
-				'log_action'           	=> 'update'
+				'id_pendaftaran'       		=> $checkDataCptdq->id_pendaftaran,
+				'id_layanan_pendaftaran'	=> $checkDataCptdq->id_layanan_pendaftaran,
+				'tanggal_cptdq'          	=> $checkDataCptdq->tanggal_cptdq,
+
+				'dpjptb_cptdq'             	=> $checkDataCptdq->dpjptb_cptdq,
+				'rencana_cptdq'            	=> $checkDataCptdq->rencana_cptdq,
+				'diagnosa_cptdq'            => $checkDataCptdq->diagnosa_cptdq,
+				'tb_cptdq'             		=> $checkDataCptdq->tb_cptdq,
+				'bb_cptdq'             		=> $checkDataCptdq->bb_cptdq,
+
+				'kesadaran_cptdq_1'         => $checkDataCptdq->kesadaran_cptdq_1,
+				'kesadaran_cptdq_2'         => $checkDataCptdq->kesadaran_cptdq_2,
+				'kesadaran_cptdq_3'         => $checkDataCptdq->kesadaran_cptdq_3,
+
+				'puasa_cptdq_1'            	=> $checkDataCptdq->puasa_cptdq_1,
+				'puasa_cptdq_2'            	=> $checkDataCptdq->puasa_cptdq_2,
+				'puasa_cptdq_3'             => $checkDataCptdq->puasa_cptdq_3,
+
+				'cukurdaerah_cptdq_1'       => $checkDataCptdq->cukurdaerah_cptdq_1,
+				'cukurdaerah_cptdq_2'       => $checkDataCptdq->cukurdaerah_cptdq_2,
+				'cukurdaerah_cptdq_3'       => $checkDataCptdq->cukurdaerah_cptdq_3,
+
+				'cdaerahkanan_cptdq_1'      => $checkDataCptdq->cdaerahkanan_cptdq_1,
+				'cdaerahkanan_cptdq_2'      => $checkDataCptdq->cdaerahkanan_cptdq_2,
+				'cdaerahkanan_cptdq_3'      => $checkDataCptdq->cdaerahkanan_cptdq_3,
+
+				'ivlineterpasang_cptdq_1'   => $checkDataCptdq->ivlineterpasang_cptdq_1,
+				'ivlineterpasang_cptdq_2'   => $checkDataCptdq->ivlineterpasang_cptdq_2,
+				'ivlineterpasang_cptdq_3'   => $checkDataCptdq->ivlineterpasang_cptdq_3,
+
+				'gigipalsu_cptdq_1'         => $checkDataCptdq->gigipalsu_cptdq_1,
+				'gigipalsu_cptdq_2'         => $checkDataCptdq->gigipalsu_cptdq_2,
+				'gigipalsu_cptdq_3'         => $checkDataCptdq->gigipalsu_cptdq_3,
+
+				'kontaklensa_cptdq_1'       => $checkDataCptdq->kontaklensa_cptdq_1,
+				'kontaklensa_cptdq_2'       => $checkDataCptdq->kontaklensa_cptdq_2,
+				'kontaklensa_cptdq_3'       => $checkDataCptdq->kontaklensa_cptdq_3,
+
+				'perhiasan_cptdq_1'         => $checkDataCptdq->perhiasan_cptdq_1,
+				'perhiasan_cptdq_2'         => $checkDataCptdq->perhiasan_cptdq_2,
+				'perhiasan_cptdq_3'         => $checkDataCptdq->perhiasan_cptdq_3,
+
+				'alergiobat_cptdq'          => $checkDataCptdq->alergiobat_cptdq,
+				'alergizat_cptdq'           => $checkDataCptdq->alergizat_cptdq,
+				'alergimakanan_cptdq'       => $checkDataCptdq->alergimakanan_cptdq,
+
+				'riwayatpen_cptdq_1'        => $checkDataCptdq->riwayatpen_cptdq_1,
+				'riwayatpen_cptdq_2'        => $checkDataCptdq->riwayatpen_cptdq_2,
+				'riwayatpen_cptdq_3'        => $checkDataCptdq->riwayatpen_cptdq_3,
+
+				'obatpengen_cptdq'         => $checkDataCptdq->obatpengen_cptdq,
+				'obatobatan_cptdq'          => $checkDataCptdq->obatobatan_cptdq, 
+
+				'pasienevektif_cptdq_1'     => $checkDataCptdq->pasienevektif_cptdq_1,
+				'pasienevektif_cptdq_2'     => $checkDataCptdq->pasienevektif_cptdq_2,
+				'pasienevektif_cptdq_3'     => $checkDataCptdq->pasienevektif_cptdq_3,
+
+				'pasangkater_cptdq_1'       => $checkDataCptdq->pasangkater_cptdq_1,
+				'pasangkater_cptdq_2'       => $checkDataCptdq->pasangkater_cptdq_2,
+				'pasangkater_cptdq_3'       => $checkDataCptdq->pasangkater_cptdq_3,
+				'pasangkater_cptdq_4'       => $checkDataCptdq->pasangkater_cptdq_4,
+				'pasangkater_cptdq_5'       => $checkDataCptdq->pasangkater_cptdq_5,
+
+				'suratijin_cptdq_1'         => $checkDataCptdq->suratijin_cptdq_1,
+				'suratijin_cptdq_2'         => $checkDataCptdq->suratijin_cptdq_2,
+				'suratijin_cptdq_3'         => $checkDataCptdq->suratijin_cptdq_3,
+
+				'suratpermin_cptdq_1'       => $checkDataCptdq->suratpermin_cptdq_1,
+				'suratpermin_cptdq_2'       => $checkDataCptdq->suratpermin_cptdq_2,
+				'suratpermin_cptdq_3'       => $checkDataCptdq->suratpermin_cptdq_3,
+
+				'surateduk_cptdq_1'         => $checkDataCptdq->surateduk_cptdq_1,
+				'surateduk_cptdq_2'         => $checkDataCptdq->surateduk_cptdq_2,
+				'surateduk_cptdq_3'         => $checkDataCptdq->surateduk_cptdq_3,
+
+				'gelang_cptdq_1'            => $checkDataCptdq->gelang_cptdq_1,
+				'gelang_cptdq_2'            => $checkDataCptdq->gelang_cptdq_2,
+				'gelang_cptdq_3'            => $checkDataCptdq->gelang_cptdq_3,
+
+				'statsu_cptdq_1'            => $checkDataCptdq->statsu_cptdq_1,
+				'statsu_cptdq_2'            => $checkDataCptdq->statsu_cptdq_2,
+				'statsu_cptdq_3'            => $checkDataCptdq->statsu_cptdq_3,
+
+				'therapi_cptdq_1'           => $checkDataCptdq->therapi_cptdq_1,
+				'therapi_cptdq_2'           => $checkDataCptdq->therapi_cptdq_2,
+				'therapi_cptdq_3'           => $checkDataCptdq->therapi_cptdq_3,
+
+				'surattulis_cptdq_1'        => $checkDataCptdq->surattulis_cptdq_1,
+				'surattulis_cptdq_2'        => $checkDataCptdq->surattulis_cptdq_2,
+				'surattulis_cptdq_3'        => $checkDataCptdq->surattulis_cptdq_3,
+
+				'darahrutin_cptdq'          => $checkDataCptdq->darahrutin_cptdq,
+				'urcr_cptdq'             	=> $checkDataCptdq->urcr_cptdq,
+				'app_cptdq'             	=> $checkDataCptdq->app_cptdq,
+				'pt_cptdq'             		=> $checkDataCptdq->pt_cptdq,
+				'inr_cptdq'             	=> $checkDataCptdq->inr_cptdq,
+				'gds_cptdq'             	=> $checkDataCptdq->gds_cptdq,
+				'trop_cptdq'             	=> $checkDataCptdq->trop_cptdq,
+				'hbsag_cptdq'             	=> $checkDataCptdq->hbsag_cptdq,
+				'elektrik_cptdq'            => $checkDataCptdq->elektrik_cptdq,
+
+				'ekg_cptdq_1'             	=> $checkDataCptdq->ekg_cptdq_1,
+				'ekg_cptdq_2'             	=> $checkDataCptdq->ekg_cptdq_2,
+				'ekg_cptdq_3'             	=> $checkDataCptdq->ekg_cptdq_3,
+
+				'xray_cptdq_1'             	=> $checkDataCptdq->xray_cptdq_1,
+				'xray_cptdq_2'             	=> $checkDataCptdq->xray_cptdq_2,
+				'xray_cptdq_3'             	=> $checkDataCptdq->xray_cptdq_3,
+				'xray_cptdq_4'             	=> $checkDataCptdq->xray_cptdq_4,
+				'xray_cptdq_5'             	=> $checkDataCptdq->xray_cptdq_5,
+			
+				'perawatcathlab_cptdq'   	=> $checkDataCptdq->perawatcathlab_cptdq,
+				'perawatruangan_cptdq'   	=> $checkDataCptdq->perawatruangan_cptdq,
+				'id_users'             		=> $checkDataCptdq->id_users, // ✅ user input pertama
+				'updated_by'           		=> $this->session->userdata('id_translucent'), // ✅ user yang edit
+				'created_date'         		=> $checkDataCptdq->created_date,
+				'updated_on'           		=> $this->datetime,
+				'log_action'           		=> 'update'
 			);
 
-			$this->db->insert('sm_cheklist_post_tindakan_diagnostik_qembar_logs', $logData);
+			$this->db->insert('sm_cheklis_persiapan_tindakan_diagnostik_logs', $logData);
 	
 			$this->db->where('id', safe_post('id_cptdq'));
-			$this->db->update('sm_cheklist_post_tindakan_diagnostik_qembar', $data);
+			$this->db->update('sm_cheklis_persiapan_tindakan_diagnostik', $data);
 		}
 	
 		if ($this->db->trans_status() === false) {
@@ -1821,13 +2161,13 @@ class Radiologi_log extends REST_Controller
 		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
 	}
 
-	// CPTDQ LOGS
-	function hapus_checklist_post_tindakan_diagnostik_qembar_post(){
+	// QCPTD LOGS
+	function hapus_checklist_persiapan_tindakan_diagnostik_post(){
 		if (!safe_post('id', true)) :
 			$this->response(null, REST_Controller::HTTP_BAD_REQUEST);
 		endif;
 		// Ambil data sebelum dihapus
-		$CpTdQHapus = $this->db->where('id', safe_post('id'))->get('sm_cheklist_post_tindakan_diagnostik_qembar')->row();
+		$CpTdQHapus = $this->db->where('id', safe_post('id'))->get('sm_cheklis_persiapan_tindakan_diagnostik')->row();
 		$this->db->trans_begin();
 		if ($CpTdQHapus) {
 			// Simpan ke log
@@ -1835,35 +2175,147 @@ class Radiologi_log extends REST_Controller
 				'id_cptdq'              	=> $CpTdQHapus->id, // 🆕 ID utama
 				'id_pendaftaran'       		=> $CpTdQHapus->id_pendaftaran,
 				'id_layanan_pendaftaran' 	=> $CpTdQHapus->id_layanan_pendaftaran,
-				'td_cptdq'             		=> $CpTdQHapus->td_cptdq,
-				'hr_cptdq'             		=> $CpTdQHapus->hr_cptdq,
-				'rr_cptdq'             		=> $CpTdQHapus->rr_cptdq,
-				'suhu_cptdq'             	=> $CpTdQHapus->suhu_cptdq,
-				'radical_cptdq_1'        	=> $CpTdQHapus->radical_cptdq_1,
-				'radical_cptdq_2'        	=> $CpTdQHapus->radical_cptdq_2,
-				'radical_cptdq_3'        	=> $CpTdQHapus->radical_cptdq_3,
-				'hematom_cptdq_1'        	=> $CpTdQHapus->hematom_cptdq_1,
-				'hematom_cptdq_2'        	=> $CpTdQHapus->hematom_cptdq_2,
-				'hematom_cptdq_3'        	=> $CpTdQHapus->hematom_cptdq_3,
-				'jampergelangan_cptdq'   	=> $CpTdQHapus->jampergelangan_cptdq,
-				'jamsiku_cptdq'         	=> $CpTdQHapus->jamsiku_cptdq,
-				'jampci_cptdq'           	=> $CpTdQHapus->jampci_cptdq,
-				'denyut_cptdq_1'         	=> $CpTdQHapus->denyut_cptdq_1,
-				'denyut_cptdq_2'         	=> $CpTdQHapus->denyut_cptdq_2,
-				'denyut_cptdq_3'         	=> $CpTdQHapus->denyut_cptdq_3,
-				'hemmattom_cptdq_1'      	=> $CpTdQHapus->hemmattom_cptdq_1,
-				'hemmattom_cptdq_2'      	=> $CpTdQHapus->hemmattom_cptdq_2,
-				'hemmattom_cptdq_3'      	=> $CpTdQHapus->hemmattom_cptdq_3,
-				'jamkaki_cptdq'          	=> $CpTdQHapus->jamkaki_cptdq,
-				'jamkitekuk_cptdq'       	=> $CpTdQHapus->jamkitekuk_cptdq,
-				'jamaptt_cptdq'          	=> $CpTdQHapus->jamaptt_cptdq,
-				'hasil_cptdq_1'          	=> $CpTdQHapus->hasil_cptdq_1,
-				'hasil_cptdq_2'          	=> $CpTdQHapus->hasil_cptdq_2,
-				'hasil_cptdq_3'          	=> $CpTdQHapus->hasil_cptdq_3,
-				'cddvd_cptdq_1'          	=> $CpTdQHapus->cddvd_cptdq_1,
-				'cddvd_cptdq_2'          	=> $CpTdQHapus->cddvd_cptdq_2,
-				'cddvd_cptdq_3'          	=> $CpTdQHapus->cddvd_cptdq_3,
+
 				'tanggal_cptdq'          	=> $CpTdQHapus->tanggal_cptdq,
+
+
+				'dpjptb_cptdq'             	=> $CpTdQHapus->dpjptb_cptdq,
+				'rencana_cptdq'            	=> $CpTdQHapus->rencana_cptdq,
+				'diagnosa_cptdq'            => $CpTdQHapus->diagnosa_cptdq,
+				'tb_cptdq'             		=> $CpTdQHapus->tb_cptdq,
+				'bb_cptdq'             		=> $CpTdQHapus->bb_cptdq,
+
+				'kesadaran_cptdq_1'         => $CpTdQHapus->kesadaran_cptdq_1,
+				'kesadaran_cptdq_2'         => $CpTdQHapus->kesadaran_cptdq_2,
+				'kesadaran_cptdq_3'         => $CpTdQHapus->kesadaran_cptdq_3,
+
+				'puasa_cptdq_1'            	=> $CpTdQHapus->puasa_cptdq_1,
+				'puasa_cptdq_2'            	=> $CpTdQHapus->puasa_cptdq_2,
+				'puasa_cptdq_3'             => $CpTdQHapus->puasa_cptdq_3,
+
+				'cukurdaerah_cptdq_1'       => $CpTdQHapus->cukurdaerah_cptdq_1,
+				'cukurdaerah_cptdq_2'       => $CpTdQHapus->cukurdaerah_cptdq_2,
+				'cukurdaerah_cptdq_3'       => $CpTdQHapus->cukurdaerah_cptdq_3,
+
+				'cdaerahkanan_cptdq_1'      => $CpTdQHapus->cdaerahkanan_cptdq_1,
+				'cdaerahkanan_cptdq_2'      => $CpTdQHapus->cdaerahkanan_cptdq_2,
+				'cdaerahkanan_cptdq_3'      => $CpTdQHapus->cdaerahkanan_cptdq_3,
+
+				'ivlineterpasang_cptdq_1'   => $CpTdQHapus->ivlineterpasang_cptdq_1,
+				'ivlineterpasang_cptdq_2'   => $CpTdQHapus->ivlineterpasang_cptdq_2,
+				'ivlineterpasang_cptdq_3'   => $CpTdQHapus->ivlineterpasang_cptdq_3,
+
+				'gigipalsu_cptdq_1'         => $CpTdQHapus->gigipalsu_cptdq_1,
+				'gigipalsu_cptdq_2'         => $CpTdQHapus->gigipalsu_cptdq_2,
+				'gigipalsu_cptdq_3'         => $CpTdQHapus->gigipalsu_cptdq_3,
+
+				'kontaklensa_cptdq_1'       => $CpTdQHapus->kontaklensa_cptdq_1,
+				'kontaklensa_cptdq_2'       => $CpTdQHapus->kontaklensa_cptdq_2,
+				'kontaklensa_cptdq_3'       => $CpTdQHapus->kontaklensa_cptdq_3,
+
+				'perhiasan_cptdq_1'         => $CpTdQHapus->perhiasan_cptdq_1,
+				'perhiasan_cptdq_2'         => $CpTdQHapus->perhiasan_cptdq_2,
+				'perhiasan_cptdq_3'         => $CpTdQHapus->perhiasan_cptdq_3,
+
+				'alergiobat_cptdq'          => $CpTdQHapus->alergiobat_cptdq,
+				'alergizat_cptdq'           => $CpTdQHapus->alergizat_cptdq,
+				'alergimakanan_cptdq'       => $CpTdQHapus->alergimakanan_cptdq,
+
+				'riwayatpen_cptdq_1'        => $CpTdQHapus->riwayatpen_cptdq_1,
+				'riwayatpen_cptdq_2'        => $CpTdQHapus->riwayatpen_cptdq_2,
+				'riwayatpen_cptdq_3'        => $CpTdQHapus->riwayatpen_cptdq_3,
+
+				'obatpengen_cptdq'         => $CpTdQHapus->obatpengen_cptdq,
+				'obatobatan_cptdq'          => $CpTdQHapus->obatobatan_cptdq, 
+
+				'pasienevektif_cptdq_1'     => $CpTdQHapus->pasienevektif_cptdq_1,
+				'pasienevektif_cptdq_2'     => $CpTdQHapus->pasienevektif_cptdq_2,
+				'pasienevektif_cptdq_3'     => $CpTdQHapus->pasienevektif_cptdq_3,
+
+				'pasangkater_cptdq_1'       => $CpTdQHapus->pasangkater_cptdq_1,
+				'pasangkater_cptdq_2'       => $CpTdQHapus->pasangkater_cptdq_2,
+				'pasangkater_cptdq_3'       => $CpTdQHapus->pasangkater_cptdq_3,
+				'pasangkater_cptdq_4'       => $CpTdQHapus->pasangkater_cptdq_4,
+				'pasangkater_cptdq_5'       => $CpTdQHapus->pasangkater_cptdq_5,
+
+				'suratijin_cptdq_1'         => $CpTdQHapus->suratijin_cptdq_1,
+				'suratijin_cptdq_2'         => $CpTdQHapus->suratijin_cptdq_2,
+				'suratijin_cptdq_3'         => $CpTdQHapus->suratijin_cptdq_3,
+
+				'suratpermin_cptdq_1'       => $CpTdQHapus->suratpermin_cptdq_1,
+				'suratpermin_cptdq_2'       => $CpTdQHapus->suratpermin_cptdq_2,
+				'suratpermin_cptdq_3'       => $CpTdQHapus->suratpermin_cptdq_3,
+
+				'surateduk_cptdq_1'         => $CpTdQHapus->surateduk_cptdq_1,
+				'surateduk_cptdq_2'         => $CpTdQHapus->surateduk_cptdq_2,
+				'surateduk_cptdq_3'         => $CpTdQHapus->surateduk_cptdq_3,
+
+				'gelang_cptdq_1'            => $CpTdQHapus->gelang_cptdq_1,
+				'gelang_cptdq_2'            => $CpTdQHapus->gelang_cptdq_2,
+				'gelang_cptdq_3'            => $CpTdQHapus->gelang_cptdq_3,
+
+				'statsu_cptdq_1'            => $CpTdQHapus->statsu_cptdq_1,
+				'statsu_cptdq_2'            => $CpTdQHapus->statsu_cptdq_2,
+				'statsu_cptdq_3'            => $CpTdQHapus->statsu_cptdq_3,
+
+				'therapi_cptdq_1'           => $CpTdQHapus->therapi_cptdq_1,
+				'therapi_cptdq_2'           => $CpTdQHapus->therapi_cptdq_2,
+				'therapi_cptdq_3'           => $CpTdQHapus->therapi_cptdq_3,
+
+				'surattulis_cptdq_1'        => $CpTdQHapus->surattulis_cptdq_1,
+				'surattulis_cptdq_2'        => $CpTdQHapus->surattulis_cptdq_2,
+				'surattulis_cptdq_3'        => $CpTdQHapus->surattulis_cptdq_3,
+
+				'darahrutin_cptdq'          => $CpTdQHapus->darahrutin_cptdq,
+				'urcr_cptdq'             	=> $CpTdQHapus->urcr_cptdq,
+				'app_cptdq'             	=> $CpTdQHapus->app_cptdq,
+				'pt_cptdq'             		=> $CpTdQHapus->pt_cptdq,
+				'inr_cptdq'             	=> $CpTdQHapus->inr_cptdq,
+				'gds_cptdq'             	=> $CpTdQHapus->gds_cptdq,
+				'trop_cptdq'             	=> $CpTdQHapus->trop_cptdq,
+				'hbsag_cptdq'             	=> $CpTdQHapus->hbsag_cptdq,
+				'elektrik_cptdq'            => $CpTdQHapus->elektrik_cptdq,
+
+				'ekg_cptdq_1'             	=> $CpTdQHapus->ekg_cptdq_1,
+				'ekg_cptdq_2'             	=> $CpTdQHapus->ekg_cptdq_2,
+				'ekg_cptdq_3'             	=> $CpTdQHapus->ekg_cptdq_3,
+
+				'xray_cptdq_1'             	=> $CpTdQHapus->xray_cptdq_1,
+				'xray_cptdq_2'             	=> $CpTdQHapus->xray_cptdq_2,
+				'xray_cptdq_3'             	=> $CpTdQHapus->xray_cptdq_3,
+				'xray_cptdq_4'             	=> $CpTdQHapus->xray_cptdq_4,
+				'xray_cptdq_5'             	=> $CpTdQHapus->xray_cptdq_5,
+
+
+				// 'td_cptdq'             		=> $CpTdQHapus->td_cptdq,
+				// 'hr_cptdq'             		=> $CpTdQHapus->hr_cptdq,
+				// 'rr_cptdq'             		=> $CpTdQHapus->rr_cptdq,
+				// 'suhu_cptdq'             	=> $CpTdQHapus->suhu_cptdq,
+				// 'radical_cptdq_1'        	=> $CpTdQHapus->radical_cptdq_1,
+				// 'radical_cptdq_2'        	=> $CpTdQHapus->radical_cptdq_2,
+				// 'radical_cptdq_3'        	=> $CpTdQHapus->radical_cptdq_3,
+				// 'hematom_cptdq_1'        	=> $CpTdQHapus->hematom_cptdq_1,
+				// 'hematom_cptdq_2'        	=> $CpTdQHapus->hematom_cptdq_2,
+				// 'hematom_cptdq_3'        	=> $CpTdQHapus->hematom_cptdq_3,
+				// 'jampergelangan_cptdq'   	=> $CpTdQHapus->jampergelangan_cptdq,
+				// 'jamsiku_cptdq'         	=> $CpTdQHapus->jamsiku_cptdq,
+				// 'jampci_cptdq'           	=> $CpTdQHapus->jampci_cptdq,
+				// 'denyut_cptdq_1'         	=> $CpTdQHapus->denyut_cptdq_1,
+				// 'denyut_cptdq_2'         	=> $CpTdQHapus->denyut_cptdq_2,
+				// 'denyut_cptdq_3'         	=> $CpTdQHapus->denyut_cptdq_3,
+				// 'hemmattom_cptdq_1'      	=> $CpTdQHapus->hemmattom_cptdq_1,
+				// 'hemmattom_cptdq_2'      	=> $CpTdQHapus->hemmattom_cptdq_2,
+				// 'hemmattom_cptdq_3'      	=> $CpTdQHapus->hemmattom_cptdq_3,
+				// 'jamkaki_cptdq'          	=> $CpTdQHapus->jamkaki_cptdq,
+				// 'jamkitekuk_cptdq'       	=> $CpTdQHapus->jamkitekuk_cptdq,
+				// 'jamaptt_cptdq'          	=> $CpTdQHapus->jamaptt_cptdq,
+				// 'hasil_cptdq_1'          	=> $CpTdQHapus->hasil_cptdq_1,
+				// 'hasil_cptdq_2'          	=> $CpTdQHapus->hasil_cptdq_2,
+				// 'hasil_cptdq_3'          	=> $CpTdQHapus->hasil_cptdq_3,
+				// 'cddvd_cptdq_1'          	=> $CpTdQHapus->cddvd_cptdq_1,
+				// 'cddvd_cptdq_2'          	=> $CpTdQHapus->cddvd_cptdq_2,
+				// 'cddvd_cptdq_3'          	=> $CpTdQHapus->cddvd_cptdq_3,
+
 				'perawatcathlab_cptdq'   	=> $CpTdQHapus->perawatcathlab_cptdq,
 				'perawatruangan_cptdq'   	=> $CpTdQHapus->perawatruangan_cptdq,
 				'id_users'             		=> $CpTdQHapus->id_users, // ✅ user input pertama
@@ -1872,10 +2324,10 @@ class Radiologi_log extends REST_Controller
 				'updated_on'           		=> $this->datetime,
 				'log_action'           		=> 'delete'
 			);
-			$this->db->insert('sm_cheklist_post_tindakan_diagnostik_qembar_logs', $logDataCpTdQ);
+			$this->db->insert('sm_cheklis_persiapan_tindakan_diagnostik_logs', $logDataCpTdQ);
 		}
 		// Hapus data utama
-		$this->db->where('id', safe_post('id'))->delete('sm_cheklist_post_tindakan_diagnostik_qembar');
+		$this->db->where('id', safe_post('id'))->delete('sm_cheklis_persiapan_tindakan_diagnostik');
 	
 		if ($this->db->trans_status() === false) :
 			$this->db->trans_rollback();
@@ -1890,12 +2342,12 @@ class Radiologi_log extends REST_Controller
 		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
 	}
 
-	// CPTDQ
-	function get_edit_checklist_post_tindakan_diagnostik_qembar_get(){
+	// QCPTD
+	function get_edit_checklist_persiapan_tindakan_diagnostik_get(){
 		$data['pendaftaran_detail'] = "";
-		$data['list_edit_checklist_post_tindakan_diagnostik_qembar'] = "";
+		$data['list_edit_checklist_persiapan_tindakan_diagnostik'] = "";
 		$data['pendaftaran_detail'] = $this->radiologi->getPendaftaranDetailRadiologi($this->get('id_layanan_pendaftaran'));
-		$data['list_edit_checklist_post_tindakan_diagnostik_qembar'] = $this->radiologi->getCheklistPostTindakanDiagnostikQembarById($this->get('id'));
+		$data['list_edit_checklist_persiapan_tindakan_diagnostik'] = $this->radiologi->getCheklistPersiapanTindakanDiagnostikById($this->get('id'));
 		if ($data != null) {
 			$this->response($data, REST_Controller::HTTP_OK);
 		} else {

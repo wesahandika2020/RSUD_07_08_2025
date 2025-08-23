@@ -203,8 +203,19 @@ class Medical_check_up_model extends CI_Model
         return $this->db->query($sql)->row();
     }
 
-    function getMCU($id)
-    {
+
+
+
+
+
+
+
+
+
+
+
+    // MRM
+    function getMCU($id){
         $sql = "select 
         sa.*,
         mcu.*,
@@ -236,6 +247,46 @@ class Medical_check_up_model extends CI_Model
     }
 
     
+    // function getMCU($id){
+    //     $sql = "
+    //         select 
+    //             sa.keluhan,
+    //             mcu.tanggal as tanggal_mcu,
+    //             mcu.mcu_dokter,
+    //             ps.id as no_rm,
+    //             ps.nama as nama_pasien, 
+    //             ps.alamat as alamat_pasien, 
+    //             ps.tanggal_lahir, 
+    //             case when ps.kelamin = 'L' then 'Laki-Laki' else 'Perempuan' end as jenis_kelamin,
+    //             pk.nama as nama_pekerjaan, 
+    //             pg.nama as nama_dokter, 
+    //             COALESCE(pg.nip, '') as nip_dokter, 
+    //             sd.golongan_sebab_sakit_lain as keperluan,
+    //             lp.id as id_layanan_pendaftaran,
+    //             lp.id_pendaftaran
+    //         from sm_layanan_pendaftaran as lp 
+    //         left join sm_resume_medis mcu on mcu.id_layanan_pendaftaran = lp.id
+    //         left join sm_diagnosa sd on sd.id_layanan_pendaftaran = lp.id
+    //         left join sm_anamnesa sa on sa.id_layanan_pendaftaran = lp.id
+    //         left join sm_pendaftaran p on lp.id_pendaftaran = p.id 
+    //         left join sm_pasien ps on p.id_pasien = ps.id
+    //         left join sm_pekerjaan pk on ps.id_pekerjaan = pk.id
+    //         left join sm_tenaga_medis tm on tm.id = mcu.mcu_dokter
+    //         left join sm_pegawai pg on pg.id = tm.id_pegawai                         
+    //         where lp.id = ?
+    //     ";
+
+    //     return $this->db->query($sql, [$id])->row();
+    // }
+
+
+
+
+
+
+
+
+
     // SKKJ1 RUBAH
     function getSKKJsatu($id){
         $sql = "select 

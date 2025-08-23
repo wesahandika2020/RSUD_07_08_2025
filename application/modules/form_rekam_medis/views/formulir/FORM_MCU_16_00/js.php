@@ -18,7 +18,7 @@
             }
         });
 
-        // DOKTER
+        // // DOKTER
         // $('#kb_dokter').select2c({
         //     ajax: {
         //         url: "<?= base_url('masterdata/api/masterdata_auto/dokter_auto') ?>",
@@ -274,43 +274,6 @@
         });
     }
 
-    // function cekDateTime(id, form) {
-    //     // ekspresi reguler untuk mencocokkan format tanggal yang dibutuhkan
-
-    //     re = /^(\d{1,2})[-\/](\d{1,2})[-\/](\d{4})$/;
-    //     if (form != '') {
-
-    //         if (regs = form.match(re)) {
-    //             // nilai hari antara 1 s.d 31
-    //             if (regs[1] < 1 || regs[1] > 31) {
-    //                 alert("Nilai tidak valid untuk hari: " + regs[1]);
-    //                 syams_validation(id, 'Format Tanggal tidak sesuai');
-    //                 return false;
-    //             }
-    //             // nilai bulan antara 1 s.d 12
-    //             if (regs[2] < 1 || regs[2] > 12) {
-    //                 alert("Nilai tidak valid untuk bulan: " + regs[2]);
-    //                 syams_validation(id, 'Format Tanggal tidak sesuai');
-    //                 return false;
-    //             }
-    //             // nilai tahun antara 2000 s.d sekarang
-    //             if (regs[3] < ((new Date()).getFullYear()) - 1 || regs[3] > ((new Date()).getFullYear()) + 1) {
-    //                 alert("Nilai tidak valid untuk tahun: " + regs[3] + " - harus antara " + (((new Date()).getFullYear()) -
-    //                     1) + " dan " + (((new Date()).getFullYear()) + 1));
-    //                 syams_validation(id, 'Format Tanggal tidak sesuai');
-    //                 return false;
-    //             }
-
-    //         } else {
-
-    //             syams_validation(id, 'Format Tanggal tidak sesuai');
-    //             return false;
-
-    //         }
-    //     }
-
-    // }
-
 	function cetakKelaikanBekerja() {
         let kb_id = $('#kb_id').val();
         let id_layanan_pendaftaran = $('#kb_id_layanan_pendaftaran').val();
@@ -318,9 +281,6 @@
         if (kb_id !== '') {
             window.open('<?= base_url('form_rekam_medis/cetak_kelaikan_bekerja/') ?>' + kb_id + '/' + id_pendaftaran + '/' + id_layanan_pendaftaran, 'Cetak Sertifikat Kelaikan Bekerja', 'width=' + dWidth + ', height=' + dHeight + ', left=' + x + ', top=' + y);
         }
-
-		
-
 	}
 
 

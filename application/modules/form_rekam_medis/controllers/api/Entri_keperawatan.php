@@ -6333,9 +6333,29 @@ class Entri_keperawatan extends REST_Controller
   }
 
   // end grafik
-  
-  public function simpan_kb_post()
-  {
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  // Kelaikan Bekerja
+  public function simpan_kb_post(){
     $this->db->trans_begin();
     $layanan = array('id' => safe_post('id_layanan_pendaftaran'));
     $pendaftaran = array('id' => safe_post('id_pendaftaran'));
@@ -6407,6 +6427,26 @@ class Entri_keperawatan extends REST_Controller
 
     $this->response($message, REST_Controller::HTTP_OK);
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

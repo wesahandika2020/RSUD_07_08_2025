@@ -144,7 +144,7 @@
   
     function entriFormCptdI(id_pendaftaran, id_layanan_pendaftaran, layanan, bed, action) {
 
-        // $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif').modal('show');  
+        // $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah').modal('show');  
         // $('#wizard-cptdi').bwizard('show', '0');
 
 
@@ -247,35 +247,41 @@
                         }
                     }
 
-                    const sistempernafasan_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistempernafasan_cptdi);
-                    const inputText_sistempernafasan = [1, 4, 5];
-                    if (sistempernafasan_cptdi) {
-                        for (let i = 1; i <= 5; i++) {
-                            let key = `sistempernafasan_cptdi_${i}`;
-                            let selector = `#sistempernafasan-cptdi-${i}`;
-                            if (sistempernafasan_cptdi[key] !== null && sistempernafasan_cptdi[key] !== undefined) {
-                                if (inputText_sistempernafasan.includes(i)) {
-                                    $(selector).val(sistempernafasan_cptdi[key]);
-                                } else {
-                                    $(selector).prop('checked', true);
-                                }
-                            }
-                        }
-                    }
+                    // const sistempernafasan_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistempernafasan_cptdi);
+                    // const inputText_sistempernafasan = [1, 4, 5];
+                    // if (sistempernafasan_cptdi) {
+                    //     for (let i = 1; i <= 5; i++) {
+                    //         let key = `sistempernafasan_cptdi_${i}`;
+                    //         let selector = `#sistempernafasan-cptdi-${i}`;
+                    //         if (sistempernafasan_cptdi[key] !== null && sistempernafasan_cptdi[key] !== undefined) {
+                    //             if (inputText_sistempernafasan.includes(i)) {
+                    //                 $(selector).val(sistempernafasan_cptdi[key]);
+                    //             } else {
+                    //                 $(selector).prop('checked', true);
+                    //             }
+                    //         }
+                    //     }
+                    // }
+
+
+
 
                     // INI UNTUK BAGIAN CHEKBOX
-                    const sistempencernaan_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistempencernaan_cptdi);
-                    if (sistempencernaan_cptdi) {
-                        for (let i = 1; i <= 5; i++) { // Karena cuma sampai 5
-                            let key = `sistempencernaan_cptdi_${i}`;
-                            let selector = `#sistempencernaan-cptdi-${i}`;
-                            if (sistempencernaan_cptdi[key] !== null && sistempencernaan_cptdi[key] !== undefined) {
-                                $(selector).prop('checked', true); // langsung centang checkbox-nya
-                            }
-                        }
-                    }
+                    // const sistempencernaan_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistempencernaan_cptdi);
+                    // if (sistempencernaan_cptdi) {
+                    //     for (let i = 1; i <= 5; i++) { // Karena cuma sampai 5
+                    //         let key = `sistempencernaan_cptdi_${i}`;
+                    //         let selector = `#sistempencernaan-cptdi-${i}`;
+                    //         if (sistempencernaan_cptdi[key] !== null && sistempencernaan_cptdi[key] !== undefined) {
+                    //             $(selector).prop('checked', true); // langsung centang checkbox-nya
+                    //         }
+                    //     }
+                    // }
 
-                    $('#sistemkemih-cptdi').val(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistemkemih_cptdi);
+
+                    // $('#sistemkemih-cptdi').val(data.cheklis_persiapan_tindakan_diagnostik_invasif.sistemkemih_cptdi);
+
+
 
                     const riwayatpengob_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.riwayatpengob_cptdi);
                     const inputText_riwayatpengob = [3, 6, 9];
@@ -321,67 +327,68 @@
                         }
                     }
 
-                    const testalent_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.testalent_cptdi);
-                    if (testalent_cptdi) {
-                        for (let i = 1; i <= 4; i++) { // Karena cuma sampai 5
-                            let key = `testalent_cptdi_${i}`;
-                            let selector = `#testalent-cptdi-${i}`;
-                            if (testalent_cptdi[key] !== null && testalent_cptdi[key] !== undefined) {
-                                $(selector).prop('checked', true); // langsung centang checkbox-nya
-                            }
-                        }
-                    }
+                    // const testalent_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.testalent_cptdi);
+                    // if (testalent_cptdi) {
+                    //     for (let i = 1; i <= 4; i++) { // Karena cuma sampai 5
+                    //         let key = `testalent_cptdi_${i}`;
+                    //         let selector = `#testalent-cptdi-${i}`;
+                    //         if (testalent_cptdi[key] !== null && testalent_cptdi[key] !== undefined) {
+                    //             $(selector).prop('checked', true); // langsung centang checkbox-nya
+                    //         }
+                    //     }
+                    // }
 
-                    const arteridor_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.arteridor_cptdi);
-                    if (arteridor_cptdi) {
-                        for (let i = 1; i <= 4; i++) { // Karena cuma sampai 5
-                            let key = `arteridor_cptdi_${i}`;
-                            let selector = `#arteridor-cptdi-${i}`;
-                            if (arteridor_cptdi[key] !== null && arteridor_cptdi[key] !== undefined) {
-                                $(selector).prop('checked', true); // langsung centang checkbox-nya
-                            }
-                        }
-                    }
+                    // const arteridor_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.arteridor_cptdi);
+                    // if (arteridor_cptdi) {
+                    //     for (let i = 1; i <= 4; i++) { // Karena cuma sampai 5
+                    //         let key = `arteridor_cptdi_${i}`;
+                    //         let selector = `#arteridor-cptdi-${i}`;
+                    //         if (arteridor_cptdi[key] !== null && arteridor_cptdi[key] !== undefined) {
+                    //             $(selector).prop('checked', true); // langsung centang checkbox-nya
+                    //         }
+                    //     }
+                    // }
+
 
                     $('#bb-cptdi').val(data.cheklis_persiapan_tindakan_diagnostik_invasif.bb_cptdi);
                     $('#tb-cptdi').val(data.cheklis_persiapan_tindakan_diagnostik_invasif.tb_cptdi);
 
-                    const keluhannyeri_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.keluhannyeri_cptdi);
-                    const inputText_keluhannyeri = [3, 4, 5, 6, 7, 10];
-                    if (keluhannyeri_cptdi) {
-                        for (let i = 1; i <= 10; i++) {
-                            let key = `keluhannyeri_cptdi_${i}`;
-                            let selector = `#keluhannyeri-cptdi-${i}`;
-                            if (keluhannyeri_cptdi[key] !== null && keluhannyeri_cptdi[key] !== undefined) {
-                                if (inputText_keluhannyeri.includes(i)) {
-                                    $(selector).val(keluhannyeri_cptdi[key]);
-                                } else {
-                                    $(selector).prop('checked', true);
-                                }
-                            }
-                        }
-                    }
+                    // const keluhannyeri_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.keluhannyeri_cptdi);
+                    // const inputText_keluhannyeri = [3, 4, 5, 6, 7, 10];
+                    // if (keluhannyeri_cptdi) {
+                    //     for (let i = 1; i <= 10; i++) {
+                    //         let key = `keluhannyeri_cptdi_${i}`;
+                    //         let selector = `#keluhannyeri-cptdi-${i}`;
+                    //         if (keluhannyeri_cptdi[key] !== null && keluhannyeri_cptdi[key] !== undefined) {
+                    //             if (inputText_keluhannyeri.includes(i)) {
+                    //                 $(selector).val(keluhannyeri_cptdi[key]);
+                    //             } else {
+                    //                 $(selector).prop('checked', true);
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
-                    const kebutuhanedu_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.kebutuhanedu_cptdi);
-                    const inputText_kebutuhanedu = [10];
-                    if (kebutuhanedu_cptdi) {
-                        for (let i = 1; i <= 10; i++) {
-                            let key = `kebutuhanedu_cptdi_${i}`;
-                            let selector = `#kebutuhanedu-cptdi-${i}`;
-                            if (kebutuhanedu_cptdi[key] !== null && kebutuhanedu_cptdi[key] !== undefined) {
-                                if (inputText_kebutuhanedu.includes(i)) {
-                                    $(selector).val(kebutuhanedu_cptdi[key]);
-                                } else {
-                                    $(selector).prop('checked', true);
-                                }
-                            }
-                        }
-                    }
+                    // const kebutuhanedu_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.kebutuhanedu_cptdi);
+                    // const inputText_kebutuhanedu = [10];
+                    // if (kebutuhanedu_cptdi) {
+                    //     for (let i = 1; i <= 10; i++) {
+                    //         let key = `kebutuhanedu_cptdi_${i}`;
+                    //         let selector = `#kebutuhanedu-cptdi-${i}`;
+                    //         if (kebutuhanedu_cptdi[key] !== null && kebutuhanedu_cptdi[key] !== undefined) {
+                    //             if (inputText_kebutuhanedu.includes(i)) {
+                    //                 $(selector).val(kebutuhanedu_cptdi[key]);
+                    //             } else {
+                    //                 $(selector).prop('checked', true);
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                     // INI UNTUK BAGIAN TEXT
                     const labroturiem_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.labroturiem_cptdi);
                     if (labroturiem_cptdi) { // Pastikan objek tidak null
-                        for (let i = 1; i <= 8; i++) {
+                        for (let i = 1; i <= 10; i++) {
                             let key = `labroturiem_cptdi_${i}`; // key untuk ambil dari objek
                             let selector = `#labroturiem-cptdi-${i}`; // ID sesuai HTML
                             if (labroturiem_cptdi[key] !== null && labroturiem_cptdi[key] !== undefined) {
@@ -390,21 +397,21 @@
                         }
                     }
 
-                    const skrining_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.skrining_cptdi);
-                    const inputText_skrining = [1];
-                    if (skrining_cptdi) {
-                        for (let i = 1; i <= 4; i++) {
-                            let key = `skrining_cptdi_${i}`;
-                            let selector = `#skrining-cptdi-${i}`;
-                            if (skrining_cptdi[key] !== null && skrining_cptdi[key] !== undefined) {
-                                if (inputText_skrining.includes(i)) {
-                                    $(selector).val(skrining_cptdi[key]);
-                                } else {
-                                    $(selector).prop('checked', true);
-                                }
-                            }
-                        }
-                    }
+                    // const skrining_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.skrining_cptdi);
+                    // const inputText_skrining = [1];
+                    // if (skrining_cptdi) {
+                    //     for (let i = 1; i <= 4; i++) {
+                    //         let key = `skrining_cptdi_${i}`;
+                    //         let selector = `#skrining-cptdi-${i}`;
+                    //         if (skrining_cptdi[key] !== null && skrining_cptdi[key] !== undefined) {
+                    //             if (inputText_skrining.includes(i)) {
+                    //                 $(selector).val(skrining_cptdi[key]);
+                    //             } else {
+                    //                 $(selector).prop('checked', true);
+                    //             }
+                    //         }
+                    //     }
+                    // }
 
                     const hasilecho_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.hasilecho_cptdi);
                     const inputText_hasilecho = [3];
@@ -415,6 +422,22 @@
                             if (hasilecho_cptdi[key] !== null && hasilecho_cptdi[key] !== undefined) {
                                 if (inputText_hasilecho.includes(i)) {
                                     $(selector).val(hasilecho_cptdi[key]);
+                                } else {
+                                    $(selector).prop('checked', true);
+                                }
+                            }
+                        }
+                    }
+
+                    const hasitmt_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.hasitmt_cptdi);
+                    const inputText_hasitmt = [3];
+                    if (hasitmt_cptdi) {
+                        for (let i = 1; i <= 3; i++) {
+                            let key = `hasitmt_cptdi_${i}`;
+                            let selector = `#hasitmt-cptdi-${i}`;
+                            if (hasitmt_cptdi[key] !== null && hasitmt_cptdi[key] !== undefined) {
+                                if (inputText_hasitmt.includes(i)) {
+                                    $(selector).val(hasitmt_cptdi[key]);
                                 } else {
                                     $(selector).prop('checked', true);
                                 }
@@ -434,9 +457,9 @@
                     }
 
                     const rctindkep_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.rctindkep_cptdi);
-                    const inputText_rctindkep = [6];
+                    const inputText_rctindkep = [8,10,12];
                     if (rctindkep_cptdi) {
-                        for (let i = 1; i <= 6; i++) {
+                        for (let i = 1; i <= 12; i++) {
                             let key = `rctindkep_cptdi_${i}`;
                             let selector = `#rctindkep-cptdi-${i}`;
                             if (rctindkep_cptdi[key] !== null && rctindkep_cptdi[key] !== undefined) {
@@ -455,6 +478,7 @@
 
                     // BATAS INI 
 
+                    // ini senganja blm di ubah tadiya json 3 cuma tinggal 1 coba dulu kalau eror di perbaiki lagi
                     // INI UNTUK BAGIAN TEXT VAL
                     const pasientiba_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.pasientiba_cptdi);
                     if (pasientiba_cptdi) { // Pastikan objek tidak null
@@ -466,6 +490,7 @@
                             }
                         }
                     }
+
 
                      // INI UNTUK BAGIAN GABUNGAN CHEKBOX dan TEXT
                     const terpasang_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.terpasang_cptdi);
@@ -485,27 +510,28 @@
                     }
 
                     // INI UNTUK BAGIAN CHEKBOX PROP
-                    const pulsasia_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.pulsasia_cptdi);
-                    if (pulsasia_cptdi) {
-                        for (let i = 1; i <= 6; i++) { // Karena cuma sampai 5
-                            let key = `pulsasia_cptdi_${i}`;
-                            let selector = `#pulsasia-cptdi-${i}`;
-                            if (pulsasia_cptdi[key] !== null && pulsasia_cptdi[key] !== undefined) {
-                                $(selector).prop('checked', true); // langsung centang checkbox-nya
-                            }
-                        }
-                    }
+                    // const pulsasia_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.pulsasia_cptdi);
+                    // if (pulsasia_cptdi) {
+                    //     for (let i = 1; i <= 6; i++) { // Karena cuma sampai 5
+                    //         let key = `pulsasia_cptdi_${i}`;
+                    //         let selector = `#pulsasia-cptdi-${i}`;
+                    //         if (pulsasia_cptdi[key] !== null && pulsasia_cptdi[key] !== undefined) {
+                    //             $(selector).prop('checked', true); // langsung centang checkbox-nya
+                    //         }
+                    //     }
+                    // }
 
-                    const pulsasidor_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.pulsasidor_cptdi);
-                    if (pulsasidor_cptdi) {
-                        for (let i = 1; i <= 6; i++) { // Karena cuma sampai 5
-                            let key = `pulsasidor_cptdi_${i}`;
-                            let selector = `#pulsasidor-cptdi-${i}`;
-                            if (pulsasidor_cptdi[key] !== null && pulsasidor_cptdi[key] !== undefined) {
-                                $(selector).prop('checked', true); // langsung centang checkbox-nya
-                            }
-                        }
-                    }
+                    // const pulsasidor_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.pulsasidor_cptdi);
+                    // if (pulsasidor_cptdi) {
+                    //     for (let i = 1; i <= 6; i++) { // Karena cuma sampai 5
+                    //         let key = `pulsasidor_cptdi_${i}`;
+                    //         let selector = `#pulsasidor-cptdi-${i}`;
+                    //         if (pulsasidor_cptdi[key] !== null && pulsasidor_cptdi[key] !== undefined) {
+                    //             $(selector).prop('checked', true); // langsung centang checkbox-nya
+                    //         }
+                    //     }
+                    // }
+
 
                     const alatyt_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.alatyt_cptdi);
                     const inputText_alatyt = [8];
@@ -616,16 +642,16 @@
                         }
                     }
 
-                    const imobil_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.imobil_cptdi);
-                    if (imobil_cptdi) { // Pastikan objek tidak null
-                        for (let i = 1; i <= 6; i++) {
-                            let key = `imobil_cptdi_${i}`; // key untuk ambil dari objek
-                            let selector = `#imobil-cptdi-${i}`; // ID sesuai HTML
-                            if (imobil_cptdi[key] !== null && imobil_cptdi[key] !== undefined) {
-                                $(selector).val(imobil_cptdi[key]);
-                            }
-                        }
-                    }
+                    // const imobil_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.imobil_cptdi);
+                    // if (imobil_cptdi) { // Pastikan objek tidak null
+                    //     for (let i = 1; i <= 6; i++) {
+                    //         let key = `imobil_cptdi_${i}`; // key untuk ambil dari objek
+                    //         let selector = `#imobil-cptdi-${i}`; // ID sesuai HTML
+                    //         if (imobil_cptdi[key] !== null && imobil_cptdi[key] !== undefined) {
+                    //             $(selector).val(imobil_cptdi[key]);
+                    //         }
+                    //     }
+                    // }
 
                     const maskeptan_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.maskeptan_cptdi);
                     const inputText_maskeptan = [8, 10, 12];
@@ -644,9 +670,9 @@
                     }
 
                     const tdmandiri_cptdi = JSON.parse(data.cheklis_persiapan_tindakan_diagnostik_invasif.tdmandiri_cptdi);
-                    const inputText_tdmandiri = [4, 8, 9, 12];
+                    const inputText_tdmandiri = [8, 10, 12, 15];
                     if (tdmandiri_cptdi) {
-                        for (let i = 1; i <= 12; i++) {
+                        for (let i = 1; i <= 15; i++) {
                             let key = `tdmandiri_cptdi_${i}`;
                             let selector = `#tdmandiri-cptdi-${i}`;
                             if (tdmandiri_cptdi[key] !== null && tdmandiri_cptdi[key] !== undefined) {
@@ -725,24 +751,24 @@
 
 
                 
-                $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif').modal('show');  
+                $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah').modal('show');  
 
                 if (action === 'lihat') {
                     // Disable semua input dan textarea, tapi biarkan tombol expand/collapse tetap aktif
-                    $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif :input')
+                    $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah :input')
                         .not('[data-dismiss="modal"], #btn-expand-all-cptdi, #btn-collapse-all-cptdi, #btn_cetak_cptdi')
                         .prop('disabled', true);
 
-                    $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif textarea').prop('readonly', true);
+                    $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah textarea').prop('readonly', true);
                     $('#btn-simpan').hide();
 
                     // Disable select dan Select2
-                    $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif select')
+                    $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah select')
                         .not('[data-dismiss="modal"]')
                         .prop('disabled', true)
                         .trigger('change.select2c');
 
-                    $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif [id^="s2id_"]').css({
+                    $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah [id^="s2id_"]').css({
                         'pointer-events': 'none',
                         'opacity': 0.6
                     });
@@ -767,7 +793,7 @@
     }
 
     function resetFormCptDi() { 
-        $('#form_cheklist_persiapan_tindakan_diagnostik_invasif')[0].reset();
+        $('#form_asesmen_awal_keperawatan_tindakan_invasif_non_bedah')[0].reset();
         $("input[type='checkbox']").prop('checked', false);
         $("input[type='radio']").prop('checked', false);
     }
@@ -811,7 +837,7 @@
         $.ajax({
             type: 'POST',
             url: '<?= base_url("pelayanan/api/pelayanan/simpan_cheklis_persiapan_tindakan_diagnostik_invasif") ?>',
-            data: $('#form_cheklist_persiapan_tindakan_diagnostik_invasif').serialize() + '&id-layanan-pendaftaran-cptdi=' + id_layanan_pendaftaran_cptdi,
+            data: $('#form_asesmen_awal_keperawatan_tindakan_invasif_non_bedah').serialize() + '&id-layanan-pendaftaran-cptdi=' + id_layanan_pendaftaran_cptdi,
 
             cache: false,
             dataType: 'JSON',
@@ -846,7 +872,7 @@
                     $('input[name=csrf_syam]').val(data.token);
                     if (data.status) {
                         messageAddSuccess();
-                        $('#modal_cheklist_persiapan_tindakan_diagnostik_invasif').modal('hide');
+                        $('#modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah').modal('hide');
                         showListForm($('#id-pendaftaran-cptdi').val(), $('#id-layanan-pendaftaran-cptdi').val(), $('#id-pasien-cptdi').val());
                     } else {
                         messageAddFailed();

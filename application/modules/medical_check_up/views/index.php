@@ -71,12 +71,22 @@
 <?php $this->load->view('pelayanan/tindakan_form/js') ?>
 <?php $this->load->view('pelayanan/diagnosa_form/js') ?>
 <?php $this->load->view('pasien/riwayat/modal_riwayat') ?>
+
+
 <?php $this->load->view('pasien/rekam_medis/modal_rekam_medis') ?>
+
+
 <?php $this->load->view('modal_cetak_mcu') ?>
 <?php $this->load->view('modal_skpk'); ?>
 <?php $this->load->view('modal_sks') ?>
 <?php $this->load->view('modal_surat_narkoba') ?>
+
+
+<!-- // MRM -->
 <?php $this->load->view('modal_resume_medis') ?>
+
+
+
 <!-- // SKKJ1 -->
 <?php $this->load->view('modal_skkj_1') ?>
 <!-- // SKKJ2 -->

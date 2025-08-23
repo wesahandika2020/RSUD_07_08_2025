@@ -168,8 +168,16 @@ class Medical_check_up extends SYAM_Controller
         endif;
     }
 
-    function cetak_surat_hrm($id)
-    {
+
+
+
+
+
+    
+
+
+    // MRM
+    function cetak_surat_hrm($id){
         if ($id !== null) :
             $data['detailPendaftaran'] = $this->db->select("lp.*, pd.id_pasien, p.nama as nama_pasien, p.kelamin, p.alamat", true)
                 ->from('sm_layanan_pendaftaran as lp')
@@ -188,8 +196,9 @@ class Medical_check_up extends SYAM_Controller
         endif;
     }
 
-    function cetak_surat_hrm_dompdf($id, $id_layanan, $id_pasien, $action = null)
-    {
+
+    // MRM
+    function cetak_surat_hrm_dompdf($id, $id_layanan, $id_pasien, $action = null){
         $this->load->library('pdf');
         $this->load->model('Hasil_pemeriksaan_mcu_model', 'm_hasil_mcu');
 
@@ -293,6 +302,27 @@ class Medical_check_up extends SYAM_Controller
         // Stream PDF ke browser
         $this->pdf->stream($file_name, ["Attachment" => false]);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     // SKKJ1
     function cetak_form_skkj_1($id)

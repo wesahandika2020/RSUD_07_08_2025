@@ -95,31 +95,43 @@ class Form_rekam_medis extends SYAM_Controller
         $this->load->view('form_rekam_medis/printing/cetak_resep_kaca_mata', $data);
     }
 
-    function cetak_kelaikan_bekerja($id, $id_pendaftaran, $id_layanan_pendaftaran)
-    {
+
+
+
+
+
+
+
+
+
+
+    // Kelaikan Bekerja
+    function cetak_kelaikan_bekerja($id, $id_pendaftaran, $id_layanan_pendaftaran){
         // var_dump($id, $id_pendaftaran, $id_layanan_pendaftaran);die;
         if (!$id) :
             exit();
         endif; 
-
         $pendaftaran = $this->klinik->getPendaftaranDetail($id_pendaftaran, $id_layanan_pendaftaran);
-
-        
         if (count((array) $pendaftaran['pasien']) < 1) :
             die();
         endif;
-
         $data['layanan'] = $pendaftaran['layanan'];
         $data['pasien'] = $pendaftaran['pasien'];
         $data['pasien']->kelamin == 'P' ? $data['pasien']->kelamin = 'Perempuan' : $data['pasien']->kelamin = 'Laki-laki';
-
         $data['kb'] = $this->m_rm->getKbByID($id);
         // var_dump($data['kb']);die;
-
-        
-
         $this->load->view('form_rekam_medis/printing/cetak_kelaikan_bekerja', $data);
     }
+
+
+
+
+
+
+
+
+
+
 
 
 }

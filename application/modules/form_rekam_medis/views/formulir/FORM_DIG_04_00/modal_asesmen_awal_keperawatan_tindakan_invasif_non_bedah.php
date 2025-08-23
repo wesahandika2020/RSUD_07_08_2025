@@ -21,19 +21,19 @@
     }
 </style>
 
-<div class="modal fade" id="modal_cheklist_persiapan_tindakan_diagnostik_invasif" data-backdrop="static">
+<div class="modal fade" id="modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah" data-backdrop="static">
     <div class="modal-dialog modal-dialog-scrollable" style="max-width: 85%;">
         <div class="modal-content">
             <div class="modal-header">
                 <div class="title">
-                    <h5 class="modal-title bold" id="modal_cheklist_persiapan_tindakan_diagnostik_invasif">FORM CHEKLIST PERSIAPAN TINDAKAN DIAGNOSTIK INVASIF DAN INTERVENSI NON BEDAH</h5>
+                    <h5 class="modal-title bold" id="modal_asesmen_awal_keperawatan_tindakan_invasif_non_bedah">FORM ASESMEN AWAL KEPERAWATAN TINDAKAN INVASIF NON BEDAH</h5>
                 </div>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true" style="font-size: 16pt;">&times;</span>
                 </button>
             </div>
             <div class="modal-body">
-                <?= form_open('', 'id=form_cheklist_persiapan_tindakan_diagnostik_invasif class=form-horizontal') ?>
+                <?= form_open('', 'id=form_asesmen_awal_keperawatan_tindakan_invasif_non_bedah class=form-horizontal') ?>
                 <input type="hidden" name="id_layanan_pendaftaran" id="id-layanan-pendaftaran-cptdi">
                 <input type="hidden" name="id_pendaftaran" id="id-pendaftaran-cptdi">
                 <input type="hidden" name="id_pasien" id="id-pasien-cptdi">
@@ -212,7 +212,10 @@
                                                         <input type="text" name="riwayatpenyakit_cptdi_10" id="riwayatpenyakit-cptdi-10" class="custom-form clear-input d-inline-block col-lg-5" placeholder="">
                                                     </td>
                                                 </tr>
-                                                <tr>
+
+
+
+                                                <!-- <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top">4.</td>
                                                     <td colspan="4">
@@ -266,10 +269,13 @@
                                                         <span class="label-separator">Urin /24 jam :</span>
                                                         <input type="text" name="sistemkemih_cptdi" id="sistemkemih-cptdi" class="custom-form clear-input d-inline-block col-lg-2"> cc
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
+
+
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">7.</td>
+                                                    <td width="1%" class="align-top">4.</td>
                                                     <td colspan="4">
                                                         <span class="mr-2">Riwayat pengobatan : </span>
                                                         <span class="label-separator">Double antiplatelet :</span>
@@ -302,9 +308,12 @@
                                                         </div>
                                                     </td>
                                                 </tr>
+
+
+
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">8.</td>
+                                                    <td width="1%" class="align-top">5.</td>
                                                     <td colspan="4">
                                                         <span class="mr-2">Riwayat alergi : </span>&nbsp;&nbsp;&nbsp;
                                                         <input type="checkbox" name="riwayatalergi_cptdi_1" id="riwayatalergi-cptdi-1" value="1" class="mr-1"> Tidak ada &nbsp;
@@ -312,9 +321,10 @@
                                                         <input type="text" name="riwayatalergi_cptdi_3" id="riwayatalergi-cptdi-3" class="custom-form clear-input d-inline-block col-lg-4">
                                                     </td>
                                                 </tr>
+
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">9.</td>
+                                                    <td width="1%" class="align-top">6.</td>
                                                     <td colspan="4">
                                                         <div class="d-flex align-items-center flex-wrap">
                                                             <span class="mr-3">Tanda-tanda vital :</span>
@@ -345,7 +355,9 @@
                                                     </td>
                                                 </tr>
 
-                                                <tr>
+
+
+                                                <!-- <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top">10.</td>
                                                     <td colspan="4">
@@ -384,11 +396,13 @@
                                                         <input type="checkbox" name="arteridor_cptdi_3" id="arteridor-cptdi-3" value="1" class="mr-1">Adekuat
                                                         <input type="checkbox" name="arteridor_cptdi_4" id="arteridor-cptdi-4" value="1" class="mr-1 ml-3">Tidak adekuat
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
+
 
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">12.</td>
+                                                    <td width="1%" class="align-top">7.</td>
                                                     <td colspan="4">
                                                         <div class="d-flex align-items-center flex-wrap">
                                                             <span class="mr-3">Berat badan :</span>
@@ -401,7 +415,10 @@
                                                         </div>
                                                     </td>
                                                 </tr>
-                                                <tr>
+
+
+
+                                                <!-- <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top">13.</td>
                                                     <td colspan="4">
@@ -443,6 +460,7 @@
                                                         <input type="text" name="keluhannyeri_cptdi_10" id="keluhannyeri-cptdi-10" class="custom-form clear-input d-inline-block col-lg-2">
                                                     </td>
                                                 </tr>
+
                                                 <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top">14.</td>
@@ -467,10 +485,14 @@
                                                         <input type="checkbox" name="kebutuhanedu_cptdi_9" id="kebutuhanedu-cptdi-9" value="1" class="mr-1">Lain-lain &nbsp;&nbsp;
                                                         <input type="text" name="kebutuhanedu_cptdi_10" id="kebutuhanedu-cptdi-10" class="custom-form clear-input d-inline-block col-lg-4">
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
+
+
+
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">15.</td>
+                                                    <td width="1%" class="align-top">8.</td>
                                                     <td colspan="4">
                                                         <span class="mr-2">Laboratorium &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : </span>
                                                         <span class="mr-2 "> Hb </span>
@@ -506,13 +528,26 @@
                                                     <td width="1%" class="align-top"></td>
                                                     <td colspan="4">
                                                         <span class="mr-2 ml-105"></span>
-                                                        <span class="mr-2 "> Na </span>
+                                                        <span class="mr-2 "> Elektrolit </span>
                                                         <input type="text" name="labroturiem_cptdi_7" id="labroturiem-cptdi-7" class="custom-form clear-input d-inline-block col-lg-4"> &nbsp;&nbsp;
-                                                        <span class="mr-2 "> K </span>
+                                                        <span class="mr-2 "> PT/APTT </span>
                                                         <input type="text" name="labroturiem_cptdi_8" id="labroturiem-cptdi-8" class="custom-form clear-input d-inline-block col-lg-4"> 
                                                     </td>
                                                 </tr>
                                                 <tr>
+                                                    <td width="1%"></td>
+                                                    <td width="1%" class="align-top"></td>
+                                                    <td colspan="4">
+                                                        <span class="mr-2 ml-105"></span>
+                                                        <span class="mr-2 "> Tropt T </span>
+                                                        <input type="text" name="labroturiem_cptdi_9" id="labroturiem-cptdi-9" class="custom-form clear-input d-inline-block col-lg-4"> &nbsp;&nbsp;
+                                                        <span class="mr-2 "> GDS </span>
+                                                        <input type="text" name="labroturiem_cptdi_10" id="labroturiem-cptdi-10" class="custom-form clear-input d-inline-block col-lg-4"> 
+                                                    </td>
+                                                </tr>
+
+
+                                                <!-- <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top">16.</td>
                                                     <td colspan="4">
@@ -523,10 +558,13 @@
                                                         <input type="checkbox" name="skrining_cptdi_3" id="skrining-cptdi-3" value="1" class="mr-1 ml-3">Risiko rendah
                                                         <input type="checkbox" name="skrining_cptdi_4" id="skrining-cptdi-4" value="1" class="mr-1 ml-3">Risiko sedang
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
+
+
                                                 <tr>
                                                     <td width="1%"></td>
-                                                    <td width="1%" class="align-top">17.</td>
+                                                    <td width="1%" class="align-top">9.</td>
                                                     <td colspan="4">
                                                         <span class="mr-2">Hasil Echo : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
                                                         <input type="checkbox" name="hasilecho_cptdi_1" id="hasilecho-cptdi-1" value="1" class="mr-1"> Tidak Ada &nbsp;
@@ -536,6 +574,18 @@
                                                 </tr>
                                                 <tr>
                                                     <td width="1%"></td>
+                                                    <td width="1%" class="align-top">10.</td>
+                                                    <td colspan="4">
+                                                        <span class="mr-2">Hasil TMT/ MSCT : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; </span>
+                                                        <input type="checkbox" name="hasitmt_cptdi_1" id="hasitmt-cptdi-1" value="1" class="mr-1"> Tidak Ada &nbsp;
+                                                        <input type="checkbox" name="hasitmt_cptdi_2" id="hasitmt-cptdi-2" value="1" class="mr-1 ml-3">Ada, &nbsp; kesan &nbsp;
+                                                        <input type="text" name="hasitmt_cptdi_3" id="hasitmt-cptdi-3" class="custom-form clear-input d-inline-block col-lg-4">
+                                                    </td>
+                                                </tr>
+
+
+                                                <tr>
+                                                    <td width="1%"></td>
                                                     <td colspan="5"> <span class="mr-2"> <b>Masalah keperawatan </b></span> 
                                                     </td>
                                                 </tr>
@@ -543,18 +593,18 @@
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top"></td>
                                                     <td colspan="4"> <span class="mr-2"></span> 
-                                                        <input type="checkbox" name="mskep_cptdi_1" id="mskep-cptdi-1" value="1" class="mr-1">Penurunan curah jantung
-                                                        <input type="checkbox" name="mskep_cptdi_2" id="mskep-cptdi-2" value="1" class="mr-1 ml-3">Nyeri
-                                                        <input type="checkbox" name="mskep_cptdi_3" id="mskep-cptdi-3" value="1" class="mr-1 ml-3">Risiko perdarahan
+                                                        <input type="checkbox" name="mskep_cptdi_1" id="mskep-cptdi-1" value="1" class="mr-1">Penurunan curah jantung (D.0003)
+                                                        <input type="checkbox" name="mskep_cptdi_2" id="mskep-cptdi-2" value="1" class="mr-1 ml-3">Nyeri Akut (D.0077)
+                                                        <input type="checkbox" name="mskep_cptdi_3" id="mskep-cptdi-3" value="1" class="mr-1 ml-3">Risiko perdarahan (D.0012)
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top"></td>
                                                     <td colspan="4"> <span class="mr-2"></span> 
-                                                        <input type="checkbox" name="mskep_cptdi_4" id="mskep-cptdi-4" value="1" class="mr-1">Penurunan perfusi jaringan
-                                                        <input type="checkbox" name="mskep_cptdi_5" id="mskep-cptdi-5" value="1" class="mr-1 ml-3">Risiko tinggi infeksi
-                                                        <input type="checkbox" name="mskep_cptdi_6" id="mskep-cptdi-6" value="1" class="mr-1 ml-3">Risiko jatuh
+                                                        <input type="checkbox" name="mskep_cptdi_4" id="mskep-cptdi-4" value="1" class="mr-1">Penurunan perfusi jaringan (D.0009)
+                                                        <input type="checkbox" name="mskep_cptdi_5" id="mskep-cptdi-5" value="1" class="mr-1 ml-3">Risiko infeksi (D.0142)
+                                                        <input type="checkbox" name="mskep_cptdi_6" id="mskep-cptdi-6" value="1" class="mr-1 ml-3">Anxietas (D.0080)
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -566,18 +616,30 @@
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top"></td>
                                                     <td colspan="4"> <span class="mr-2"></span> 
-                                                        <input type="checkbox" name="rctindkep_cptdi_1" id="rctindkep-cptdi-1" value="1" class="mr-1">Manajemen nyeri 
-                                                        <input type="checkbox" name="rctindkep_cptdi_2" id="rctindkep-cptdi-2" value="1" class="mr-1 ml-3">Monitoring tanda-tanda vital
-                                                        <input type="checkbox" name="rctindkep_cptdi_3" id="rctindkep-cptdi-3" value="1" class="mr-1 ml-3">Monitoring perubahan kesadaran
+                                                        <input type="checkbox" name="rctindkep_cptdi_1" id="rctindkep-cptdi-1" value="1" class="mr-1">Monitor tanda tanda vital  
+                                                        <input type="checkbox" name="rctindkep_cptdi_2" id="rctindkep-cptdi-2" value="1" class="mr-1 ml-3">Manajemen nyeri 
+                                                        <input type="checkbox" name="rctindkep_cptdi_3" id="rctindkep-cptdi-3" value="1" class="mr-1 ml-3">Monitoring perdarahan
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td width="1%"></td>
                                                     <td width="1%" class="align-top"></td>
                                                     <td colspan="4"> <span class="mr-2"></span> 
-                                                        <input type="checkbox" name="rctindkep_cptdi_4" id="rctindkep-cptdi-4" value="1" class="mr-1">Monitoring perdarahan &nbsp;&nbsp;&nbsp;
-                                                        <input type="checkbox" name="rctindkep_cptdi_5" id="rctindkep-cptdi-5" value="1" class="mr-1">
-                                                        <input type="text" name="rctindkep_cptdi_6" id="rctindkep-cptdi-6" class="custom-form clear-input d-inline-block col-lg-4">
+                                                        <input type="checkbox" name="rctindkep_cptdi_4" id="rctindkep-cptdi-4" value="1" class="mr-1">Monitoring perubahan Kesadaran 
+                                                        <input type="checkbox" name="rctindkep_cptdi_5" id="rctindkep-cptdi-5" value="1" class="mr-1 ml-3">Monitor tanda dan gejala infeksi 
+                                                        <input type="checkbox" name="rctindkep_cptdi_6" id="rctindkep-cptdi-6" value="1" class="mr-1 ml-3">Ajarkan Teknik Relaksasi
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td width="1%"></td>
+                                                    <td width="1%" class="align-top"></td>
+                                                    <td colspan="4"> <span class="mr-2"></span> 
+                                                        <input type="checkbox" name="rctindkep_cptdi_7" id="rctindkep-cptdi-7" value="1" class="mr-1">&nbsp;&nbsp;
+                                                        <input type="text" name="rctindkep_cptdi_8" id="rctindkep-cptdi-8" class="custom-form clear-input d-inline-block col-lg-2">&nbsp;&nbsp;
+                                                        <input type="checkbox" name="rctindkep_cptdi_9" id="rctindkep-cptdi-9" value="1" class="mr-1">&nbsp;&nbsp;
+                                                        <input type="text" name="rctindkep_cptdi_10" id="rctindkep-cptdi-10" class="custom-form clear-input d-inline-block col-lg-2">&nbsp;&nbsp;
+                                                        <input type="checkbox" name="rctindkep_cptdi_11" id="rctindkep-cptdi-11" value="1" class="mr-1">&nbsp;&nbsp;
+                                                        <input type="text" name="rctindkep_cptdi_12" id="rctindkep-cptdi-12" class="custom-form clear-input d-inline-block col-lg-2">
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -767,7 +829,7 @@
                                                     <td width="10%">
                                                         <input type="text" name="pasientiba_cptdi_1" id="pasientiba-cptdi-1" class="custom-form clear-input d-inline-block col-lg-5">
                                                     </td>
-                                                    <td width="7%">Lokasi pungsi / sayatan</td>
+                                                    <!-- <td width="7%">Lokasi pungsi / sayatan</td>
                                                     <td width="1%">:</td>
                                                     <td width="15%">
                                                         <input type="text" name="pasientiba_cptdi_2" id="pasientiba-cptdi-2" class="custom-form clear-input d-inline-block col-lg-10">
@@ -776,7 +838,7 @@
                                                     <td width="1%">:</td>
                                                     <td width="15%">
                                                         <input type="text" name="pasientiba_cptdi_3" id="pasientiba-cptdi-3" class="custom-form clear-input d-inline-block col-lg-5">
-                                                    </td>
+                                                    </td> -->
                                                 </tr>
                                                 <tr>
                                                     <td width="10%">Terpasang sheath</td>
@@ -787,7 +849,9 @@
                                                         <input type="text" name="terpasang_cptdi_3" id="terpasang-cptdi-3" class="custom-form clear-input d-inline-block col-lg-5">
                                                     </td>
                                                 </tr>
-                                                <tr>
+
+
+                                                <!-- <tr>
                                                     <td width="10%">Pulsasi A. Radialis</td>
                                                     <td width="1%">:</td>
                                                     <td colspan="3">
@@ -802,6 +866,7 @@
                                                     </td>
                                                     <td colspan="4"></td>
                                                 </tr>
+
                                                 <tr>
                                                     <td width="10%">Pulsasi A. Dorsalis Pedis </td>
                                                     <td width="1%">:</td>
@@ -816,7 +881,9 @@
                                                         <input type="checkbox" name="pulsasidor_cptdi_6" id="pulsasidor-cptdi-6" value="1" class="mr-1 ml-3">Tidak adekuat
                                                     </td>
                                                     <td colspan="4"></td>
-                                                </tr>
+                                                </tr> -->
+
+
                                                 <tr>
                                                     <td width="10%">Alat yang terpasang </td>
                                                     <td width="1%">:</td>
@@ -975,7 +1042,11 @@
                                                         <input type="text" name="intaker_cptdi_6" id="intaker-cptdi-6" class="custom-form clear-input d-inline-block col-lg-5">&nbsp;ml
                                                     </td>
                                                 </tr>
-                                                <tr>
+
+
+
+
+                                                <!-- <tr>
                                                     <td colspan="12"><b>instruksi paska tindakan</b></td>
                                                 </tr>
                                                 <tr>
@@ -1011,22 +1082,26 @@
                                                     <td colspan="10">
                                                         <input type="text" name="imobil_cptdi_6" id="imobil-cptdi-6" class="custom-form clear-input d-inline-block col-lg-4">&nbsp;
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
+
+
+
                                                 <tr>
                                                     <td colspan="12"><b>Masalah keperawatan</b></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="12"> 
-                                                        <input type="checkbox" name="maskeptan_cptdi_1" id="maskeptan-cptdi-1" value="1" class="mr-1">Penurunan curah jantung &nbsp;
-                                                        <input type="checkbox" name="maskeptan_cptdi_2" id="maskeptan-cptdi-2" value="1" class="mr-1 ml-3">Nyeri &nbsp;
-                                                        <input type="checkbox" name="maskeptan_cptdi_3" id="maskeptan-cptdi-3" value="1" class="mr-1 ml-3">Resiko perdarahan
+                                                        <input type="checkbox" name="maskeptan_cptdi_1" id="maskeptan-cptdi-1" value="1" class="mr-1">Hipotermi (D.0131)  &nbsp;
+                                                        <input type="checkbox" name="maskeptan_cptdi_2" id="maskeptan-cptdi-2" value="1" class="mr-1 ml-3">Nyeri Akut (D.0077) &nbsp;
+                                                        <input type="checkbox" name="maskeptan_cptdi_3" id="maskeptan-cptdi-3" value="1" class="mr-1 ml-3">Resiko perdarahan (D.0012)
                                                     </td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="12"> 
-                                                        <input type="checkbox" name="maskeptan_cptdi_4" id="maskeptan-cptdi-4" value="1" class="mr-1">Penurunan perfusi jaringan &nbsp;
-                                                        <input type="checkbox" name="maskeptan_cptdi_5" id="maskeptan-cptdi-5" value="1" class="mr-1 ml-3">Resiko tinggi infeksi &nbsp;
-                                                        <input type="checkbox" name="maskeptan_cptdi_6" id="maskeptan-cptdi-6" value="1" class="mr-1 ml-3">Gangguan mobilitas fisik
+                                                        <input type="checkbox" name="maskeptan_cptdi_4" id="maskeptan-cptdi-4" value="1" class="mr-1">Penurunan perfusi jaringan (D.0009) &nbsp;
+                                                        <input type="checkbox" name="maskeptan_cptdi_5" id="maskeptan-cptdi-5" value="1" class="mr-1 ml-3">Resiko infeksi (D.0142) &nbsp;
+                                                        <input type="checkbox" name="maskeptan_cptdi_6" id="maskeptan-cptdi-6" value="1" class="mr-1 ml-3">Gangguan mobilitas fisik (D.0054)
                                                     </td>
                                                 </tr>
                                                 <tr>
@@ -1039,7 +1114,37 @@
                                                         <input type="text" name="maskeptan_cptdi_12" id="maskeptan-cptdi-12" class="custom-form clear-input d-inline-block col-lg-3"> &nbsp;
                                                     </td>
                                                 </tr>
+
                                                 <tr>
+                                                    <td colspan="12"><b>Rencana tindakan keperawatan (mandiri)</b></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="12"> 
+                                                        <input type="checkbox" name="tdmandiri_cptdi_1" id="tdmandiri-cptdi-1" value="1" class="mr-1">Berijkan selimut / blankat warmer  &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_2" id="tdmandiri-cptdi-2" value="1" class="mr-1 ml-3">Manajemen Nyeri &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_3" id="tdmandiri-cptdi-3" value="1" class="mr-1 ml-3">Monitoring perdarahan
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="12"> 
+                                                        <input type="checkbox" name="tdmandiri_cptdi_4" id="tdmandiri-cptdi-4" value="1" class="mr-1">Monitoring perubahan kesadaran &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_5" id="tdmandiri-cptdi-5" value="1" class="mr-1 ml-3">Monitoring tanda dan gejala infeksi &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_6" id="tdmandiri-cptdi-6" value="1" class="mr-1 ml-3">Bantu pasien melakukan ambulasi
+                                                    </td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="12"> 
+                                                        <input type="checkbox" name="tdmandiri_cptdi_7" id="tdmandiri-cptdi-7" value="1" class="mr-1">&nbsp;
+                                                        <input type="text" name="tdmandiri_cptdi_8" id="tdmandiri-cptdi-8" class="custom-form clear-input d-inline-block col-lg-3"> &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_9" id="tdmandiri-cptdi-9" value="1" class="mr-1 ml-3">
+                                                        <input type="text" name="tdmandiri_cptdi_10" id="tdmandiri-cptdi-10" class="custom-form clear-input d-inline-block col-lg-3"> &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_11" id="tdmandiri-cptdi-11" value="1" class="mr-1 ml-3"> &nbsp;
+                                                        <input type="text" name="tdmandiri_cptdi_12" id="tdmandiri-cptdi-12" class="custom-form clear-input d-inline-block col-lg-3"> &nbsp;
+                                                    </td>
+                                                </tr>
+
+
+                                                <!-- <tr>
                                                     <td colspan="12"><b>Rencana tindakan keperawatan (mandiri)</b></td>
                                                 </tr>
                                                 <tr>
@@ -1057,16 +1162,18 @@
                                                         <input type="checkbox" name="tdmandiri_cptdi_7" id="tdmandiri-cptdi-7" value="1" class="mr-1 ml-3">
                                                         <input type="text" name="tdmandiri_cptdi_8" id="tdmandiri-cptdi-8" class="custom-form clear-input d-inline-block col-lg-3"> 
                                                     </td>
-                                                </tr>
+                                                </tr> -->
+
                                                 <tr>
                                                     <td colspan="12"> 
-                                                        Keputusan Rawat
-                                                        <input type="text" name="tdmandiri_cptdi_9" id="tdmandiri-cptdi-9" class="custom-form clear-input d-inline-block col-lg-2"> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                                                        <input type="checkbox" name="tdmandiri_cptdi_10" id="tdmandiri-cptdi-10" value="1" class="mr-1">ODC &nbsp;
-                                                        <input type="checkbox" name="tdmandiri_cptdi_11" id="tdmandiri-cptdi-11" value="1" class="mr-1 ml-3">Dirawat di
-                                                        <input type="text" name="tdmandiri_cptdi_12" id="tdmandiri-cptdi-12" class="custom-form clear-input d-inline-block col-lg-3"> 
+                                                        Keputusan Rawat &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_13" id="tdmandiri-cptdi-13" value="1" class="mr-1">ODC &nbsp;
+                                                        <input type="checkbox" name="tdmandiri_cptdi_14" id="tdmandiri-cptdi-14" value="1" class="mr-1 ml-3">Dirawat di
+                                                        <input type="text" name="tdmandiri_cptdi_15" id="tdmandiri-cptdi-15" class="custom-form clear-input d-inline-block col-lg-3"> 
                                                     </td>
                                                 </tr>
+
+
                                                 <tr>
                                                     <td colspan="10"> 
                                                         <span class="mr-2"><b>Tanggal dan Jam</b></span>

@@ -776,12 +776,13 @@
         })
     }
 
-    function cetakHasilMCU(id_pendaftaran, id_layanan, no_rm) {
-        const url = `<?= base_url('medical_check_up/cetak_surat_hrm_dompdf/') ?>${id_pendaftaran}/${id_layanan}/${no_rm}`;
 
-        // Membuka URL di tab baru, tanpa pengaturan tambahan untuk ukuran atau posisi jendela
-        window.open(url, '_blank');
-    }
+
+
+
+
+
+
 
     function paging(page) {
         getListPemeriksaan(page)
@@ -1659,6 +1660,22 @@
             }
         });
     }
+
+
+
+    
+    // MRM
+    function cetakHasilMCU(id_pendaftaran, id_layanan, no_rm) {
+        const url = `<?= base_url('medical_check_up/cetak_surat_hrm_dompdf/') ?>${id_pendaftaran}/${id_layanan}/${no_rm}`;
+
+        // Membuka URL di tab baru, tanpa pengaturan tambahan untuk ukuran atau posisi jendela
+        window.open(url, '_blank');
+    }
+
+
+
+
+
 
 
     function savePemeriksaan() {
@@ -2541,6 +2558,16 @@
         });
     }
 
+
+
+
+
+
+
+
+
+
+    // MRM
     function cetakResumeMedis(id, id_layanan_pendaftaran) {
         resetFormData();
         $.ajax({
@@ -2627,6 +2654,20 @@
             }
         });
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     function editResep(id, edit = 1) {
         $('#salin-resep').hide();

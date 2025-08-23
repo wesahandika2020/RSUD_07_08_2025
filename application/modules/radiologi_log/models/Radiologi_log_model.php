@@ -490,7 +490,7 @@ class Radiologi_log_model extends CI_Model
 		return $this->db->get('sm_cheklist_post_tindakan_diagnostik_logs')->result();
 	}
 
-
+	
 
     // AAKC 
 	function getAsesmenAwalKeperawatanCathlab($id_pendaftaran){
@@ -499,7 +499,7 @@ class Radiologi_log_model extends CI_Model
 							   spd2.nama as dokter_1, 
 							   spd3.nama as dokter_2, 
 							   sp.nama as perawat
-				from sm_asesmen_awal_keperawatan_cathlab aakc				
+				from sm_cheklis_kes_pasien_tdk_inter_bedah aakc				
 				join sm_layanan_pendaftaran lp ON aakc.id_layanan_pendaftaran = lp.id
 				join sm_translucent as st on st.id = aakc.id_users
 				left join sm_tenaga_medis tmd1 ON aakc.dokteroperator1_aakc  = tmd1.id
@@ -531,7 +531,7 @@ class Radiologi_log_model extends CI_Model
 							   kls.nama AS nama_kelas,
 							   ri.no_ruang AS no_ruang,
 							   ri.no_bed AS no_bed
-				from sm_asesmen_awal_keperawatan_cathlab aakc				
+				from sm_cheklis_kes_pasien_tdk_inter_bedah aakc				
 				join sm_layanan_pendaftaran lp ON aakc.id_layanan_pendaftaran = lp.id
 				join sm_pendaftaran pd ON lp.id_pendaftaran = pd.id
 				join sm_pasien pa ON pd.id_pasien = pa.id
@@ -556,28 +556,34 @@ class Radiologi_log_model extends CI_Model
 	function getAsesmenAwalKeperawatanCathlabLogs($id_pendaftaran) { 
 		$this->db->where('id_pendaftaran', $id_pendaftaran); 
 		$this->db->order_by('created_date', 'desc');
-		return $this->db->get('sm_asesmen_awal_keperawatan_cathlab_logs')->result();
+		return $this->db->get('sm_cheklis_kes_pasien_tdk_inter_bedah_logs')->result();
 	}
 
+
             
-	// CPTDQ 
-	function getCheklistPostTindakanDiagnostikQembar($id_pendaftaran){
-		$sql = "select cptdq.*, pt.nama as nama_user, sp1.nama as perawat_1, sp2.nama as perawat_2
-				from sm_cheklist_post_tindakan_diagnostik_qembar cptdq				
+	// QCPTD  
+	function getCheklistPersiapanTindakanDiagnostik($id_pendaftaran){
+		$sql = "select cptdq.*, pt.nama as nama_user, sp1.nama as perawat_1, sp2.nama as perawat_2, spd.nama as dokter
+				from sm_cheklis_persiapan_tindakan_diagnostik cptdq				
 				join sm_layanan_pendaftaran lp ON cptdq.id_layanan_pendaftaran = lp.id
 				join sm_translucent as st on st.id = cptdq.id_users
 				left join sm_tenaga_medis tmp1 ON cptdq.perawatcathlab_cptdq  = tmp1.id
 				left join sm_pegawai sp1 ON tmp1.id_pegawai = sp1.id
+
 				left join sm_tenaga_medis tmp2 ON cptdq.perawatruangan_cptdq  = tmp2.id
 				left join sm_pegawai sp2 ON tmp2.id_pegawai = sp2.id
+
+				left join sm_tenaga_medis tmd ON cptdq.dpjptb_cptdq  = tmd.id
+				left join sm_pegawai spd ON tmd.id_pegawai = spd.id
+
 				join sm_pegawai as pt on pt.id = st.id
 				where lp.id_pendaftaran = '" . $id_pendaftaran . "'
 				order by cptdq.tanggal_cptdq asc";
 		return $this->db->query($sql)->result();
 	}
 
-	// CPTDQ  <!-- INI JANGAN DI HAPUS UDAH BENER ADA TANDA TANGANYA -->
-	function getCheklistPostTindakanDiagnostikQembarById($id_qdtpc){
+	// QCPTD   <!-- INI JANGAN DI HAPUS UDAH BENER ADA TANDA TANGANYA -->
+	function getCheklistPersiapanTindakanDiagnostikById($id_qdtpc){
 		$sql = "select cptdq.*, pa.nama as nama_pasien, pd.no_register, 
 							   pa.telp, 
 							   pt.nama as nama_user, 
@@ -585,11 +591,12 @@ class Radiologi_log_model extends CI_Model
 							   lp.tanggal_layanan AS tanggal, 
 							   sp1.nama as perawat_1, 
 							   sp2.nama as perawat_2, 
+							   spd.nama as dokter,
 							   b.nama AS bangsal,
 							   kls.nama AS nama_kelas,
 							   ri.no_ruang AS no_ruang,
 							   ri.no_bed AS no_bed
-				from sm_cheklist_post_tindakan_diagnostik_qembar cptdq				
+				from sm_cheklis_persiapan_tindakan_diagnostik cptdq				
 				join sm_layanan_pendaftaran lp ON cptdq.id_layanan_pendaftaran = lp.id
 				join sm_pendaftaran pd ON lp.id_pendaftaran = pd.id
 				join sm_pasien pa ON pd.id_pasien = pa.id
@@ -600,17 +607,21 @@ class Radiologi_log_model extends CI_Model
 				left join sm_pegawai sp1 ON tmp1.id_pegawai = sp1.id
 				left join sm_tenaga_medis tmp2 ON cptdq.perawatruangan_cptdq  = tmp2.id
 				left join sm_pegawai sp2 ON tmp2.id_pegawai = sp2.id
+
+				left join sm_tenaga_medis tmd ON cptdq.dpjptb_cptdq  = tmd.id
+				left join sm_pegawai spd ON tmd.id_pegawai = spd.id
+
 				left join sm_translucent as st on st.id = cptdq.id_users
 				left join sm_pegawai as pt on pt.id = st.id
 				where cptdq.id = '" . $id_qdtpc . "'";
 		return $this->db->query($sql)->row();
 	}
 
-	// CPTDQ  INI LOGS YANG DIBIKIN 
-	function getCheklistPostTindakanDiagnostikQembarLogs($id_pendaftaran) { 
+	// QCPTD   INI LOGS YANG DIBIKIN 
+	function getCheklistPersiapanTindakanDiagnostikLogs($id_pendaftaran) { 
 		$this->db->where('id_pendaftaran', $id_pendaftaran); 
 		$this->db->order_by('created_date', 'desc');
-		return $this->db->get('sm_cheklist_post_tindakan_diagnostik_qembar_logs')->result();
+		return $this->db->get('sm_cheklis_persiapan_tindakan_diagnostik_logs')->result();
 	}
 
 

@@ -1,4 +1,4 @@
-<!-- // PWHI  -->
+<!-- // CPTD  -->
 <meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -253,13 +253,13 @@
                         </tr>
                         <tr>
                             <td colspan="9" style="border: none; padding-left: 20px; padding-bottom: 10px;">
-                                3. Observasi hematoma daerah tusukan setiap jam selama 6 jam
+                                3. Observasi hematoma daerah tusukan setiap jam selama 6 jam Jika Akses Brachial, 4 jam jika akses Radial
                             </td>
                         </tr>
                         <tr>
                             <td colspan="9" style="border: none; padding-left: 20px; padding-bottom: 10px;">
-                                4. Bila tindakan melalui brachialis cek APTT / ACT 6 jam post tindakan PCI jam
-                                <b><?= $cptd->jampci_cptd; ?></b> bila hasil baik sheath boleh dicabut
+                                4. Bila tindakan melalui brachialis cek ACT 6 jam post Pemberian Heparin Terakhir jam
+                                <b><?= $cptd->jampci_cptd; ?></b> bila hasil ACT < 200 detik sheath boleh dicabut.
                             </td>
                         </tr>
                         <tr>
@@ -319,13 +319,13 @@
                         </tr>
                         <tr>
                             <td colspan="9" style="border: none; padding-left: 20px; padding-bottom: 10px;">
-                                3. Cek APTT / ACT 6 jam post tindakan PCI jam
-                                <b><?= $cptd->jamaptt_cptd; ?></b> bila hasil baik sheath boleh dicabut
+                                3. Cek ACT 6 jam post tindakan PCI jam
+                                <b><?= $cptd->jamaptt_cptd; ?></b> bila hasil ACT < 200 detik sheath boleh dicabut
                             </td>
                         </tr>
                         <tr>
                             <td colspan="9" style="border: none; padding-left: 20px; padding-bottom: 10px;">
-                                4. 6 jam post cabut sheath sheath kaki tidak boleh ditekuk selama 6 jam
+                                4. 6 jam Post cabut sheath kaki tidak boleh ditekuk selama 6 jam, Selanjut mobilisasi kaki
                             </td>
                         </tr>
                         <tr>
@@ -349,7 +349,7 @@
                             </td>
                         </tr>
                         <tr>
-                            <td colspan="2" width="25%"><b>CD/DVD Tindakan</b></td>
+                            <td colspan="2" width="25%"><b>CD / DVD Tindakan / Hasil lembar Print Out</b></td>
                             <td colspan="2" width="12%">
                                 <input type="checkbox" <?= $cptd->cddvd_cptd_1 == 1 ? 'checked' : ''; ?> style="accent-color: #007bff;">
                             </td>

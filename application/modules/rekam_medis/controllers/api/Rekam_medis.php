@@ -99,8 +99,19 @@ class Rekam_medis extends REST_Controller
 		endif;
 	}
 
-	function check_penolakan_tindakan_kedokteran_get()
-	{
+
+
+
+
+
+
+
+
+
+
+
+	// FPTD
+	function check_penolakan_tindakan_kedokteran_get(){
 		$data = [];
 		$data = $this->rekam_medis->getPenolakanTindakanKedokteranById($this->get('id'));
 
@@ -111,8 +122,8 @@ class Rekam_medis extends REST_Controller
 		}
 	}
 
-	function simpan_penolakan_tindakan_kedokteran_post()
-	{
+	// FPTD
+	function simpan_penolakan_tindakan_kedokteran_post(){
 		$checkData = '';
 		$checkData = $this->rekam_medis->getPenolakanTindakanKedokteranById(safe_post('id_layanan_pendaftaran'));
 
@@ -163,6 +174,29 @@ class Rekam_medis extends REST_Controller
 
 		$this->response(array('status' => $status, 'message' => $message), REST_Controller::HTTP_OK);
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	function check_persetujuan_tindakan_anestesi_get()
 	{

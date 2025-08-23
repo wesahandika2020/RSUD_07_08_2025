@@ -465,8 +465,24 @@ class Rekam_medis_model extends CI_Model
 		return $this->db->query($sql)->result();
 	}
 
-	function getPenolakanTindakanKedokteranById($id)
-	{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	// FPTD
+	function getPenolakanTindakanKedokteranById($id){
 		$sql = "select fptk.*, p1.nama as nama_saksi_1, p2.nama as nama_saksi_2, pa.id as id_pasien, pa.nama as nama_pasien, pd.no_register, pa.telp, pa.tanggal_lahir as tanggal_lahir_pasien, pa.kelamin as kelamin_pasien, pa.alamat as alamat_pasien
 				from sm_form_penolakan_tindakan_kedokteran fptk 
 				join sm_tenaga_medis tm1 ON fptk.id_saksi_1 = tm1.id 
@@ -480,6 +496,20 @@ class Rekam_medis_model extends CI_Model
 
 		return $this->db->query($sql)->result();
 	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	function getPersetujuanTindakanAnestesiById($id)
 	{

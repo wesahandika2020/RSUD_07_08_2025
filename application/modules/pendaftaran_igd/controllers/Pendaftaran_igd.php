@@ -1230,42 +1230,65 @@ class Pendaftaran_igd extends SYAM_Controller
             $data['ttd_statuspsikologis_cptdi'] = $statuspsikologis_cptdi;
             $riwayatpenyakit_cptdi = json_decode($form_cptdi->riwayatpenyakit_cptdi ?? '{}', true);
             $data['ttd_riwayatpenyakit_cptdi'] = $riwayatpenyakit_cptdi;
-            $sistempernafasan_cptdi = json_decode($form_cptdi->sistempernafasan_cptdi ?? '{}', true);
-            $data['ttd_sistempernafasan_cptdi'] = $sistempernafasan_cptdi;
-            $sistempencernaan_cptdi = json_decode($form_cptdi->sistempencernaan_cptdi ?? '{}', true);
-            $data['ttd_sistempencernaan_cptdi'] = $sistempencernaan_cptdi;
+
+            // $sistempernafasan_cptdi = json_decode($form_cptdi->sistempernafasan_cptdi ?? '{}', true);
+            // $data['ttd_sistempernafasan_cptdi'] = $sistempernafasan_cptdi;
+
+
+            // $sistempencernaan_cptdi = json_decode($form_cptdi->sistempencernaan_cptdi ?? '{}', true);
+            // $data['ttd_sistempencernaan_cptdi'] = $sistempencernaan_cptdi;
+
+
             $riwayatpengob_cptdi = json_decode($form_cptdi->riwayatpengob_cptdi ?? '{}', true);
             $data['ttd_riwayatpengob_cptdi'] = $riwayatpengob_cptdi;
             $riwayatalergi_cptdi = json_decode($form_cptdi->riwayatalergi_cptdi ?? '{}', true);
             $data['ttd_riwayatalergi_cptdi'] = $riwayatalergi_cptdi;
             $ttv_cptdi = json_decode($form_cptdi->ttv_cptdi ?? '{}', true);
             $data['ttd_ttv_cptdi'] = $ttv_cptdi;
-            $testalent_cptdi = json_decode($form_cptdi->testalent_cptdi ?? '{}', true);
-            $data['ttd_testalent_cptdi'] = $testalent_cptdi;         
-            $arteridor_cptdi = json_decode($form_cptdi->arteridor_cptdi ?? '{}', true);
-            $data['ttd_arteridor_cptdi'] = $arteridor_cptdi;
-            $keluhannyeri_cptdi = json_decode($form_cptdi->keluhannyeri_cptdi ?? '{}', true);
-            $data['ttd_keluhannyeri_cptdi'] = $keluhannyeri_cptdi;
-            $kebutuhanedu_cptdi = json_decode($form_cptdi->kebutuhanedu_cptdi ?? '{}', true);
-            $data['ttd_kebutuhanedu_cptdi'] = $kebutuhanedu_cptdi;
+
+            // $testalent_cptdi = json_decode($form_cptdi->testalent_cptdi ?? '{}', true);
+            // $data['ttd_testalent_cptdi'] = $testalent_cptdi; 
+
+            // $arteridor_cptdi = json_decode($form_cptdi->arteridor_cptdi ?? '{}', true);
+            // $data['ttd_arteridor_cptdi'] = $arteridor_cptdi;
+
+            // $keluhannyeri_cptdi = json_decode($form_cptdi->keluhannyeri_cptdi ?? '{}', true);
+            // $data['ttd_keluhannyeri_cptdi'] = $keluhannyeri_cptdi;
+
+            // $kebutuhanedu_cptdi = json_decode($form_cptdi->kebutuhanedu_cptdi ?? '{}', true);
+            // $data['ttd_kebutuhanedu_cptdi'] = $kebutuhanedu_cptdi;
+
             $labroturiem_cptdi = json_decode($form_cptdi->labroturiem_cptdi ?? '{}', true);
             $data['ttd_labroturiem_cptdi'] = $labroturiem_cptdi;
-            $skrining_cptdi = json_decode($form_cptdi->skrining_cptdi ?? '{}', true);
-            $data['ttd_skrining_cptdi'] = $skrining_cptdi;      
+
+            // $skrining_cptdi = json_decode($form_cptdi->skrining_cptdi ?? '{}', true);
+            // $data['ttd_skrining_cptdi'] = $skrining_cptdi;    
+
             $hasilecho_cptdi = json_decode($form_cptdi->hasilecho_cptdi ?? '{}', true);
-            $data['ttd_hasilecho_cptdi'] = $hasilecho_cptdi;     
+            $data['ttd_hasilecho_cptdi'] = $hasilecho_cptdi;  
+
+            $hasitmt_cptdi = json_decode($form_cptdi->hasitmt_cptdi ?? '{}', true);
+            $data['ttd_hasitmt_cptdi'] = $hasitmt_cptdi;  
+            
+            
             $mskep_cptdi = json_decode($form_cptdi->mskep_cptdi ?? '{}', true);
-            $data['ttd_mskep_cptdi'] = $mskep_cptdi;  
+            $data['ttd_mskep_cptdi'] = $mskep_cptdi; 
+
             $rctindkep_cptdi = json_decode($form_cptdi->rctindkep_cptdi ?? '{}', true);
-            $data['ttd_rctindkep_cptdi'] = $rctindkep_cptdi;          
-            $pasientiba_cptdi = json_decode($form_cptdi->pasientiba_cptdi ?? '{}', true);
+            $data['ttd_rctindkep_cptdi'] = $rctindkep_cptdi;  
+
+            $pasientiba_cptdi = json_decode($form_cptdi->pasientiba_cptdi ?? '{}', true);  // ini senganja blm di ubah tadiya json 3 cuma tinggal 1 coba dulu kalau eror di perbaiki lagi
             $data['ttd_pasientiba_cptdi'] = $pasientiba_cptdi;
+
             $terpasang_cptdi = json_decode($form_cptdi->terpasang_cptdi ?? '{}', true);
             $data['ttd_terpasang_cptdi'] = $terpasang_cptdi;
-            $pulsasia_cptdi = json_decode($form_cptdi->pulsasia_cptdi ?? '{}', true);
-            $data['ttd_pulsasia_cptdi'] = $pulsasia_cptdi; 
-            $pulsasidor_cptdi = json_decode($form_cptdi->pulsasidor_cptdi ?? '{}', true);
-            $data['ttd_pulsasidor_cptdi'] = $pulsasidor_cptdi;
+
+            // $pulsasia_cptdi = json_decode($form_cptdi->pulsasia_cptdi ?? '{}', true);
+            // $data['ttd_pulsasia_cptdi'] = $pulsasia_cptdi; 
+
+            // $pulsasidor_cptdi = json_decode($form_cptdi->pulsasidor_cptdi ?? '{}', true);
+            // $data['ttd_pulsasidor_cptdi'] = $pulsasidor_cptdi;
+
             $alatyt_cptdi = json_decode($form_cptdi->alatyt_cptdi ?? '{}', true);
             $data['ttd_alatyt_cptdi'] = $alatyt_cptdi; 
             $jenisanest_cptdi = json_decode($form_cptdi->jenisanest_cptdi ?? '{}', true);
@@ -1280,8 +1303,10 @@ class Pendaftaran_igd extends SYAM_Controller
             $data['ttd_reaksif_cptdi'] = $reaksif_cptdi;
             $intaker_cptdi = json_decode($form_cptdi->intaker_cptdi ?? '{}', true);
             $data['ttd_intaker_cptdi'] = $intaker_cptdi;
-            $imobil_cptdi = json_decode($form_cptdi->imobil_cptdi ?? '{}', true);
-            $data['ttd_imobil_cptdi'] = $imobil_cptdi;
+
+            // $imobil_cptdi = json_decode($form_cptdi->imobil_cptdi ?? '{}', true);
+            // $data['ttd_imobil_cptdi'] = $imobil_cptdi;
+
             $maskeptan_cptdi = json_decode($form_cptdi->maskeptan_cptdi ?? '{}', true);
             $data['ttd_maskeptan_cptdi'] = $maskeptan_cptdi;
             $tdmandiri_cptdi = json_decode($form_cptdi->tdmandiri_cptdi ?? '{}', true);

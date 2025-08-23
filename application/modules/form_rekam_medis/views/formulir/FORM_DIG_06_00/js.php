@@ -1,4 +1,4 @@
-<!-- // CPTDQ -->
+<!-- // QCPTD -->
 <script>
     $(function() {		
         $('#tanggal-cptdq').datetimepicker({
@@ -13,26 +13,7 @@
 			}
 		});
 
-        // $('#jampergelangan-cptdq, #jamsiku-cptdq, #jampci-cptdq, #jamkaki-cptdq, #jamkitekuk-cptdq, #jamaptt-cptdq')
-		// .on('click', function() {
-		// 	$(this).timepicker({
-		// 		format: 'HH:mm',
-		// 		showInputs: false,
-		// 		showMeridian: false
-		// 	});
-		// })
-
-        $('#jampergelangan-cptdq, #jamsiku-cptdq, #jampci-cptdq, #jamkaki-cptdq, #jamkitekuk-cptdq, #jamaptt-cptdq').on('click', function() {
-            $(this).timepicker({
-                format: 'HH:mm',
-                showInputs: false,
-                showMeridian: false,
-                defaultTime: 'current' // ⬅️ Ini penting!
-            });
-        });
-
-
-        $('#perawatcathlab-cptdq, #perawatruangan-cptdq')
+        $('#perawatcathlab-cptdq, #perawatruangan-cptdq, #dpjptb-cptdq')
         .select2c({
             ajax: {
                 url: "<?= base_url('masterdata/api/masterdata_auto/nadis_auto') ?>",
@@ -67,7 +48,7 @@
         });
 
 		$('#btn_reset').on('click', function() {
-			resetModalCheklistPostTindakanDiagnostikQembar();
+			resetModalCheklistPersiapanTindakanDiagnostik();
 		});
 
 	})
@@ -76,25 +57,25 @@
 		let pasien = data.pasien;
 		let layanan = data.layanan;
 		let action = 'lihat';
-		entriCheklistPostTindakanDiagnostikQembar(layanan.id_pendaftaran, layanan.id, action);
+		entriCheklistPersiapanTindakanDiagnostik(layanan.id_pendaftaran, layanan.id, action);
 	}
 
 	function editFORM_DIG_06_00(data) {
 		let pasien = data.pasien;
 		let layanan = data.layanan;
 		let action = 'edit';
-		entriCheklistPostTindakanDiagnostikQembar(layanan.id_pendaftaran, layanan.id, action);
+		entriCheklistPersiapanTindakanDiagnostik(layanan.id_pendaftaran, layanan.id, action);
 	}
 
 	function tambahFORM_DIG_06_00(data) {
 		let pasien = data.pasien;
 		let layanan = data.layanan;
 		let action = 'tambah';
-		entriCheklistPostTindakanDiagnostikQembar(layanan.id_pendaftaran, layanan.id, action);
+		entriCheklistPersiapanTindakanDiagnostik(layanan.id_pendaftaran, layanan.id, action);
 	}
 
-    function entriCheklistPostTindakanDiagnostikQembar(id_pendaftaran, id_layanan_pendaftaran, action) {
-		resetModalCheklistPostTindakanDiagnostikQembar();
+    function entriCheklistPersiapanTindakanDiagnostik(id_pendaftaran, id_layanan_pendaftaran, action) {
+		resetModalCheklistPersiapanTindakanDiagnostik();
 		$('#btn_simpan').hide();
 		$('#action-cptdq').val(action);
 
@@ -106,16 +87,16 @@
 
 		if (action !== 'lihat') {
 			$('#btn_simpan, #btn_reset').show();
-			$('.form-checklist-post-tindakan-diagnostik-qembar').show();
+			$('.form-cheklis-persiapan-tindakan-diagnostik').show();
 		} else {
 			$('#btn_simpan, #btn_reset').hide();
-			$('.form-checklist-post-tindakan-diagnostik-qembar').hide();
+			$('.form-cheklis-persiapan-tindakan-diagnostik').hide();
 		}
-		tableListCheklistPostTindakanDiagnostikQembar(id_pendaftaran, id_layanan_pendaftaran);
+		tableListCheklistPersiapanTindakanDiagnostik(id_pendaftaran, id_layanan_pendaftaran);
 	}
 
-    function tableListCheklistPostTindakanDiagnostikQembar(id_pendaftaran, id_layanan_pendaftaran) {
-        // $('#modal_checklist_post_tindakan_diagnostik_qembar').modal('show');
+    function tableListCheklistPersiapanTindakanDiagnostik(id_pendaftaran, id_layanan_pendaftaran) {
+        // $('#modal_cheklis_persiapan_tindakan_diagnostik').modal('show');
 
 		$('#table-list-cptdq tbody').empty(); // Bersihkan tabel sebelum rendering ulang
 		$('#btn_update_cptdq').hide(); // menyembuyikan btnupdate
@@ -123,7 +104,7 @@
 
 		$.ajax({
 			type: 'GET',
-			url: '<?= base_url('radiologi_log/api/radiologi_log/get_data_cheklist_post_tindakan_diagnostik_qembar') ?>/id_pendaftaran/' + id_pendaftaran + '/id_layanan_pendaftaran/' + id_layanan_pendaftaran,
+			url: '<?= base_url('radiologi_log/api/radiologi_log/get_data_cheklist_persiapan_tindakan_diagnostik') ?>/id_pendaftaran/' + id_pendaftaran + '/id_layanan_pendaftaran/' + id_layanan_pendaftaran,
 			cache: false,
 			dataType: 'JSON',
 			beforeSend: function() {
@@ -131,8 +112,8 @@
 			},
 			success: function(data) {				
 				console.log(data);
-				resetModalCheklistPostTindakanDiagnostikQembar();
-				$('#modal_checklist_post_tindakan_diagnostik_qembar_title').html(`<b>FORM CHECKLIST POST TINDAKAN DIAGNOSTIK</b>`);
+				resetModalCheklistPersiapanTindakanDiagnostik();
+				$('#modal_cheklis_persiapan_tindakan_diagnostik_title').html(`<b>FORM CHECKLIST PERSIAPAN TINDAKAN DIAGNOSTIK INVASIF DAN INTERVENSI NON BEDAH</b>`);
 				$('#id-pendaftaran-cptdq').val(id_pendaftaran);
 				$('#id-layanan-pendaftaran-cptdq').val(id_layanan_pendaftaran);
 				$('#id-pasien-cptdq').val(data.pendaftaran_detail.pasien.id_pasien);   
@@ -180,17 +161,19 @@
 					' No. Bed ' + data.pendaftaran_detail.layanan.no_bed
 				);
 
+				$('#ruangtb-cptdq').text(data.pendaftaran_detail.layanan.bangsal);
 
-				if (data.list_checklist_post_tindakan_diagnostik_qembar.length !== 0) {
+
+				if (data.list_checklist_persiapan_tindakan_diagnostik.length !== 0) {
 					var numberData = 1;
 					// let aksiButton = action;
-                    $.each(data.list_checklist_post_tindakan_diagnostik_qembar, function(i, v) {
+                    $.each(data.list_checklist_persiapan_tindakan_diagnostik, function(i, v) {
 						let btnEditCpTDq = '';
 						let btnHapusCpTDq = '';
 
 						if ($('#action-cptdq').val() !== 'lihat') {
-							btnEditCpTDq = `<button type="button" class="btn btn-success btn-xs" onclick="editCheklisPostTindakanDiagnostikQembar(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-edit mr-1"></i>Edit</button>`;
-							btnHapusCpTDq = `<button type="button" class="btn btn-danger btn-xs" onclick="hapusCheklisPostTindakanDiagnostikQembar(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-trash-alt mr-1"></i>Hapus</button>`;
+							btnEditCpTDq = `<button type="button" class="btn btn-success btn-xs" onclick="editCheklisPersiapanTindakanDiagnostik(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-edit mr-1"></i>Edit</button>`;
+							btnHapusCpTDq = `<button type="button" class="btn btn-danger btn-xs" onclick="hapusCheklisPersiapanTindakanDiagnostik(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-trash-alt mr-1"></i>Hapus</button>`;
 						}
 
 						let html = /* html */ `
@@ -200,10 +183,11 @@
 								<td class="center">
                                     ${data.pendaftaran_detail?.pasien?.nama || ''}
                                 </td>
+                                <td class="center">${v.dokter ? v.dokter : '-'}</td>
                                 <td class="center">${v.perawat_1 ? v.perawat_1 : '-'}</td>
                                 <td class="center">${v.perawat_2 ? v.perawat_2 : '-'}</td>
 								<td class="center">
-									<button type="button" class="btn btn-info btn-xs" onclick="cetakCheklisPostTindakanDiagnostikQembar(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-print mr-1"></i>Print</button>
+									<button type="button" class="btn btn-info btn-xs" onclick="cetakCheklisPersiapanTindakanDiagnostik(${v.id}, ${id_pendaftaran}, ${id_layanan_pendaftaran})"><i class="fas fa-print mr-1"></i>Print</button>
 									${btnEditCpTDq}
 									${btnHapusCpTDq}
 								</td>
@@ -213,7 +197,7 @@
 					})
 				}
 
-				$('#modal_checklist_post_tindakan_diagnostik_qembar').modal('show');
+				$('#modal_cheklis_persiapan_tindakan_diagnostik').modal('show');
 			},
 			complete: function() {
 				hideLoader();
@@ -226,7 +210,7 @@
 	}
     // <td class="center">${v.nama_user ? v.nama_user : '-'}</td>
 
-    function simpanCheklistPostTindakanDiagnostikQembar() {
+    function simpanCheklistPersiapanTindakanDiagnostik() {
 		if ($('#tanggal-cptdq').val() === '') {
             syams_validation('#tanggal-cptdq', 'Tanggal Belum diisi.');
             return false;
@@ -253,8 +237,8 @@
 
 		$.ajax({
 			type: 'POST',
-			url: '<?= base_url("radiologi_log/api/radiologi_log/simpan_checklist_post_tindakan_diagnostik_qembar") ?>',
-			data: $('#form-checklist-post-tindakan-diagnostik-qembar').serialize(),
+			url: '<?= base_url("radiologi_log/api/radiologi_log/simpan_checklist_persiapan_tindakan_diagnostik") ?>',
+			data: $('#form-cheklis-persiapan-tindakan-diagnostik').serialize(),
 			cache: false,
 			dataType: 'JSON',
 			beforeSend: function() {
@@ -268,7 +252,7 @@
 					var dHeight = $(window).height();
 					var x = screen.width / 2 - dWidth / 2;
 					var y = screen.height / 2 - dHeight / 2;
-					tableListCheklistPostTindakanDiagnostikQembar(id_pendaftaran, id_layanan_pendaftaran);
+					tableListCheklistPersiapanTindakanDiagnostik(id_pendaftaran, id_layanan_pendaftaran);
 					showListForm($('#id-pendaftaran-cptdq').val(), $('#id-layanan-pendaftaran-cptdq').val(), $('#id-pasien-cptdq').val());
 				} else {
 					messageCustom(data.message, 'Error');
@@ -284,7 +268,7 @@
 		});
 	}
 
-    function hapusCheklisPostTindakanDiagnostikQembar(id_cptdq, id_pendaftaran, id_layanan_pendaftaran) {
+    function hapusCheklisPersiapanTindakanDiagnostik(id_cptdq, id_pendaftaran, id_layanan_pendaftaran) {
 		bootbox.dialog({
 			message: "Anda yakin akan manghapus Data ini?",
 			title: "Hapus Data",
@@ -302,7 +286,7 @@
 						if (result) {
 							$.ajax({
 								type: 'POST',
-								url: '<?= base_url("radiologi_log/api/radiologi_log/hapus_checklist_post_tindakan_diagnostik_qembar") ?>',
+								url: '<?= base_url("radiologi_log/api/radiologi_log/hapus_checklist_persiapan_tindakan_diagnostik") ?>',
 								data: {
 									id: id_cptdq
 								},
@@ -314,7 +298,7 @@
 								success: function(data) {
 									if (data.status) {
 										messageCustom(data.message, 'Success');
-										tableListCheklistPostTindakanDiagnostikQembar(id_pendaftaran, id_layanan_pendaftaran);
+										tableListCheklistPersiapanTindakanDiagnostik(id_pendaftaran, id_layanan_pendaftaran);
 
 									} else {
 										messageCustom(data.message, 'Error');
@@ -334,11 +318,11 @@
 		});
 	}
 
-	function editCheklisPostTindakanDiagnostikQembar(id_qdtpc, id_pendaftaran, id_layanan_pendaftaran) {
+	function editCheklisPersiapanTindakanDiagnostik(id_qdtpc, id_pendaftaran, id_layanan_pendaftaran) {
 		$('#btn_update_cptdq').removeClass('hide').show();
         $.ajax({
             type: 'GET',
-            url: '<?= base_url('radiologi_log/api/radiologi_log/get_edit_checklist_post_tindakan_diagnostik_qembar') ?>/id/' + id_qdtpc + '/id_pendaftaran/' + id_pendaftaran + '/id_layanan_pendaftaran/' + id_layanan_pendaftaran,
+            url: '<?= base_url('radiologi_log/api/radiologi_log/get_edit_checklist_persiapan_tindakan_diagnostik') ?>/id/' + id_qdtpc + '/id_pendaftaran/' + id_pendaftaran + '/id_layanan_pendaftaran/' + id_layanan_pendaftaran,
             cache: false,
             dataType: 'JSON',
             beforeSend: function() {
@@ -346,55 +330,132 @@
             },
             success: function(data) {
                 // console.log(data);
-                resetModalCheklistPostTindakanDiagnostikQembar();
+                resetModalCheklistPersiapanTindakanDiagnostik();
                 $('#id-cptdq').val(id_qdtpc);
                 $('#id-pendaftaran-cptdq').val(id_pendaftaran);
                 $('#id-layanan-pendaftaran-cptdq').val(id_layanan_pendaftaran);
                 $('#id-pasien-cptdq').val(data.pendaftaran_detail.pasien.id_pasien);
-                if (data.list_edit_checklist_post_tindakan_diagnostik_qembar) {
-                    $('#id-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.id);
-                    $('#td-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.td_cptdq);
-                    $('#hr-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.hr_cptdq);
-                    $('#rr-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.rr_cptdq);
-                    $('#suhu-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.suhu_cptdq);
+                if (data.list_edit_checklist_persiapan_tindakan_diagnostik) {
+                    $('#id-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.id);
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.radical_cptdq_1 === '1') { document.getElementById("radical-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.radical_cptdq_2 === '1') { document.getElementById("radical-cptdq-2").checked = true; }
-                    $('#radical-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.radical_cptdq_3);
+					$('#tanggal-cptdq').val(datefmysql(data.list_edit_checklist_persiapan_tindakan_diagnostik.tanggal_cptdq));
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hematom_cptdq_1 === '1') { document.getElementById("hematom-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hematom_cptdq_2 === '1') { document.getElementById("hematom-cptdq-2").checked = true; }
-                    $('#hematom-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.hematom_cptdq_3);
+					$('#dpjptb-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.dpjptb_cptdq);  
+                    $('#s2id_dpjptb-cptdq a .select2c-chosen').html(data.list_edit_checklist_persiapan_tindakan_diagnostik.dokter);
 
-                    $('#jampergelangan-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jampergelangan_cptdq);
-                    $('#jamsiku-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jamsiku_cptdq);
-                    $('#jampci-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jampci_cptdq);
+                    $('#rencana-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.rencana_cptdq);
+                    $('#diagnosa-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.diagnosa_cptdq);
+                    $('#tb-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.tb_cptdq);
+                    $('#bb-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.bb_cptdq);
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.denyut_cptdq_1 === '1') { document.getElementById("denyut-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.denyut_cptdq_2 === '1') { document.getElementById("denyut-cptdq-2").checked = true; }
-                    $('#denyut-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.denyut_cptdq_3);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.kesadaran_cptdq_1 === '1') { document.getElementById("kesadaran-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.kesadaran_cptdq_2 === '1') { document.getElementById("kesadaran-cptdq-2").checked = true; }
+                    $('#kesadaran-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.kesadaran_cptdq_3);
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hemmattom_cptdq_1 === '1') { document.getElementById("hemmattom-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hemmattom_cptdq_2 === '1') { document.getElementById("hemmattom-cptdq-2").checked = true; }
-                    $('#hemmattom-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.hemmattom_cptdq_3);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.puasa_cptdq_1 === '1') { document.getElementById("puasa-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.puasa_cptdq_2 === '1') { document.getElementById("puasa-cptdq-2").checked = true; }
+                    $('#puasa-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.puasa_cptdq_3);
 
-                    $('#jamkaki-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jamkaki_cptdq);
-                    $('#jamkitekuk-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jamkitekuk_cptdq);
-                    $('#jamaptt-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.jamaptt_cptdq);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.cukurdaerah_cptdq_1 === '1') { document.getElementById("cukurdaerah-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.cukurdaerah_cptdq_2 === '1') { document.getElementById("cukurdaerah-cptdq-2").checked = true; }
+                    $('#cukurdaerah-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.cukurdaerah_cptdq_3);
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hasil_cptdq_1 === '1') { document.getElementById("hasil-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.hasil_cptdq_2 === '1') { document.getElementById("hasil-cptdq-2").checked = true; }
-                    $('#hasil-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.hasil_cptdq_3);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.cdaerahkanan_cptdq_1 === '1') { document.getElementById("cdaerahkanan-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.cdaerahkanan_cptdq_2 === '1') { document.getElementById("cdaerahkanan-cptdq-2").checked = true; }
+                    $('#cdaerahkanan-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.cdaerahkanan_cptdq_3);
 
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.cddvd_cptdq_1 === '1') { document.getElementById("cddvd-cptdq-1").checked = true; }
-					if (data.list_edit_checklist_post_tindakan_diagnostik_qembar.cddvd_cptdq_2 === '1') { document.getElementById("cddvd-cptdq-2").checked = true; }
-                    $('#cddvd-cptdq-3').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.cddvd_cptdq_3);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.ivlineterpasang_cptdq_1 === '1') { document.getElementById("ivlineterpasang-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.ivlineterpasang_cptdq_2 === '1') { document.getElementById("ivlineterpasang-cptdq-2").checked = true; }
+                    $('#ivlineterpasang-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.ivlineterpasang_cptdq_3);
 
-					$('#tanggal-cptdq').val(datefmysql(data.list_edit_checklist_post_tindakan_diagnostik_qembar.tanggal_cptdq));
-					$('#perawatcathlab-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.perawatcathlab_cptdq);  
-                    $('#s2id_perawatcathlab-cptdq a .select2c-chosen').html(data.list_edit_checklist_post_tindakan_diagnostik_qembar.perawat_1);
-					$('#perawatruangan-cptdq').val(data.list_edit_checklist_post_tindakan_diagnostik_qembar.perawatruangan_cptdq);  
-                    $('#s2id_perawatruangan-cptdq a .select2c-chosen').html(data.list_edit_checklist_post_tindakan_diagnostik_qembar.perawat_2);
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.gigipalsu_cptdq_1 === '1') { document.getElementById("gigipalsu-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.gigipalsu_cptdq_2 === '1') { document.getElementById("gigipalsu-cptdq-2").checked = true; }
+                    $('#gigipalsu-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.gigipalsu_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.kontaklensa_cptdq_1 === '1') { document.getElementById("kontaklensa-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.kontaklensa_cptdq_2 === '1') { document.getElementById("kontaklensa-cptdq-2").checked = true; }
+                    $('#kontaklensa-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.kontaklensa_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.perhiasan_cptdq_1 === '1') { document.getElementById("perhiasan-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.perhiasan_cptdq_2 === '1') { document.getElementById("perhiasan-cptdq-2").checked = true; }
+                    $('#perhiasan-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.perhiasan_cptdq_3);
+
+
+                    $('#alergiobat-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.alergiobat_cptdq);
+                    $('#alergizat-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.alergizat_cptdq);
+                    $('#alergimakanan-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.alergimakanan_cptdq);
+					
+					
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.riwayatpen_cptdq_1 === '1') { document.getElementById("riwayatpen-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.riwayatpen_cptdq_2 === '1') { document.getElementById("riwayatpen-cptdq-2").checked = true; }
+                    $('#riwayatpen-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.riwayatpen_cptdq_3);
+
+                    $('#obatpengen-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.obatpengen_cptdq);
+                    $('#obatobatan-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.obatobatan_cptdq);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasienevektif_cptdq_1 === '1') { document.getElementById("pasienevektif-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasienevektif_cptdq_2 === '1') { document.getElementById("pasienevektif-cptdq-2").checked = true; }
+                    $('#pasienevektif-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.pasienevektif_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasangkater_cptdq_1 === '1') { document.getElementById("pasangkater-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasangkater_cptdq_2 === '1') { document.getElementById("pasangkater-cptdq-2").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasangkater_cptdq_3 === '1') { document.getElementById("pasangkater-cptdq-3").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.pasangkater_cptdq_4 === '1') { document.getElementById("pasangkater-cptdq-4").checked = true; }
+                    $('#pasangkater-cptdq-5').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.pasangkater_cptdq_5);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.suratijin_cptdq_1 === '1') { document.getElementById("suratijin-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.suratijin_cptdq_2 === '1') { document.getElementById("suratijin-cptdq-2").checked = true; }
+                    $('#suratijin-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.suratijin_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.suratpermin_cptdq_1 === '1') { document.getElementById("suratpermin-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.suratpermin_cptdq_2 === '1') { document.getElementById("suratpermin-cptdq-2").checked = true; }
+                    $('#suratpermin-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.suratpermin_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.surateduk_cptdq_1 === '1') { document.getElementById("surateduk-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.surateduk_cptdq_2 === '1') { document.getElementById("surateduk-cptdq-2").checked = true; }
+                    $('#surateduk-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.surateduk_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.gelang_cptdq_1 === '1') { document.getElementById("gelang-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.gelang_cptdq_2 === '1') { document.getElementById("gelang-cptdq-2").checked = true; }
+                    $('#gelang-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.gelang_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.statsu_cptdq_1 === '1') { document.getElementById("statsu-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.statsu_cptdq_2 === '1') { document.getElementById("statsu-cptdq-2").checked = true; }
+                    $('#statsu-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.statsu_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.therapi_cptdq_1 === '1') { document.getElementById("therapi-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.therapi_cptdq_2 === '1') { document.getElementById("therapi-cptdq-2").checked = true; }
+                    $('#therapi-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.therapi_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.surattulis_cptdq_1 === '1') { document.getElementById("surattulis-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.surattulis_cptdq_2 === '1') { document.getElementById("surattulis-cptdq-2").checked = true; }
+                    $('#surattulis-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.surattulis_cptdq_3);
+
+                    $('#darahrutin-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.darahrutin_cptdq);
+                    $('#urcr-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.urcr_cptdq);
+                    $('#app-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.app_cptdq);
+                    $('#pt-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.pt_cptdq);
+                    $('#inr-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.inr_cptdq);
+                    $('#gds-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.gds_cptdq);
+                    $('#trop-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.trop_cptdq);
+                    $('#hbsag-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.hbsag_cptdq);
+                    $('#elektrik-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.elektrik_cptdq);
+
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.ekg_cptdq_1 === '1') { document.getElementById("ekg-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.ekg_cptdq_2 === '1') { document.getElementById("ekg-cptdq-2").checked = true; }
+                    $('#ekg-cptdq-3').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.ekg_cptdq_3);
+
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.xray_cptdq_1 === '1') { document.getElementById("xray-cptdq-1").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.xray_cptdq_2 === '1') { document.getElementById("xray-cptdq-2").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.xray_cptdq_3 === '1') { document.getElementById("xray-cptdq-3").checked = true; }
+					if (data.list_edit_checklist_persiapan_tindakan_diagnostik.xray_cptdq_4 === '1') { document.getElementById("xray-cptdq-4").checked = true; }
+                    $('#xray-cptdq-5').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.xray_cptdq_5);
+
+					$('#perawatcathlab-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.perawatcathlab_cptdq);  
+                    $('#s2id_perawatcathlab-cptdq a .select2c-chosen').html(data.list_edit_checklist_persiapan_tindakan_diagnostik.perawat_1);
+					$('#perawatruangan-cptdq').val(data.list_edit_checklist_persiapan_tindakan_diagnostik.perawatruangan_cptdq);  
+                    $('#s2id_perawatruangan-cptdq a .select2c-chosen').html(data.list_edit_checklist_persiapan_tindakan_diagnostik.perawat_2);
                 }
             },
             complete: function() {
@@ -406,18 +467,20 @@
         });
     }
 
-    function cetakCheklisPostTindakanDiagnostikQembar(id_cptdq, id_pendaftaran, id_layanan_pendaftaran) {
-        window.open('<?= base_url('radiologi_log/cetak_checklist_post_tindakan_diagnostik_qembar/') ?>' + id_cptdq + '/' + id_pendaftaran + '/' + id_layanan_pendaftaran, 'Cetak Checklist Post Tindakan Diagnostik', 'width=' + dWidth + ', height=' + dHeight + ', left=' + x + ', top=' + y);
+    function cetakCheklisPersiapanTindakanDiagnostik(id_cptdq, id_pendaftaran, id_layanan_pendaftaran) {
+        window.open('<?= base_url('radiologi_log/cetak_checklist_persiapan_tindakan_diagnostik/') ?>' + id_cptdq + '/' + id_pendaftaran + '/' + id_layanan_pendaftaran, 'Cetak Checklist Post Tindakan Diagnostik', 'width=' + dWidth + ', height=' + dHeight + ', left=' + x + ', top=' + y);
     }
 
-    function resetModalCheklistPostTindakanDiagnostikQembar() {
-		$('#form-checklist-post-tindakan-diagnostik-qembar')[0].reset();
+    function resetModalCheklistPersiapanTindakanDiagnostik() {
+		$('#form-cheklis-persiapan-tindakan-diagnostik')[0].reset();
         $("input[type='checkbox']").prop('checked',false);
         $("input[type='radio']").prop('checked',false); 
 		$('#id-cptdq').val('');
 		$('#id-pendaftaran-cptdq').val('');
 		$('#id-layanan-pendaftaran-cptdq').val('');
 		$('#id-pasien-cptdq').val('');
+		$('#dpjptb-cptdq').val('');
+		$('#s2id_dpjptb-cptdq a .select2c-chosen').html('Silahkan Pilih..');
 		$('#perawatcathlab-cptdq').val('');
 		$('#s2id_perawatcathlab-cptdq a .select2c-chosen').html('Silahkan Pilih..');
 		$('#perawatruangan-cptdq').val('');
